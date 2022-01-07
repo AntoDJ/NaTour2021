@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
     tools:context="Login.InitialView">
 
     <Button
@@ -11,6 +13,7 @@
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_marginTop="452dp"
+        android:backgroundTint="#73EE8C4D"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

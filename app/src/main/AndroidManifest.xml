@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NaTour2021">
         <activity
+            android:name="Login.prova"
+            android:exported="false" />
+        <activity
+            android:name="Login.LoginView"
+            android:exported="false" />
+        <activity
+            android:name="Login.RegistrationView"
+            android:exported="false" />
+        <activity
+            android:name="Login.InitialView"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

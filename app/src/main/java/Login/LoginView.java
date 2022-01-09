@@ -1,17 +1,10 @@
 package Login;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.natour2021.R;
@@ -30,6 +23,11 @@ public class LoginView extends AppCompatActivity {
             Controller.openForgotPasswordOverlay(LoginView.this);
         });
 
+        Button b = (Button) findViewById(R.id.accediButton);
+        b.setOnClickListener(view -> {
+            Intent i = new Intent(this, HomeView.class);
+            startActivity(i);
+        });
 
 
 

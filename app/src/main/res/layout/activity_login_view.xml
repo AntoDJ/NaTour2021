@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailTextViewLogin" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/accediButton"
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:text="Accedi"

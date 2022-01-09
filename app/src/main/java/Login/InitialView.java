@@ -19,12 +19,14 @@ public class InitialView extends AppCompatActivity {
 
         Button registrationButton = findViewById(R.id.registrationButton);
         registrationButton.setOnClickListener(view -> {
-            Controller.userRegistration(InitialView.this);
+            Controller c = Controller.getInstance();
+            c.userRegistration(InitialView.this);
         });
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(view -> {
-            Controller.userLogin(InitialView.this);
+            Controller c = Controller.getInstance();
+            c.userLogin(InitialView.this);
         });
 
 

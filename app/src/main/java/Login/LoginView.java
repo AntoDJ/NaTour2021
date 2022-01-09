@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
 
 import Controller.Controller;
@@ -20,7 +22,8 @@ public class LoginView extends AppCompatActivity {
 
         TextView passwordDimenticata = (TextView) findViewById(R.id.forgotPasswordTextView);
         passwordDimenticata.setOnClickListener(view -> {
-            Controller.openForgotPasswordOverlay(LoginView.this);
+            Controller c = Controller.getInstance();
+            c.openForgotPasswordOverlay(LoginView.this);
         });
 
         Button b = (Button) findViewById(R.id.accediButton);
@@ -28,6 +31,8 @@ public class LoginView extends AppCompatActivity {
             Intent i = new Intent(this, HomeView.class);
             startActivity(i);
         });
+
+
 
 
 

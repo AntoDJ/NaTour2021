@@ -14,19 +14,28 @@ import Login.PasswordOverlay;
 import Login.RegistrationView;
 
 public class Controller {
+    //Singleton
+    private static Controller instance;
+    private Controller() {}
+    public static Controller getInstance() {
+        if (instance == null) {
+            instance = new Controller();
+        }
+        return(instance);
+    }
 
 
-    public static void userRegistration(InitialView initialView){
+    public void userRegistration(InitialView initialView){
         Intent i = new Intent(initialView, RegistrationView.class);
         initialView.startActivity(i);
     }
 
-    public static void userLogin(InitialView initialView){
+    public void userLogin(InitialView initialView){
         Intent i = new Intent(initialView, LoginView.class);
         initialView.startActivity(i);
     }
 
-    public static void openForgotPasswordOverlay(LoginView loginView){
+    public void openForgotPasswordOverlay(LoginView loginView){
         FragmentManager fragmentManager = loginView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         PasswordOverlay passwordOverlay = new PasswordOverlay();

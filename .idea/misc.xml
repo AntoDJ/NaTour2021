@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/base_button.xml" value="0.26927083333333335" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/round_plain_text.xml" value="0.2703125" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_initial_view.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_login_view.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_main.xml" value="0.23233695652173914" />

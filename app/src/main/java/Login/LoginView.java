@@ -32,9 +32,11 @@ public class LoginView extends AppCompatActivity {
             startActivity(i);
         });
 
-
-
-
+        Button b2 = (Button) findViewById(R.id.registratiButton);
+        b.setOnClickListener(view -> {
+            Intent i= new Intent(this, RegistrationView.class);
+            startActivity(i);
+        });
 
     }
 }

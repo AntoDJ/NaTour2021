@@ -152,7 +152,7 @@
         app:srcCompat="@drawable/logoscritta" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/registratiButton"
         android:layout_width="270sp"
         android:layout_height="50sp"
         android:layout_marginTop="20sp"

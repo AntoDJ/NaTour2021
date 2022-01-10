@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import Login.InitialView;
+import Login.LoginView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Intent i = new Intent(this, InitialView.class);
+        Intent i = new Intent(this, LoginView.class);
         startActivity(i);
 
     }

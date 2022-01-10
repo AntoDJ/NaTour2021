@@ -6,6 +6,7 @@
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/base_button.xml" value="0.26927083333333335" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/round_button.xml" value="0.2703125" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/round_plain_text.xml" value="0.2703125" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/side_nav_bar.xml" value="0.13425925925925927" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_initial_view.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_login_view.xml" value="0.2" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_main.xml" value="0.23233695652173914" />
@@ -16,6 +17,12 @@
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/content_navigation.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_gallery.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_home.xml" value="0.19927536231884058" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_logout.xml" value="0.21920289855072464" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_notification.xml" value="0.21920289855072464" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_password_overlay.xml" value="0.21920289855072464" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_playlist.xml" value="0.21920289855072464" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_settings.xml" value="0.21920289855072464" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_slideshow.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/nav_header_navigation.xml" value="0.19927536231884058" />
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />

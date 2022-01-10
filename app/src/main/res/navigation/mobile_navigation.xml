@@ -12,14 +12,33 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="Login.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_profile"
+        android:name="Login.ui.profile.ProfileFragment"
+        android:label="Profilo"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="Login.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_playlist"
+        android:name="Login.ui.playlist.PlaylistFragment"
+        android:label="Playlist"
+        tools:layout="@layout/fragment_playlist" />
+
+    <fragment
+        android:id="@+id/nav_notification"
+        android:name="Login.ui.notification.NotificationFragment"
+        android:label="Notifiche"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="Login.ui.settings.SettingsFragment"
+        android:label="Impostazioni"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="Login.ui.logout.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/fragment_logout" />
+
 </navigation>

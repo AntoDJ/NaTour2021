@@ -90,13 +90,13 @@
         android:id="@+id/facebookButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="60dp"
         android:background="@drawable/round_button"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/accediButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
-        app:layout_constraintVertical_bias="0.444"
+        app:layout_constraintVertical_bias="0.66"
         app:srcCompat="@drawable/facebook_2" />
 
     <ImageButton
@@ -107,12 +107,12 @@
         android:background="@drawable/round_button"
         android:cropToPadding="true"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/accediButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.655"
+        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintStart_toEndOf="@+id/facebookButton"
         app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
-        app:layout_constraintVertical_bias="0.444"
+        app:layout_constraintVertical_bias="0.66"
         app:srcCompat="@drawable/google_2" />
 
     <EditText
@@ -135,11 +135,11 @@
         android:id="@+id/passwordOverlayContainer"
         android:layout_width="315dp"
         android:layout_height="279dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/accediButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.411">
+        app:layout_constraintVertical_bias="0.469">
 
     </FrameLayout>
 

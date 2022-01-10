@@ -95,8 +95,8 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798"
+        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
+        app:layout_constraintVertical_bias="0.444"
         app:srcCompat="@drawable/facebook_2" />
 
     <ImageButton
@@ -111,8 +111,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toEndOf="@+id/facebookButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798"
+        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
+        app:layout_constraintVertical_bias="0.444"
         app:srcCompat="@drawable/google_2" />
 
     <EditText

@@ -8,60 +8,59 @@
     android:backgroundTint="#73EE8C4D"
     tools:context="Login.LoginView"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="29dp">
+    tools:layout_editor_absoluteY="29sp">
 
     <TextView
         android:id="@+id/emailTextViewLogin"
-        android:layout_width="270dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="270sp"
+        android:layout_height="25sp"
+        android:layout_marginTop="28sp"
         android:text="Email:"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <TextView
         android:id="@+id/passwordTextViewLogin"
-        android:layout_width="270dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="270sp"
+        android:layout_height="25sp"
+        android:layout_marginTop="40sp"
         android:text="Password:"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailLoginPlainText" />
 
     <TextView
         android:id="@+id/forgotPasswordTextView"
-        style="text-decoration: underline;"
-        android:layout_width="270dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="270sp"
+        android:layout_height="25sp"
+        android:layout_marginTop="24sp"
         android:clickable="true"
-        android:text="password dimenticata"
+        android:text="@string/password_dimenticata"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordLoginPlainText" />
 
     <EditText
         android:id="@+id/emailLoginPlainText"
-        android:layout_width="270dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="270sp"
+        android:layout_height="45sp"
+        android:layout_marginTop="8sp"
         android:background="@drawable/round_plain_text"
         android:ems="10"
         android:hint="Email"
@@ -69,57 +68,54 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTextViewLogin" />
 
     <Button
         android:id="@+id/accediButton"
-        android:layout_width="270dp"
-        android:layout_height="50dp"
+        android:layout_width="270sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="24sp"
         android:background="@drawable/base_button"
         android:text="Accedi"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintTop_toBottomOf="@+id/facebookButton" />
 
     <ImageButton
         android:id="@+id/facebookButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginTop="12sp"
         android:background="@drawable/round_button"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/accediButton"
+        app:layout_constraintEnd_toStartOf="@+id/googleButton"
+        app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
-        app:layout_constraintVertical_bias="0.66"
         app:srcCompat="@drawable/facebook_2" />
 
     <ImageButton
         android:id="@+id/googleButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginTop="12sp"
+        android:layout_marginEnd="68sp"
         android:adjustViewBounds="true"
         android:background="@drawable/round_button"
         android:cropToPadding="true"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/accediButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
-        app:layout_constraintStart_toEndOf="@+id/facebookButton"
         app:layout_constraintTop_toBottomOf="@+id/forgotPasswordTextView"
-        app:layout_constraintVertical_bias="0.66"
         app:srcCompat="@drawable/google_2" />
 
     <EditText
         android:id="@+id/passwordLoginPlainText"
-        android:layout_width="270dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="270sp"
+        android:layout_height="45sp"
+        android:layout_marginTop="8sp"
         android:background="@drawable/round_plain_text"
         android:ems="10"
         android:hint="Password"
@@ -127,20 +123,46 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextViewLogin" />
 
     <FrameLayout
         android:id="@+id/passwordOverlayContainer"
-        android:layout_width="315dp"
-        android:layout_height="279dp"
+        android:layout_width="315sp"
+        android:layout_height="279sp"
         app:layout_constraintBottom_toTopOf="@+id/accediButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469">
+        app:layout_constraintVertical_bias="0.658">
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logoscritta" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="270sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/base_button"
+        android:text="Registrati"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accediButton"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

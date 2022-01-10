@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EE8C4D"
-    android:backgroundTint="#73EE8C4D"
+    android:background="#73EE8C4D"
+    android:backgroundTint="#EE8C4D"
     tools:context="Login.InitialView">
 
     <Button
@@ -25,8 +25,8 @@
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_marginTop="72dp"
-        android:text="Registrazione"
         android:background="@drawable/base_button"
+        android:text="Registrazione"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

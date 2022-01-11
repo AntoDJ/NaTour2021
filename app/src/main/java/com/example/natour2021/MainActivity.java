@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
-import Login.InitialView;
 import Login.LoginView;
 
 public class MainActivity extends AppCompatActivity {

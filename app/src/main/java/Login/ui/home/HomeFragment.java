@@ -20,6 +20,8 @@ import Controller.Controller;
 import Login.HomeView;
 import Login.InitialView;
 
+import Controller.Controller;
+
 
 public class HomeFragment extends Fragment {
 
@@ -38,6 +40,12 @@ private FragmentHomeBinding binding;
         });
         return root;
     }
+
+        Button createPathButton = (Button) root.findViewById(R.id.createPathButton);
+        createPathButton.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.openCreatePathView(HomeFragment.this);
+        });
 
 
 @Override

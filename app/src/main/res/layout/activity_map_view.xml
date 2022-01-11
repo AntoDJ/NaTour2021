@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
+    tools:context="Create.MapView">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentMapContainerView"
+        android:name="com.example.natour2021.MapsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="280sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/insertFileGPXButton"
+        android:layout_width="150sp"
+        android:layout_height="60sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/base_button"
+        android:text="Inserisci File GPX"
+        app:layout_constraintEnd_toStartOf="@+id/annullaUltimoPuntoButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentMapContainerView" />
+
+    <Button
+        android:id="@+id/annullaUltimoPuntoButton"
+        android:layout_width="150sp"
+        android:layout_height="60sp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="20sp"
+        android:background="@drawable/base_button"
+        android:text="Annulla ultimo punto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentMapContainerView" />
+
+    <Button
+        android:id="@+id/confermaTracciatoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Conferma tracciato"
+        android:background="@drawable/base_button"
+        app:backgroundTint="#006600"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/insertFileGPXButton"
+        app:layout_constraintVertical_bias="0.2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,16 +26,16 @@ public class LoginView extends AppCompatActivity {
             c.openForgotPasswordOverlay(LoginView.this);
         });
 
-        Button b = (Button) findViewById(R.id.accediButton);
-        b.setOnClickListener(view -> {
-            Intent i = new Intent(this, HomeView.class);
-            startActivity(i);
+        Button accediButton = (Button) findViewById(R.id.accediButton);
+        accediButton.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.userLogin(LoginView.this);
         });
 
-        Button b2 = (Button) findViewById(R.id.registratiButton);
-        b2.setOnClickListener(view -> {
-            Intent i= new Intent(this, RegistrationView.class);
-            startActivity(i);
+        Button registratiButton = (Button) findViewById(R.id.registratiButton);
+        registratiButton.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.userRegistration(LoginView.this);
         });
 
     }

@@ -33,7 +33,7 @@ public class LoginView extends AppCompatActivity {
         });
 
         Button b2 = (Button) findViewById(R.id.registratiButton);
-        b.setOnClickListener(view -> {
+        b2.setOnClickListener(view -> {
             Intent i= new Intent(this, RegistrationView.class);
             startActivity(i);
         });

@@ -8,10 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
 
-import Login.InitialView;
-import Login.LoginView;
-import Login.PasswordOverlay;
-import Login.RegistrationView;
+import Login.*;
+import Login.ui.home.HomeFragment;
+import Search.*;
 
 public class Controller {
     //Singleton
@@ -41,6 +40,32 @@ public class Controller {
         PasswordOverlay passwordOverlay = new PasswordOverlay();
         fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null);
         fragmentTransaction.commit();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void searchView(HomeFragment homeFragment){
+        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
+        homeFragment.startActivity(i);
     }
 
     public static void cleanFragment(FrameLayout frameLayout){

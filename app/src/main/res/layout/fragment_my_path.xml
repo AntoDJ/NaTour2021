@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Login.ui.logout.LogoutFragment">
+    tools:context="Login.ui.profile.MyPathFragment">
 
     <TextView
-        android:id="@+id/logoutText"
-        android:layout_width="125dp"
-        android:layout_height="45dp"
+        android:id="@+id/profileText"
+        android:layout_width="185dp"
+        android:layout_height="63dp"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

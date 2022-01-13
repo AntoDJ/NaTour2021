@@ -1,16 +1,16 @@
-package Login.ui.logout;
+package Login.ui.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class LogoutViewModel extends ViewModel {
+public class MyPathViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public LogoutViewModel() {
+    public MyPathViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is logout fragment");
+        mText.setValue("This is profile fragment");
     }
 
     public LiveData<String> getText() {

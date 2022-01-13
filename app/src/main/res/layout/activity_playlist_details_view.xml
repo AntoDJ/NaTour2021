@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="#EE8C4D"
     android:backgroundTint="#73EE8C4D"
-    tools:context="Create.CreateView">
+    tools:context="Playlist.PlaylistDetailsView">
 
-    <EditText
-        android:id="@+id/namePathTextView"
+    <TextView
+        android:id="@+id/namePathDetailsView"
         android:layout_width="320sp"
         android:layout_height="45sp"
         android:layout_marginTop="48dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <SeekBar
-        android:id="@+id/durataSeekBar"
+        android:id="@+id/durataSeekBarDetailsView"
         android:layout_width="170sp"
         android:layout_height="20sp"
         android:layout_marginStart="16dp"
@@ -33,20 +33,20 @@
         android:progressTint="#4AB261"
         android:thumbTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/durataDetailsView" />
 
     <TextView
-        android:id="@+id/durataTextView"
+        android:id="@+id/durataDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
         android:layout_marginTop="28dp"
         android:text="Durata"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namePathTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView" />
 
     <SeekBar
-        android:id="@+id/difficoltàSeekBar"
+        android:id="@+id/difficoltàSeekBarDetailsView"
         android:layout_width="170sp"
         android:layout_height="20sp"
         android:layout_marginTop="12dp"
@@ -56,52 +56,52 @@
         android:thumbTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/durataSeekBar"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltaTextView" />
+        app:layout_constraintStart_toEndOf="@+id/durataSeekBarDetailsView"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltaDetailsView" />
 
     <TextView
-        android:id="@+id/difficoltaTextView"
+        android:id="@+id/difficoltaDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Difficoltà"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.583"
-        app:layout_constraintStart_toEndOf="@+id/durataTextView"
-        app:layout_constraintTop_toBottomOf="@+id/namePathTextView" />
+        app:layout_constraintStart_toEndOf="@+id/durataDetailsView"
+        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView" />
 
     <TextView
-        android:id="@+id/valoreDurata"
+        android:id="@+id/valoreDurataDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="13dp"
         android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/durataSeekBar"
-        app:layout_constraintEnd_toStartOf="@+id/difficoltaTextView"
+        app:layout_constraintBottom_toTopOf="@+id/durataSeekBarDetailsView"
+        app:layout_constraintEnd_toStartOf="@+id/difficoltaDetailsView"
         app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toEndOf="@+id/durataTextView"
-        app:layout_constraintTop_toBottomOf="@+id/namePathTextView"
+        app:layout_constraintStart_toEndOf="@+id/durataDetailsView"
+        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/valoreDifficoltà"
+        android:id="@+id/valoreDifficoltàDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/difficoltaTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/difficoltaDetailsView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.147"
-        app:layout_constraintStart_toEndOf="@+id/difficoltaTextView"
-        app:layout_constraintTop_toBottomOf="@+id/namePathTextView"
+        app:layout_constraintStart_toEndOf="@+id/difficoltaDetailsView"
+        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/descrizionePlainText"
+    <TextView
+        android:id="@+id/descrizioneDetailsView"
         android:layout_width="321sp"
-        android:layout_height="146sp"
-        android:layout_marginTop="56dp"
+        android:layout_height="150sp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/descrizione_bg"
         android:ems="10"
         android:gravity="center"
@@ -110,46 +110,31 @@
         android:padding="8sp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataSeekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/durataSeekBarDetailsView" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.natour2021.MapsFragment"
+        android:layout_width="340sp"
+        android:layout_height="150sp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descrizioneDetailsView" />
 
     <Button
-        android:id="@+id/inserisciTracciatoButton"
-        android:layout_width="270sp"
-        android:layout_height="48sp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/base_button"
-        android:text="Inserisci tracciato"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descrizionePlainText" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/eliminaSentieroDallaPlaylistButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Accessibilità per disabili"
-        android:buttonTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inserisciTracciatoButton" />
-
-    <Button
-        android:id="@+id/creaSentieroButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:text="Elimina sentiero dalla playlist"
         android:background="@drawable/base_button"
-        android:text="Crea sentiero"
-        app:backgroundTint="#4AB261"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        app:layout_constraintVertical_bias="0.155" />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
+        app:layout_constraintVertical_bias="0.169" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

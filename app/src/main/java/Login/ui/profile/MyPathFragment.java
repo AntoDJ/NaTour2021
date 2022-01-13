@@ -1,4 +1,4 @@
-package Login.ui.logout;
+package Login.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,25 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.natour2021.databinding.FragmentLogoutBinding;
-import com.example.natour2021.databinding.FragmentPlaylistBinding;
+import com.example.natour2021.databinding.FragmentMyPathBinding;
 
 
-public class LogoutFragment extends Fragment {
+public class MyPathFragment extends Fragment {
 
-    private LogoutViewModel logoutViewModel;
-private FragmentLogoutBinding binding;
+    private MyPathViewModel myPathViewModel;
+private FragmentMyPathBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        logoutViewModel =
-                new ViewModelProvider(this).get(LogoutViewModel.class);
+        myPathViewModel =
+                new ViewModelProvider(this).get(MyPathViewModel.class);
 
-    binding = FragmentLogoutBinding.inflate(inflater, container, false);
+    binding = FragmentMyPathBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
 
-        final TextView textView = binding.logoutText;
-        logoutViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.profileText;
+        myPathViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

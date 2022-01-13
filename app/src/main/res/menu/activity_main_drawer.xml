@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/home_icon"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_my_path"
             android:icon="@drawable/profile_icon"
-            android:title="Profilo" />
+            android:title="I miei sentieri" />
         <item
             android:id="@+id/nav_playlist"
             android:icon="@drawable/playlist_icon"
@@ -25,10 +25,6 @@
             android:icon="@drawable/settings_icon"
             android:title="Impostazioni" />
 
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/logout_icon"
-            android:title="Logout" />
 
 
     </group>

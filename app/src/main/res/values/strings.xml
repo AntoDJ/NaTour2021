@@ -23,4 +23,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="password_dimenticata"><u>Password dimenticata?</u></string>
+    <string name="cosa_desideri_fare"><b>Cosa desideri fare?</b></string>
+
 </resources>

@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="Login.ui.profile.ProfileFragment"
-        android:label="Profilo"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_my_path"
+        android:name="Login.ui.profile.MyPathFragment"
+        android:label="I miei sentieri"
+        tools:layout="@layout/fragment_my_path" />
 
     <fragment
         android:id="@+id/nav_playlist"
@@ -35,10 +35,5 @@
         android:label="Impostazioni"
         tools:layout="@layout/fragment_settings" />
 
-    <fragment
-        android:id="@+id/nav_logout"
-        android:name="Login.ui.logout.LogoutFragment"
-        android:label="Logout"
-        tools:layout="@layout/fragment_logout" />
 
 </navigation>

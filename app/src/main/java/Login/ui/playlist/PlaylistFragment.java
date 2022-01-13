@@ -1,45 +1,68 @@
 package Login.ui.playlist;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ListAdapter;
+
+import com.example.natour2021.R;
 import com.example.natour2021.databinding.FragmentPlaylistBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Controller.Controller;
 
 
 public class PlaylistFragment extends Fragment {
 
     private PlaylistViewModel playlistViewModel;
-private FragmentPlaylistBinding binding;
+    private FragmentPlaylistBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        playlistViewModel =
-                new ViewModelProvider(this).get(PlaylistViewModel.class);
+                             ViewGroup container, Bundle savedInstanceState) {
 
-    binding = FragmentPlaylistBinding.inflate(inflater, container, false);
-    View root = binding.getRoot();
+        playlistViewModel = new ViewModelProvider(this).get(PlaylistViewModel.class);
+        binding = FragmentPlaylistBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        final TextView textView = binding.playlistText;
-        playlistViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
+        ListView playlistListView = (ListView) root.findViewById(R.id.playlistListView);
+        ArrayList<String> playlist = new ArrayList<String>();
+        playlist.add("Sentieri preferiti");
+        playlist.add("Sentieri da visitare");
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, playlist);
+        playlistListView.setAdapter(arrayAdapter);
+
+        playlistListView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Controller c = Controller.getInstance();
+            String nomePlaylist = playlistListView.getItemAtPosition(i).toString();
+            c.openPlaylistView(this, nomePlaylist);
         });
+
+
         return root;
     }
 
-@Override
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
+
+
+
 }

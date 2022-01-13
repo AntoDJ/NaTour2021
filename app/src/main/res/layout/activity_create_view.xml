@@ -33,10 +33,10 @@
         android:progressTint="#4AB261"
         android:thumbTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/durataTextViewSearch" />
 
     <TextView
-        android:id="@+id/durataTextView"
+        android:id="@+id/durataTextViewSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
@@ -67,7 +67,7 @@
         android:text="Difficoltà"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.583"
-        app:layout_constraintStart_toEndOf="@+id/durataTextView"
+        app:layout_constraintStart_toEndOf="@+id/durataTextViewSearch"
         app:layout_constraintTop_toBottomOf="@+id/namePathTextView" />
 
     <TextView
@@ -80,7 +80,7 @@
         app:layout_constraintBottom_toTopOf="@+id/durataSeekBar"
         app:layout_constraintEnd_toStartOf="@+id/difficoltaTextView"
         app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toEndOf="@+id/durataTextView"
+        app:layout_constraintStart_toEndOf="@+id/durataTextViewSearch"
         app:layout_constraintTop_toBottomOf="@+id/namePathTextView"
         app:layout_constraintVertical_bias="0.0" />
 

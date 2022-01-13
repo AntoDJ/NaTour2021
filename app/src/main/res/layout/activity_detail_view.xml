@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
+    tools:context="Search.DetailView">
+
+    <TextView
+        android:id="@+id/nomeTextView"
+        android:layout_width="320sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Nome del Sentiero"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/descrizioneTextView"
+        android:layout_width="320sp"
+        android:layout_height="74sp"
+        android:layout_marginTop="15sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Descrizione del Sentiero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durataTextViewDetail" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView3"
+        android:name="Search.DetailMapsFragment"
+        android:layout_width="320sp"
+        android:layout_height="180sp"
+        android:layout_marginTop="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descrizioneTextView" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/durataSliderDetail"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="5sp"
+        android:enabled="false"
+        android:stepSize="0.5"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeTextView"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/difficoltàSliderDetail"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="5sp"
+        android:enabled="false"
+        android:stepSize="1"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeTextView"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/playlistButton"
+        android:layout_width="200sp"
+        android:layout_height="56sp"
+        android:layout_marginTop="36sp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Aggiungi a playlist"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView3" />
+
+    <Button
+        android:id="@+id/reportButton"
+        android:layout_width="200sp"
+        android:layout_height="56sp"
+        android:layout_marginTop="8sp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Segnala"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modificaTextViewDetail"
+        app:layout_constraintVertical_bias="0.192" />
+
+    <TextView
+        android:id="@+id/modificaTextViewDetail"
+        android:layout_width="300sp"
+        android:layout_height="28sp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Data ultima modifica: "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playlistButton" />
+
+    <TextView
+        android:id="@+id/durataTextViewDetail"
+        android:layout_width="100sp"
+        android:layout_height="28sp"
+        android:layout_marginTop="5sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Durata: 0.0 ore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durataSliderDetail" />
+
+    <TextView
+        android:id="@+id/difficoltàTextViewDetail"
+        android:layout_width="100sp"
+        android:layout_height="28sp"
+        android:layout_marginTop="5sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Difficoltà: 0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltàSliderDetail" />
+</androidx.constraintlayout.widget.ConstraintLayout>

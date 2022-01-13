@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.natour2021.R;
 import com.google.android.material.slider.RangeSlider;
+
+import Controller.Controller;
 
 
 public class SearchView extends AppCompatActivity {
@@ -17,32 +20,50 @@ public class SearchView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_view);
 
-        RangeSlider rangeslider = (RangeSlider) findViewById(R.id.durataSliderSearch);
-        TextView minVal = (TextView) findViewById(R.id.minVal);
-        TextView maxVal = (TextView) findViewById(R.id.maxVal);
+        RangeSlider durataSlider = (RangeSlider) findViewById(R.id.durataSliderSearch);
+        TextView durataVal = (TextView) findViewById(R.id.durataTextViewSearch);
 
-        rangeslider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
+        durataSlider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(@NonNull RangeSlider slider) {
             }
 
             @Override
             public void onStopTrackingTouch(@NonNull RangeSlider slider) {
-                minVal.setText(String.valueOf(rangeslider.getValues().get(0)));
-                maxVal.setText(String.valueOf(rangeslider.getValues().get(1)));
+                durataVal.setText("Durata da "+String.valueOf(durataSlider.getValues().get(0))+" a "+String.valueOf(durataSlider.getValues().get(1))+" ore");
             }
         });
 
-        rangeslider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+        durataSlider.addOnChangeListener((slider, value, fromUser) -> {
+            durataVal.setText("Durata da "+String.valueOf(durataSlider.getValues().get(0))+" a "+String.valueOf(durataSlider.getValues().get(1))+" ore");
+        });
+
+        RangeSlider difficoltàSlider = (RangeSlider) findViewById(R.id.difficoltàSliderSearch);
+        TextView difficoltàVal = (TextView) findViewById(R.id.difficoltàTextViewSearch);
+
+
+        difficoltàSlider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                minVal.setText(String.valueOf(rangeslider.getValues().get(0)));
-                maxVal.setText(String.valueOf(rangeslider.getValues().get(1)));
+            public void onStartTrackingTouch(@NonNull RangeSlider slider) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(@NonNull RangeSlider slider) {
+                difficoltàVal.setText("Difficoltà da "+String.valueOf(Math.round(difficoltàSlider.getValues().get(0)))+" a "+String.valueOf(Math.round(difficoltàSlider.getValues().get(1))));
             }
         });
 
+        difficoltàSlider.addOnChangeListener((slider, value, fromUser) -> {
+            difficoltàVal.setText("Difficoltà da "+String.valueOf(Math.round(difficoltàSlider.getValues().get(0)))+" a "+String.valueOf(Math.round(difficoltàSlider.getValues().get(1))));
+        });
 
 
+        Button cercaButton=(Button) findViewById(R.id.searchButton);
+        cercaButton.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.resultView(SearchView.this);
+        });
     }
+
 
 }

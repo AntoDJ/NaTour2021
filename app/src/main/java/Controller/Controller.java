@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
 
+import Login.*;
 import java.util.ArrayList;
 
 import Entity.Path;
@@ -16,12 +17,9 @@ import Login.ui.playlist.PlaylistFragment;
 import Playlist.PlaylistDetailsView;
 import Playlist.PlaylistView;
 import Search.*;
-import Create.CreateView;
-import Create.MapView;
-import Login.HomeView;
-import Login.LoginView;
-import Login.PasswordOverlay;
-import Login.RegistrationView;
+import Create.*;
+import Login.ui.home.*;
+
 
 public class Controller {
     //Singleton
@@ -56,6 +54,12 @@ public class Controller {
         Intent i = new Intent(homeFragment.getActivity(), CreateView.class);
         homeFragment.startActivity(i);
     }
+
+    public void searchView(HomeFragment homeFragment){
+        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
+        homeFragment.startActivity(i);
+    }
+
     public static void cleanFragment(FrameLayout frameLayout){
         frameLayout.removeAllViews();
     }
@@ -64,7 +68,15 @@ public class Controller {
         Intent i = new Intent(createView, MapView.class);
         createView.startActivity(i);
     }
+    public void resultView(SearchView searchView){
+        Intent i = new Intent(searchView, ResultView.class);
+        searchView.startActivity(i);
+    }
 
+    public void detailView(ResultView resultView){
+        Intent i = new Intent(resultView, DetailView.class);
+        resultView.startActivity(i);
+    }
 
     //Mi salvo il nome della playlist se può servire dopo
     public String playlist;
@@ -99,38 +111,4 @@ public class Controller {
         //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
         return new Path();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void searchView(HomeFragment homeFragment){
-        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
-        homeFragment.startActivity(i);
-    }
-
-
-
-
-
-
 }

@@ -2,24 +2,25 @@ package Controller;
 
 import android.app.appsearch.ReportSystemUsageRequest;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
 
-import Login.*;
 import java.util.ArrayList;
 
-import Entity.Path;
-import Login.ui.home.HomeFragment;
-import Login.ui.playlist.PlaylistFragment;
-import Playlist.PlaylistDetailsView;
-import Playlist.PlaylistView;
+import Login.*;
+import Entity.*;
+import Login.ui.home.*;
+import Login.ui.playlist.*;
+import Playlist.*;
 import Search.*;
 import Create.*;
-import Login.ui.home.*;
 
 
 public class Controller {
@@ -96,6 +97,8 @@ public class Controller {
         path.add(p1);
         path.add(p2);
 
+
+
         //Scrivere codice che si collega al db per prendere i sentieri della playlist
         return path;
     }
@@ -115,6 +118,12 @@ public class Controller {
 
     public void openReportOverlay(DetailView detailView){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();
+        fragmentManager.setFragmentResultListener("", detailView, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                detailView.findViewById(R.id.playlistButton).setEnabled(true);
+            }
+        });
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ReportOverlay reportOverlay = new ReportOverlay();
         fragmentTransaction.add(R.id.reportOverlayContainer, reportOverlay, null);

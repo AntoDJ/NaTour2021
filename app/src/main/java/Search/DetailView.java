@@ -40,6 +40,7 @@ public class DetailView extends AppCompatActivity {
         reportButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
             c.openReportOverlay(DetailView.this);
+            playlistButton.setEnabled(false);
         });
 
     }

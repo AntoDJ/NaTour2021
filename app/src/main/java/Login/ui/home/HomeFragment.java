@@ -31,8 +31,8 @@ private FragmentHomeBinding binding;
             c.searchView(this);
         });
 
-        Button createPathButton = (Button) root.findViewById(R.id.createPathButton);
-        createPathButton.setOnClickListener(view -> {
+        Button createpathButton = (Button) root.findViewById(R.id.createPathButton);
+        createpathButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
             c.openCreatePathView(HomeFragment.this);
         });

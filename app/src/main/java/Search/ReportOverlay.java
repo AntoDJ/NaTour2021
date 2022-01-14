@@ -66,10 +66,14 @@ public class ReportOverlay extends Fragment {
         // Inflate the layout for this fragment
         View view;
         view=inflater.inflate(R.layout.fragment_report_overlay, container, false);
-       // Button esciButton= (Button) getView().findViewById(R.id.annullaReportButton);
-       // esciButton.setOnClickListener(view1 -> {
-        //    Controller.cleanFragment(getActivity().findViewById(R.id.reportOverlayContainer));
-       // });
+        Button esciButton= (Button) view.findViewById(R.id.annullaReportButton);
+        esciButton.setOnClickListener(view1 -> {
+            Controller c = Controller.getInstance();
+            Bundle result = new Bundle();
+            getParentFragmentManager().setFragmentResult("",result);
+            c.cleanFragment(getActivity().findViewById(R.id.reportOverlayContainer));
+
+        });
         return view;
 
     }

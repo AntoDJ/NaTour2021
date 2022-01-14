@@ -68,6 +68,7 @@
         android:layout_marginTop="15sp"
         android:fontFamily="@font/neuemontreal"
         android:text="Accessibilità per disabili"
+        android:buttonTint="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

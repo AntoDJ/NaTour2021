@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fragment_shape"
     tools:context="Search.ReportOverlay">
 
     <TextView
@@ -37,7 +38,7 @@
 
     <Button
         android:id="@+id/annullaReportButton"
-        android:layout_width="120sp"
+        android:layout_width="130sp"
         android:layout_height="50sp"
         android:layout_marginTop="24dp"
         android:background="@drawable/base_button"
@@ -53,7 +54,7 @@
 
     <Button
         android:id="@+id/confermaReportButton"
-        android:layout_width="120sp"
+        android:layout_width="130sp"
         android:layout_height="50sp"
         android:layout_marginTop="24dp"
         android:background="@drawable/base_button"

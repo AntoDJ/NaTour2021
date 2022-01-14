@@ -29,6 +29,7 @@
         <entry key="..\:/Users/anton/AndroidStudioProjects/NaTour2021/app/src/main/res/menu/navigation.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/base_button.xml" value="0.403125" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/descrizione_bg.xml" value="0.403125" />
+        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/fragment_shape.xml" value="0.403125" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/mapfragment.xml" value="0.234375" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/drawable/round_plain_text.xml" value="0.403125" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/font/neuemontreal.xml" value="0.24895833333333334" />
@@ -36,16 +37,18 @@
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_create_view.xml" value="0.21875" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_detail_view.xml" value="0.33" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_initial_view.xml" value="0.21875" />
-        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_login_view.xml" value="0.21875" />
+        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_login_view.xml" value="0.25" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_main.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_map_view.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_navigation.xml" value="0.21510416666666668" />
+        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_playlist_details_view.xml" value="0.28351449275362317" />
+        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_playlist_view.xml" value="0.33" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_prova.xml" value="0.21510416666666668" />
-        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_registration_view.xml" value="0.21875" />
+        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_registration_view.xml" value="0.33" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_result_view.xml" value="0.32019927536231885" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/activity_search_view.xml" value="0.21875" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_detail_maps.xml" value="0.30842391304347827" />
-        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_home.xml" value="0.21510416666666668" />
+        <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_item.xml" value="0.30842391304347827" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_item_list.xml" value="0.30842391304347827" />
         <entry key="..\:/Users/archa/AndroidStudioProjects/NaTour2021/app/src/main/res/layout/fragment_password_overlay.xml" value="0.21875" />

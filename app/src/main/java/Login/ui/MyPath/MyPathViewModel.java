@@ -1,4 +1,4 @@
-package Login.ui.profile;
+package Login.ui.MyPath;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

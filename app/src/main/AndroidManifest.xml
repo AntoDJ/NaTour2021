@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NaTour2021">
         <activity
+            android:name="Playlist.PersonalDetailView"
+            android:exported="false" />
+        <activity
             android:name="Playlist.PlaylistDetailsView"
             android:exported="false" />
         <activity

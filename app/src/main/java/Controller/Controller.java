@@ -12,8 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
 
+import Login.*;
 import java.util.ArrayList;
 
+import Login.ui.MyPath.*;
 import Login.*;
 import Entity.*;
 import Login.ui.home.*;
@@ -21,6 +23,7 @@ import Login.ui.playlist.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
+import Login.ui.home.*;
 
 
 public class Controller {
@@ -103,6 +106,19 @@ public class Controller {
         return path;
     }
 
+    public ArrayList<Path> getPersonalPathOfPlaylist(){
+
+        Path p1 = new Path("s3", 5, 2);
+        Path p2 = new Path("s4", 5, 2);
+
+        ArrayList<Path> path = new ArrayList<>();
+        path.add(p1);
+        path.add(p2);
+
+        //Scrivere codice che si collega al db per prendere i sentieri della playlist
+        return path;
+    }
+
     public String namePath;
     public void openPlaylistDetailsView(PlaylistView playlistView, String pathName){
         namePath = pathName;
@@ -110,11 +126,23 @@ public class Controller {
         playlistView.startActivity(i);
     }
 
+    public void openPersonalDetailsView(PersonalPlaylistView personalPlaylistView){
+        Intent i = new Intent(personalPlaylistView.getContext(), PersonalDetailView.class);
+        personalPlaylistView.startActivity(i);
+    }
+
 
     public Path getAllDetailsOfPath(){
         //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
         return new Path();
     }
+
+    public Path getAllDetailsOfPersonalPath(){
+        //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
+        return new Path();
+    }
+
+
 
     public void openReportOverlay(DetailView detailView){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();

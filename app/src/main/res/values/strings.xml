@@ -24,5 +24,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="password_dimenticata"><u>Password dimenticata?</u></string>
     <string name="cosa_desideri_fare"><b>Cosa desideri fare?</b></string>
+    <string name="sentieri_creati"><b>Ecco i sentieri che hai creato:</b></string>
+
+    Ecco i sentieri che hai creato:
 
 </resources>

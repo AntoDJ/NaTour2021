@@ -13,6 +13,7 @@
         android:layout_width="320sp"
         android:layout_height="50sp"
         android:layout_marginTop="28dp"
+        android:background="@drawable/descrizione_bg"
         android:fontFamily="@font/neuemontreal"
         android:text="Nome del Sentiero"
         android:textAlignment="center"
@@ -147,4 +148,18 @@
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/difficoltàSliderDetail" />
+
+    <FrameLayout
+        android:id="@+id/reportOverlayContainer"
+        android:layout_width="354dp"
+        android:layout_height="379dp"
+        app:layout_constraintBottom_toTopOf="@+id/reportButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.732">
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

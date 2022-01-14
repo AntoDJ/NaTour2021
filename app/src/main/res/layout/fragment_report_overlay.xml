@@ -1,0 +1,69 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Search.ReportOverlay">
+
+    <TextView
+        android:id="@+id/reportTextView"
+        android:layout_width="305dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Inserisci la motivazione della tua segnalazione"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/reportMotivation"
+        android:layout_width="289dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/neuemontreal"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:padding="8sp"
+        android:scrollbars="vertical"
+        android:background="@drawable/descrizione_bg"
+        android:textColor="@color/black"
+        android:ems="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportTextView" />
+
+    <Button
+        android:id="@+id/annullaReportButton"
+        android:layout_width="120sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="annulla segnalazione"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportMotivation"
+        app:layout_constraintVertical_bias="0.1"/>
+
+    <Button
+        android:id="@+id/confermaReportButton"
+        android:layout_width="120sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="conferma segnalazione"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportMotivation"
+        app:layout_constraintVertical_bias="0.1" />
+</androidx.constraintlayout.widget.ConstraintLayout>

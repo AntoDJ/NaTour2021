@@ -1,5 +1,6 @@
 package Controller;
 
+import android.app.appsearch.ReportSystemUsageRequest;
 import android.content.Intent;
 import android.widget.FrameLayout;
 
@@ -110,5 +111,13 @@ public class Controller {
     public Path getAllDetailsOfPath(){
         //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
         return new Path();
+    }
+
+    public void openReportOverlay(DetailView detailView){
+        FragmentManager fragmentManager = detailView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ReportOverlay reportOverlay = new ReportOverlay();
+        fragmentTransaction.add(R.id.reportOverlayContainer, reportOverlay, null);
+        fragmentTransaction.commit();
     }
 }

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
 
+import Controller.Controller;
+
 public class DetailView extends AppCompatActivity {
 
     @Override
@@ -32,11 +34,12 @@ public class DetailView extends AppCompatActivity {
 
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
-
         });
+
         Button reportButton=(Button) findViewById(R.id.reportButton);
         reportButton.setOnClickListener(view -> {
-
+            Controller c = Controller.getInstance();
+            c.openReportOverlay(DetailView.this);
         });
 
     }

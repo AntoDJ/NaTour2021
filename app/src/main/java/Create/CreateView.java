@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.natour2021.R;
+import com.google.android.material.slider.Slider;
 
 import Controller.Controller;
 
@@ -19,48 +18,22 @@ public class CreateView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_view);
 
-        SeekBar durataSeekBar = (SeekBar) findViewById(R.id.durataSeekBar);
-        durataSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                TextView tv = (TextView) findViewById(R.id.valoreDurata);
-                tv.setText(String.valueOf(getConvertedValue(progress)));
-            }
-            public double getConvertedValue(int intVal){
-                double value = 0.0;
-                value = 0.5 * intVal;
-                return value;
-            }
+        Slider durataSlider = (Slider) findViewById(R.id.durataPlaylistSlider);
+        Slider difficoltaSlider = (Slider) findViewById(R.id.difficoltaPlaylistSlider);
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+        TextView durataTextView = (TextView) findViewById(R.id.durataTextView);
+        TextView difficoltaTextView = (TextView) findViewById(R.id.difficoltaTextView);
 
-            }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+        durataSlider.addOnChangeListener((slider, value, fromUser) -> {
+            durataTextView.setText("Durata: " + String.valueOf(durataSlider.getValue() + " ore"));
         });
 
-        SeekBar difficoltàSeekBar = (SeekBar) findViewById(R.id.difficoltàSeekBar);
-        difficoltàSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                TextView tv = (TextView) findViewById(R.id.valoreDifficoltà);
-                tv.setText(String.valueOf(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+        difficoltaSlider.addOnChangeListener((slider, value, fromUser) -> {
+            difficoltaTextView.setText("Difficoltà: " + String.valueOf(difficoltaSlider.getValue()));
         });
+
+
 
         Button inserisciTracciatoButton = (Button) findViewById(R.id.inserisciTracciatoButton);
         inserisciTracciatoButton.setOnClickListener(view -> {

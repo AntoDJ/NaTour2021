@@ -13,7 +13,7 @@
         android:layout_width="320sp"
         android:layout_height="45sp"
         android:layout_marginTop="48dp"
-        android:background="@drawable/round_plain_text"
+        android:background="@drawable/descrizione_bg"
         android:padding="8sp"
         android:hint="Inserisci il nome del sentiero"
         android:textAlignment="center"
@@ -22,44 +22,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SeekBar
-        android:id="@+id/durataSeekBarDetailsView"
-        android:layout_width="170sp"
-        android:layout_height="20sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:max="20"
-        android:enabled="false"
-        android:progressBackgroundTint="@color/black"
-        android:progressTint="#4AB261"
-        android:thumbTint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataDetailsView" />
-
     <TextView
         android:id="@+id/durataDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
         android:layout_marginTop="28dp"
         android:text="Durata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView" />
-
-    <SeekBar
-        android:id="@+id/difficoltàSeekBarDetailsView"
-        android:layout_width="170sp"
-        android:layout_height="20sp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:enabled="false"
-        android:max="10"
-        android:progressTint="#4AB261"
-        android:thumbTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/durataSeekBarDetailsView"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltaDetailsView" />
 
     <TextView
         android:id="@+id/difficoltaDetailsView"
@@ -68,42 +40,53 @@
         android:layout_marginTop="28dp"
         android:text="Difficoltà"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
-        app:layout_constraintStart_toEndOf="@+id/durataDetailsView"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView" />
 
-    <TextView
-        android:id="@+id/valoreDurataDetailsView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="13dp"
-        android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/durataSeekBarDetailsView"
-        app:layout_constraintEnd_toStartOf="@+id/difficoltaDetailsView"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toEndOf="@+id/durataDetailsView"
-        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/valoreDifficoltàDetailsView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/difficoltaDetailsView"
+    <com.google.android.material.slider.Slider
+        android:id="@+id/durataPlaylistSlider"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="12dp"
+        android:enabled="false"
+        android:stepSize="0.5"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.147"
-        app:layout_constraintStart_toEndOf="@+id/difficoltaDetailsView"
-        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/durataDetailsView"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/difficoltaPlaylistSlider"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="12dp"
+        android:enabled="false"
+        android:stepSize="1"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltaDetailsView"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/descrizioneDetailsView"
         android:layout_width="320sp"
         android:layout_height="150sp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="22sp"
         android:background="@drawable/descrizione_bg"
         android:ems="10"
         android:gravity="center"
@@ -112,15 +95,16 @@
         android:padding="8sp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataSeekBarDetailsView" />
+        app:layout_constraintTop_toBottomOf="@+id/durataPlaylistSlider" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="Search.DetailMapsFragment"
         android:layout_width="340sp"
         android:layout_height="150sp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,9 +118,9 @@
         android:background="@drawable/base_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

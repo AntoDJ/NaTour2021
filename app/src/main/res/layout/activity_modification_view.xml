@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
+    tools:context="Playlist.ModificationView">
+
+
+  <EditText
+      android:id="@+id/namePathModificatioView"
+      android:layout_width="320sp"
+      android:layout_height="45sp"
+      android:layout_marginTop="44dp"
+      android:background="@drawable/round_plain_text"
+      android:fontFamily="@font/neuemontreal"
+      android:hint="Inserisci il nome del sentiero"
+      android:padding="8sp"
+      android:textAlignment="center"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <com.google.android.material.slider.Slider
+      android:id="@+id/durataSliderModificatioView"
+      android:layout_width="150sp"
+      android:layout_height="20sp"
+      android:layout_marginTop="12sp"
+      android:stepSize="0.5"
+      android:valueFrom="0"
+      android:valueTo="10"
+      app:labelBehavior="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/durataTextViewModificatioView"
+      app:thumbColor="#000000"
+      app:thumbStrokeColor="#4AB261"
+      app:trackColorActive="#4AB261"
+      tools:ignore="SpeakableTextPresentCheck" />
+
+  <com.google.android.material.slider.Slider
+      android:id="@+id/difficoltaSliderModificatioView"
+      android:layout_width="150sp"
+      android:layout_height="20sp"
+      android:layout_marginTop="12sp"
+      android:stepSize="1"
+      android:valueFrom="0"
+      android:valueTo="10"
+      app:labelBehavior="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.9"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/difficoltaTextViewModificatioView"
+      app:thumbColor="#000000"
+      app:thumbStrokeColor="#4AB261"
+      app:trackColorActive="#4AB261"
+      tools:ignore="SpeakableTextPresentCheck" />
+
+  <TextView
+      android:id="@+id/durataTextViewModificatioView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24sp"
+      android:fontFamily="@font/neuemontreal"
+      android:text="Durata"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.19"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/namePathModificatioView" />
+
+  <TextView
+      android:id="@+id/difficoltaTextViewModificatioView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24sp"
+      android:fontFamily="@font/neuemontreal"
+      android:text="Difficoltà"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.78"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/namePathModificatioView" />
+
+  <EditText
+      android:id="@+id/descrizionePlainTextModificatioView"
+      android:layout_width="321sp"
+      android:layout_height="146sp"
+      android:layout_marginTop="20sp"
+      android:background="@drawable/descrizione_bg"
+      android:ems="10"
+      android:fontFamily="@font/neuemontreal"
+      android:gravity="center"
+      android:hint="Inserisci una descrizione\n(opzionale)"
+      android:inputType="textMultiLine"
+      android:padding="8sp"
+      android:scrollbars="vertical"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/durataSliderModificatioView" />
+
+  <CheckBox
+      android:id="@+id/checkBox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20sp"
+      android:buttonTint="@color/black"
+      android:fontFamily="@font/neuemontreal"
+      android:text="Accessibilità per disabili"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.529"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/descrizionePlainTextModificatioView" />
+
+  <Button
+      android:id="@+id/creaSentieroButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="36sp"
+      android:background="@drawable/base_button"
+      android:fontFamily="@font/neuemontreal"
+      android:text="Crea sentiero"
+      app:backgroundTint="#4AB261"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.535"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/checkBox"
+      app:layout_constraintVertical_bias="0.058" />
+</androidx.constraintlayout.widget.ConstraintLayout>

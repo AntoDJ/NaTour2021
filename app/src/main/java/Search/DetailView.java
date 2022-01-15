@@ -18,7 +18,7 @@ public class DetailView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
 
-        Slider durataSlider=(Slider) findViewById(R.id.durataSliderDetail);
+        Slider durataSlider=(Slider) findViewById(R.id.durataPlaylistSlider);
 
         Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltàSliderDetail);
 

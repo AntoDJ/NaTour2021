@@ -131,6 +131,11 @@ public class Controller {
         personalPlaylistView.startActivity(i);
     }
 
+    public void openModificationView(PersonalDetailView personalDetailView){
+        Intent i = new Intent(personalDetailView, ModificationView.class);
+        personalDetailView.startActivity(i);
+    }
+
 
     public Path getAllDetailsOfPath(){
         //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo

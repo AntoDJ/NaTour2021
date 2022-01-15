@@ -13,112 +13,92 @@
         android:layout_width="320sp"
         android:layout_height="45sp"
         android:layout_marginTop="48sp"
-        android:fontFamily="@font/neuemontreal"
         android:background="@drawable/round_plain_text"
-        android:padding="8sp"
+        android:fontFamily="@font/neuemontreal"
         android:hint="Inserisci il nome del sentiero"
+        android:padding="8sp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SeekBar
-        android:id="@+id/durataSeekBar"
-        android:layout_width="170sp"
+    <com.google.android.material.slider.Slider
+        android:id="@+id/durataPlaylistSlider"
+        android:layout_width="150sp"
         android:layout_height="20sp"
-        android:layout_marginStart="16sp"
         android:layout_marginTop="12sp"
-        android:max="20"
-        android:progressBackgroundTint="@color/black"
-        android:progressTint="#4AB261"
-        android:thumbTint="@color/black"
+        android:stepSize="0.5"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataTextViewSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/durataTextView"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/difficoltaPlaylistSlider"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="12sp"
+        android:stepSize="1"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltaTextView"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/durataTextViewSearch"
+        android:id="@+id/durataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="28sp"
+        android:layout_marginTop="24sp"
         android:fontFamily="@font/neuemontreal"
         android:text="Durata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathTextView" />
-
-    <SeekBar
-        android:id="@+id/difficoltàSeekBar"
-        android:layout_width="170sp"
-        android:layout_height="20sp"
-        android:layout_marginTop="12sp"
-        android:layout_marginEnd="16sp"
-        android:max="10"
-        android:progressTint="#4AB261"
-        android:thumbTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/durataSeekBar"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltaTextView" />
 
     <TextView
         android:id="@+id/difficoltaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28sp"
+        android:layout_marginTop="24sp"
         android:fontFamily="@font/neuemontreal"
         android:text="Difficoltà"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.583"
-        app:layout_constraintStart_toEndOf="@+id/durataTextViewSearch"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathTextView" />
-
-    <TextView
-        android:id="@+id/valoreDurata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28sp"
-        android:layout_marginBottom="13sp"
-        android:fontFamily="@font/neuemontreal"
-        android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/durataSeekBar"
-        app:layout_constraintEnd_toStartOf="@+id/difficoltaTextView"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toEndOf="@+id/durataTextViewSearch"
-        app:layout_constraintTop_toBottomOf="@+id/namePathTextView"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/valoreDifficoltà"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28sp"
-        android:fontFamily="@font/neuemontreal"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/difficoltaTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.147"
-        app:layout_constraintStart_toEndOf="@+id/difficoltaTextView"
-        app:layout_constraintTop_toBottomOf="@+id/namePathTextView"
-        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/descrizionePlainText"
         android:layout_width="321sp"
         android:layout_height="146sp"
-        android:layout_marginTop="56sp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/descrizione_bg"
-        android:fontFamily="@font/neuemontreal"
         android:ems="10"
+        android:fontFamily="@font/neuemontreal"
         android:gravity="center"
         android:hint="Inserisci una descrizione\n(opzionale)"
         android:inputType="textMultiLine"
         android:padding="8sp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataSeekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/durataPlaylistSlider" />
 
     <Button
         android:id="@+id/inserisciTracciatoButton"
@@ -142,8 +122,8 @@
         android:fontFamily="@font/neuemontreal"
         android:text="Accessibilità per disabili"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inserisciTracciatoButton" />
 
     <Button
@@ -157,8 +137,8 @@
         app:backgroundTint="#4AB261"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

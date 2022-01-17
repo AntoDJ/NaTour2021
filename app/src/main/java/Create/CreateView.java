@@ -26,7 +26,11 @@ public class CreateView extends AppCompatActivity {
 
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
-            durataTextView.setText("Durata: " + String.valueOf(durataSlider.getValue() + " ore"));
+            if(durataSlider.getValue() - (int) durataSlider.getValue() == 0.5){
+                durataTextView.setText("Durata: " + String.valueOf((int) durataSlider.getValue() + ":30 ore"));
+            }else{
+                durataTextView.setText("Durata: " + String.valueOf((int) durataSlider.getValue() + " ore"));
+            }
         });
 
         difficoltaSlider.addOnChangeListener((slider, value, fromUser) -> {

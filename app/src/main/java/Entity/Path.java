@@ -9,15 +9,15 @@ public class Path {
     private String coordinate;
     private String puntoIniziale;
     private int difficolta;
-    private double durata;
+    private float durata;
     private String descrizione;
     private boolean accessibilitaDisabili;
     private Date dataModifica;
-    //aggiungere nel caso il creatore
+    private String creatore;
 
 
     public Path(String nomeSentiero, String coordinate, String puntoIniziale,
-                int difficolta, double durata, String descrizione, boolean accessibilitaDisabili, Date dataModifica) {
+                int difficolta, float durata, String descrizione, boolean accessibilitaDisabili, Date dataModifica, String creatore) {
         this.nomeSentiero = nomeSentiero;
         this.coordinate = coordinate;
         this.puntoIniziale = puntoIniziale;
@@ -26,11 +26,12 @@ public class Path {
         this.descrizione = descrizione;
         this.accessibilitaDisabili = accessibilitaDisabili;
         this.dataModifica = dataModifica;
+        this.creatore = creatore;
     }
 
     public Path(){}
 
-    public Path(String nomeSentiero, int difficolta, double durata) {
+    public Path(String nomeSentiero, int difficolta, float durata) {
         this.nomeSentiero = nomeSentiero;
         this.difficolta = difficolta;
         this.durata = durata;
@@ -73,7 +74,7 @@ public class Path {
         return durata;
     }
 
-    public void setDurata(double durata) {
+    public void setDurata(float durata) {
         this.durata = durata;
     }
 

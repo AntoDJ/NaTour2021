@@ -2,8 +2,12 @@ package Playlist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,9 +28,11 @@ public class PlaylistView extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_view);
 
         ListView sentieriPlaylist = (ListView) findViewById(R.id.sentieriPlaylistListView);
+
         c = Controller.getInstance();
         TextView nomePlaylist = (TextView) findViewById(R.id.nomePlaylistTextView);
         nomePlaylist.setText(c.playlist);
+
 
         path = c.getPathOfPlaylist(nomePlaylist.getText().toString());
         ArrayList<String> dettagliSentiero = new ArrayList<>();
@@ -34,14 +40,16 @@ public class PlaylistView extends AppCompatActivity {
             dettagliSentiero.add(p.getNomeSentiero() + " \nDurata:" + p.getDurata() + "    Difficoltà:" + p.getDifficolta());
         }
 
+
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dettagliSentiero);
         sentieriPlaylist.setAdapter(arrayAdapter);
+
 
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
             String text = sentieriPlaylist.getItemAtPosition(i).toString();
             int index = text.indexOf(' ');
-            String sentiero = text.substring(0, i);
+            String sentiero = text.substring(0, index);
             c.openPlaylistDetailsView(this, sentiero);
         });
 

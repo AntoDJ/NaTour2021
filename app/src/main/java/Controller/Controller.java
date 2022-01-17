@@ -94,12 +94,11 @@ public class Controller {
     public ArrayList<Path> getPathOfPlaylist(String nomePlaylist){
 
         Path p1 = new Path("s1", 5, 2);
-        Path p2 = new Path("s1", 5, 2);
+        Path p2 = new Path("s2", 3, 2);
 
         ArrayList<Path> path = new ArrayList<>();
         path.add(p1);
         path.add(p2);
-
 
 
         //Scrivere codice che si collega al db per prendere i sentieri della playlist

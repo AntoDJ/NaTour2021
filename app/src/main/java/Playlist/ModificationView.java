@@ -21,7 +21,12 @@ public class ModificationView extends AppCompatActivity {
         Slider difficoltaSlider = (Slider) findViewById(R.id.difficoltaSliderModificatioView);
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
-            durataTextView.setText("Durata: " + String.valueOf(durataSlider.getValue() + " ore"));
+
+            if(durataSlider.getValue() - (int) durataSlider.getValue() == 0.5){
+                durataTextView.setText("Durata: " + String.valueOf((int) durataSlider.getValue() + ":30 ore"));
+            }else{
+                durataTextView.setText("Durata: " + String.valueOf((int) durataSlider.getValue() + " ore"));
+            }
         });
 
         difficoltaSlider.addOnChangeListener((slider, value, fromUser) -> {

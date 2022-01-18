@@ -28,9 +28,7 @@
         android:id="@+id/durataDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
         android:fontFamily="@font/neuemontreal"
-
         android:layout_marginTop="28dp"
         android:text="Durata"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,8 +133,8 @@
 
     <FrameLayout
         android:id="@+id/removeFromPlaylistContainer"
-        android:layout_width="361dp"
-        android:layout_height="265dp"
+        android:layout_width="344sp"
+        android:layout_height="265sp"
         android:elevation="10sp"
         app:layout_constraintBottom_toTopOf="@+id/eliminaSentieroDallaPlaylistButton"
         app:layout_constraintEnd_toEndOf="parent"

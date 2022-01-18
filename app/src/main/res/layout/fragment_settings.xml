@@ -53,7 +53,7 @@
 
     <FrameLayout
         android:id="@+id/settingsContainer"
-        android:layout_width="365sp"
+        android:layout_width="344sp"
         android:layout_height="243sp"
         android:elevation="10sp"
         android:layout_marginTop="80sp"

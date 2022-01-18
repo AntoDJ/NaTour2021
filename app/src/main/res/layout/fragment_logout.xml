@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/noLogoutButton"
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutTextView"
-        app:layout_constraintVertical_bias="0.300" />
+        app:layout_constraintVertical_bias="0.500" />
 
     <Button
         android:id="@+id/YesLogoutButton"
@@ -47,5 +47,5 @@
         app:layout_constraintHorizontal_bias="0.786"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutTextView"
-        app:layout_constraintVertical_bias="0.300" />
+        app:layout_constraintVertical_bias="0.500" />
 </androidx.constraintlayout.widget.ConstraintLayout>

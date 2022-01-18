@@ -1,10 +1,9 @@
-package UtenteDAO;
+package DAO;
 
 import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DBConnection.DBConnection;
@@ -23,8 +22,9 @@ public class UtenteDAO {
         }
     }
 
-    /*public void registraUnUtente(User utente)  {
+    public void registraUnUtente(User utente)  {
         try{
+            Log.i("getConnection", "getto");
             connection = dbconnection.getConnection();
             Log.i("1", "1");
             PreparedStatement ps = connection.prepareStatement("INSERT INTO \"Utente\"(email, password) VALUES( ?, ?)");
@@ -39,23 +39,7 @@ public class UtenteDAO {
         }catch (SQLException e){}
 
 
-    }*/
-
-    public void registraUnUtente(String email, String pass)  {
-        try{
-            connection = dbconnection.getConnection();
-            Log.i("1", "1");
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO \"Utente\"(email, password) VALUES( ?, ?)");
-            Log.i("1", "2");
-            ps.setString(1, email);
-            Log.i("1", "3");
-            ps.setString(2, pass);
-            ps.executeQuery();
-            Log.i("1", "4");
-            ps.close();
-            connection.close();
-        }catch (SQLException e){}
-
-
     }
+
+
 }

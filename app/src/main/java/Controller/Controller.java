@@ -1,14 +1,9 @@
 package Controller;
 
 import android.content.Intent;
-import android.media.tv.TvContract;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
@@ -24,7 +19,7 @@ import Login.ui.settings.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
-import UtenteDAO.UtenteDAO;
+import DAO.UtenteDAO;
 
 
 public class Controller {
@@ -51,7 +46,7 @@ public class Controller {
 
     public void registraUtente(String email, String password){
         User utente = new User(email,password);
-        utenteDAO.registraUnUtente(email, password);
+        utenteDAO.registraUnUtente(utente);
     }
 
     public void openForgotPasswordOverlay(LoginView loginView){

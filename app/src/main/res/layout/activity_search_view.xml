@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataTextViewSearch"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltàTextViewSearch"
         app:thumbColor="#000000"
         app:thumbStrokeColor="#4AB261"
         app:trackColorActive="#4AB261"
@@ -54,7 +54,7 @@
         app:labelBehavior="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FilterTextViewSearch"
+        app:layout_constraintTop_toBottomOf="@+id/durataTextViewSearch"
         app:thumbColor="#000000"
         app:thumbStrokeColor="#4AB261"
         app:trackColorActive="#4AB261"
@@ -88,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataSliderSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/FilterTextViewSearch" />
 
     <TextView
         android:id="@+id/difficoltàTextViewSearch"
@@ -103,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltàSliderSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/durataSliderSearch" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
@@ -114,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltàTextViewSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/difficoltàSliderSearch" />
 
     <Button
         android:id="@+id/searchButton"

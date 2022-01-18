@@ -30,8 +30,11 @@ public class PersonalDetailView extends AppCompatActivity {
             c.openModificationView(this);
         });
 
-
-
+        Button b1= (Button) findViewById(R.id.deletePathButton);
+        b1.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.deletePathOverlay(PersonalDetailView.this);
+        });
 
     }
 }

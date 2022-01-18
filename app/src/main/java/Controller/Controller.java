@@ -1,7 +1,7 @@
 package Controller;
 
-import android.app.appsearch.ReportSystemUsageRequest;
 import android.content.Intent;
+import android.media.tv.TvContract;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -16,14 +16,13 @@ import Login.*;
 import java.util.ArrayList;
 
 import Login.ui.MyPath.*;
-import Login.*;
 import Entity.*;
 import Login.ui.home.*;
 import Login.ui.playlist.*;
+import Login.ui.settings.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
-import Login.ui.home.*;
 
 
 public class Controller {
@@ -150,15 +149,42 @@ public class Controller {
 
     public void openReportOverlay(DetailView detailView){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();
-        fragmentManager.setFragmentResultListener("", detailView, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                detailView.findViewById(R.id.playlistButton).setEnabled(true);
-            }
-        });
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ReportOverlay reportOverlay = new ReportOverlay();
-        fragmentTransaction.add(R.id.reportOverlayContainer, reportOverlay, null);
+        fragmentTransaction.add(R.id.detailOverlayContainer, reportOverlay, null);
+        fragmentTransaction.commit();
+    }
+
+    public void addToPlaylistOverlay(DetailView detailView){
+        FragmentManager fragmentManager = detailView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        addToPlaylistOverlay addtoplaylistoverlay = new addToPlaylistOverlay();
+        fragmentTransaction.add(R.id.detailOverlayContainer, addtoplaylistoverlay, null);
+        fragmentTransaction.commit();
+    }
+
+    public void logoutOverlay(SettingsFragment settingsFragment, HomeView homeview){
+        FragmentManager fragmentManager = homeview.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        LogoutFragment logoutoverlay = new LogoutFragment();
+        fragmentTransaction.add(R.id.settingsContainer, logoutoverlay, null);
+        fragmentTransaction.commit();
+
+    }
+
+    public void removeFromPlaylistOverlay(PlaylistDetailsView playlistdetailsview){
+        FragmentManager fragmentManager = playlistdetailsview.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        removeFromPlaylistOverlay removefromplaylistoverlay = new removeFromPlaylistOverlay();
+        fragmentTransaction.add(R.id.removeFromPlaylistContainer, removefromplaylistoverlay, null);
+        fragmentTransaction.commit();
+    }
+
+    public void deletePathOverlay(PersonalDetailView personaldetailview){
+        FragmentManager fragmentManager = personaldetailview.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        deletePathOverlay deletepathoverlay = new deletePathOverlay();
+        fragmentTransaction.add(R.id.deletePathContainer, deletepathoverlay, null);
         fragmentTransaction.commit();
     }
 }

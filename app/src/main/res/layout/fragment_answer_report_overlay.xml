@@ -1,0 +1,114 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragment_shape"
+    tools:context="Login.ui.notification.answerReportOverlay">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="320sp"
+        android:layout_height="28sp"
+        android:layout_marginTop="28sp"
+        android:text="Ecco la motivazione di questa segnalazione"
+        android:textAlignment="center"
+        android:fontFamily="@font/neuemontreal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="320sp"
+        android:layout_height="28sp"
+        android:layout_marginTop="24sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Se vuoi puoi inserire una risposta qui"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/motivationeText" />
+
+    <EditText
+        android:id="@+id/motivationeText"
+        android:layout_width="320sp"
+        android:layout_height="150sp"
+        android:layout_marginTop="8sp"
+        android:background="@drawable/descrizione_bg"
+        android:ems="10"
+        android:fontFamily="@font/neuemontreal"
+        android:gravity="center"
+        android:hint="Motivazione Segnalazione"
+        android:inputType="textMultiLine"
+        android:padding="8sp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <EditText
+        android:id="@+id/rispostaText"
+        android:layout_width="320sp"
+        android:layout_height="150sp"
+        android:layout_marginTop="8sp"
+        android:background="@drawable/descrizione_bg"
+        android:ems="10"
+        android:fontFamily="@font/neuemontreal"
+        android:gravity="center"
+        android:hint="Risposta Segnalazione"
+        android:inputType="textMultiLine"
+        android:padding="8sp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <Button
+        android:id="@+id/reportIgnoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Ignora"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportAnswerButton"
+        app:layout_constraintVertical_bias="0.149" />
+
+    <Button
+        android:id="@+id/reportAnswerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Rispondi"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rispostaText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/reportBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Torna Indietro"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rispostaText"
+        app:layout_constraintVertical_bias="0.24" />
+</androidx.constraintlayout.widget.ConstraintLayout>

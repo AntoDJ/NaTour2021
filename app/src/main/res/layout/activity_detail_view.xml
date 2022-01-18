@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataTextViewDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/durataSliderDetail" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/descrizioneTextView" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/durataPlaylistSlider"
+        android:id="@+id/durataSliderDetail"
         android:layout_width="150sp"
         android:layout_height="20sp"
         android:layout_marginTop="5sp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/durataTextViewDetail"
         app:thumbColor="#000000"
         app:thumbStrokeColor="#4AB261"
         app:trackColorActive="#4AB261"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltàTextViewDetail"
         app:thumbColor="#000000"
         app:thumbStrokeColor="#4AB261"
         app:trackColorActive="#4AB261"
@@ -134,37 +134,37 @@
         android:id="@+id/durataTextViewDetail"
         android:layout_width="100sp"
         android:layout_height="28sp"
-        android:layout_marginTop="5sp"
+        android:layout_marginTop="8sp"
         android:fontFamily="@font/neuemontreal"
         android:text="Durata: 0.0 ore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataPlaylistSlider" />
+        app:layout_constraintTop_toBottomOf="@+id/nomeTextView" />
 
     <TextView
         android:id="@+id/difficoltàTextViewDetail"
         android:layout_width="100sp"
         android:layout_height="28sp"
-        android:layout_marginTop="5sp"
+        android:layout_marginTop="8sp"
         android:fontFamily="@font/neuemontreal"
         android:text="Difficoltà: 0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltàSliderDetail" />
-
+        app:layout_constraintTop_toBottomOf="@+id/nomeTextView" />
     <FrameLayout
-        android:id="@+id/reportOverlayContainer"
-        android:layout_width="354dp"
-        android:layout_height="379dp"
+        android:id="@+id/detailOverlayContainer"
+        android:layout_width="354sp"
+        android:layout_height="379sp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/reportButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732">
+        app:layout_constraintVertical_bias="0.732"/>
 
-    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

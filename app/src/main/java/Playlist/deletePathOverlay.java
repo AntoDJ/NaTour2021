@@ -1,4 +1,4 @@
-package Search;
+package Playlist;
 
 import android.os.Bundle;
 
@@ -15,10 +15,10 @@ import Controller.Controller;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ReportOverlay#newInstance} factory method to
+ * Use the {@link deletePathOverlay#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReportOverlay extends Fragment {
+public class deletePathOverlay extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,21 +29,14 @@ public class ReportOverlay extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ReportOverlay() {
+    public deletePathOverlay() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment reportOverlay.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static ReportOverlay newInstance(String param1, String param2) {
-        ReportOverlay fragment = new ReportOverlay();
+    public static deletePathOverlay newInstance(String param1, String param2) {
+        deletePathOverlay fragment = new deletePathOverlay();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,16 +56,14 @@ public class ReportOverlay extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view;
-        view=inflater.inflate(R.layout.fragment_report_overlay, container, false);
-        Button esciButton= (Button) view.findViewById(R.id.annullaReportButton);
-        esciButton.setOnClickListener(view1 -> {
-            Controller c = Controller.getInstance();
-            c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+        view= inflater.inflate(R.layout.fragment_delete_path_overlay, container, false);
 
+        Button b1= (Button) view.findViewById(R.id.deletePathNoButton);
+        b1.setOnClickListener(view1 -> {
+            Controller c = Controller.getInstance();
+            c.cleanFragment(getActivity().findViewById(R.id.deletePathContainer));
         });
         return view;
-
     }
 }

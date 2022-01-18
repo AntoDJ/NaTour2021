@@ -16,6 +16,8 @@
         android:background="@drawable/descrizione_bg"
         android:padding="8sp"
         android:hint="Inserisci il nome del sentiero"
+        android:fontFamily="@font/neuemontreal"
+
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -26,6 +28,9 @@
         android:id="@+id/durataDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:fontFamily="@font/neuemontreal"
+
         android:layout_marginTop="28dp"
         android:text="Durata"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:fontFamily="@font/neuemontreal"
+
         android:text="Difficoltà"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.78"
@@ -91,6 +98,8 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Inserisci una descrizione"
+        android:fontFamily="@font/neuemontreal"
+
         android:inputType="textMultiLine"
         android:padding="8sp"
         android:scrollbars="vertical"
@@ -116,11 +125,27 @@
         android:layout_height="wrap_content"
         android:text="Elimina sentiero dalla playlist"
         android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
         app:layout_constraintVertical_bias="0.15" />
+
+    <FrameLayout
+        android:id="@+id/removeFromPlaylistContainer"
+        android:layout_width="361dp"
+        android:layout_height="265dp"
+        android:elevation="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/eliminaSentieroDallaPlaylistButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView"
+        app:layout_constraintVertical_bias="0.5">
+
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

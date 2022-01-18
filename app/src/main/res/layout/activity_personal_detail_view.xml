@@ -121,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/deletePathButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/base_button"
@@ -141,5 +141,18 @@
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modificaSentieroButton" />
+
+    <FrameLayout
+        android:id="@+id/deletePathContainer"
+        android:layout_width="390dp"
+        android:layout_height="262dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namePathPersonalDetailsView"
+        app:layout_constraintVertical_bias="0.166">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

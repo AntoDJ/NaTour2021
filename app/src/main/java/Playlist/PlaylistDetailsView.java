@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -29,7 +30,10 @@ public class PlaylistDetailsView extends AppCompatActivity {
         Slider durataSlider = (Slider) findViewById(R.id.durataPlaylistSlider);
         durataSlider.setValue(5);
 
-
-
+        Button b1 = (Button) findViewById(R.id.eliminaSentieroDallaPlaylistButton);
+        b1.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.removeFromPlaylistOverlay(PlaylistDetailsView.this);
+        });
     }
 }

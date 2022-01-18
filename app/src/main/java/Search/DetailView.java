@@ -34,13 +34,14 @@ public class DetailView extends AppCompatActivity {
 
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
+            Controller c = Controller.getInstance();
+            c.addToPlaylistOverlay(DetailView.this);
         });
 
         Button reportButton=(Button) findViewById(R.id.reportButton);
         reportButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
             c.openReportOverlay(DetailView.this);
-            playlistButton.setEnabled(false);
         });
 
     }

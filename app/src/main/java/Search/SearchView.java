@@ -30,31 +30,75 @@ public class SearchView extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(@NonNull RangeSlider slider) {
-                durataVal.setText("Durata da "+String.valueOf(durataSlider.getValues().get(0))+" a "+String.valueOf(durataSlider.getValues().get(1))+" ore");
+                String temp;
+                if(durataSlider.getValues().get(0).equals(durataSlider.getValues().get(1))){
+                    if (durataSlider.getValues().get(0) - durataSlider.getValues().get(0).intValue() == 0.5) {
+                        durataVal.setText("Durata " + String.valueOf(durataSlider.getValues().get(0).intValue()) + ":30 ore");
+                    } else
+                        durataVal.setText("Durata " + String.valueOf(durataSlider.getValues().get(0).intValue()) + " ore");
+
+                }
+                else {
+                    if (durataSlider.getValues().get(0) - durataSlider.getValues().get(0).intValue() == 0.5) {
+                        temp = "Durata da " + String.valueOf(durataSlider.getValues().get(0).intValue()) + ":30 a ";
+                    } else
+                        temp = "Durata da " + String.valueOf(durataSlider.getValues().get(0).intValue()) + " a ";
+                    if (durataSlider.getValues().get(1) - durataSlider.getValues().get(1).intValue() == 0.5) {
+                        durataVal.setText(temp + String.valueOf(durataSlider.getValues().get(1).intValue()) + ":30 ore");
+                    } else
+                        durataVal.setText(temp + String.valueOf(durataSlider.getValues().get(1).intValue()) + " ore");
+                }
             }
         });
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
-            durataVal.setText("Durata da "+String.valueOf(durataSlider.getValues().get(0))+" a "+String.valueOf(durataSlider.getValues().get(1))+" ore");
+            String temp;
+            if(durataSlider.getValues().get(0).equals(durataSlider.getValues().get(1))){
+                if (durataSlider.getValues().get(0) - durataSlider.getValues().get(0).intValue() == 0.5) {
+                    durataVal.setText("Durata " + String.valueOf(durataSlider.getValues().get(0).intValue()) + ":30 ore");
+                } else
+                    durataVal.setText("Durata " + String.valueOf(durataSlider.getValues().get(0).intValue()) + " ore");
+
+            }
+            else {
+                if (durataSlider.getValues().get(0) - durataSlider.getValues().get(0).intValue() == 0.5) {
+                    temp = "Durata da " + String.valueOf(durataSlider.getValues().get(0).intValue()) + ":30 a ";
+                } else
+                    temp = "Durata da " + String.valueOf(durataSlider.getValues().get(0).intValue()) + " a ";
+                if (durataSlider.getValues().get(1) - durataSlider.getValues().get(1).intValue() == 0.5) {
+                    durataVal.setText(temp + String.valueOf(durataSlider.getValues().get(1).intValue()) + ":30 ore");
+                } else
+                    durataVal.setText(temp + String.valueOf(durataSlider.getValues().get(1).intValue()) + " ore");
+            }
         });
 
-        RangeSlider difficoltàSlider = (RangeSlider) findViewById(R.id.difficoltàSliderSearch);
-        TextView difficoltàVal = (TextView) findViewById(R.id.difficoltàTextViewSearch);
+        RangeSlider difficoltaSlider = (RangeSlider) findViewById(R.id.difficoltàSliderSearch);
+        TextView difficoltaVal = (TextView) findViewById(R.id.difficoltàTextViewSearch);
 
 
-        difficoltàSlider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
+        difficoltaSlider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(@NonNull RangeSlider slider) {
             }
 
             @Override
             public void onStopTrackingTouch(@NonNull RangeSlider slider) {
-                difficoltàVal.setText("Difficoltà da "+String.valueOf(Math.round(difficoltàSlider.getValues().get(0)))+" a "+String.valueOf(Math.round(difficoltàSlider.getValues().get(1))));
+                if(difficoltaSlider.getValues().get(0).equals(difficoltaSlider.getValues().get(1))){
+                    difficoltaVal.setText("Difficoltà " + String.valueOf(Math.round(difficoltaSlider.getValues().get(0))));
+                }
+                else {
+                    difficoltaVal.setText("Difficoltà da " + String.valueOf(Math.round(difficoltaSlider.getValues().get(0))) + " a " + String.valueOf(Math.round(difficoltaSlider.getValues().get(1))));
+                }
             }
         });
 
-        difficoltàSlider.addOnChangeListener((slider, value, fromUser) -> {
-            difficoltàVal.setText("Difficoltà da "+String.valueOf(Math.round(difficoltàSlider.getValues().get(0)))+" a "+String.valueOf(Math.round(difficoltàSlider.getValues().get(1))));
+        difficoltaSlider.addOnChangeListener((slider2, value2, fromUser2) -> {
+            if(difficoltaSlider.getValues().get(0).equals(difficoltaSlider.getValues().get(1))){
+                difficoltaVal.setText("Difficoltà " + String.valueOf(Math.round(difficoltaSlider.getValues().get(0))));
+            }
+            else {
+                difficoltaVal.setText("Difficoltà da " + String.valueOf(Math.round(difficoltaSlider.getValues().get(0))) + " a " + String.valueOf(Math.round(difficoltaSlider.getValues().get(1))));
+            }
         });
 
 

@@ -10,21 +10,21 @@
         android:id="@+id/logoutTextView"
         android:layout_width="338sp"
         android:layout_height="59sp"
-        android:layout_marginTop="30sp"
-        android:textAlignment="center"
         android:fontFamily="@font/neuemontreal"
         android:text="Sei sicuro di voler fare il Logout?"
+        android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125" />
 
     <Button
         android:id="@+id/noLogoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28sp"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="No"
@@ -33,13 +33,12 @@
         app:layout_constraintHorizontal_bias="0.207"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutTextView"
-        app:layout_constraintVertical_bias="0.328" />
+        app:layout_constraintVertical_bias="0.300" />
 
     <Button
         android:id="@+id/YesLogoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28sp"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="Si"
@@ -48,5 +47,5 @@
         app:layout_constraintHorizontal_bias="0.786"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoutTextView"
-        app:layout_constraintVertical_bias="0.328" />
+        app:layout_constraintVertical_bias="0.300" />
 </androidx.constraintlayout.widget.ConstraintLayout>

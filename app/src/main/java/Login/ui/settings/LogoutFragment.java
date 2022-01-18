@@ -12,6 +12,8 @@ import android.widget.Button;
 import com.example.natour2021.R;
 
 import Controller.Controller;
+import Login.HomeView;
+import Login.ui.home.HomeFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +71,7 @@ public class LogoutFragment extends Fragment {
         Button b1 = (Button) view.findViewById(R.id.noLogoutButton);
         b1.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();
-            c.cleanFragment(getActivity().findViewById(R.id.settingsContainer));
+            c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
         });
         return view;
     }

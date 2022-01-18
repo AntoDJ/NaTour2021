@@ -36,7 +36,7 @@ private FragmentSettingsBinding binding;
         Button b1= (Button) root.findViewById(R.id.LogoutButton);
         b1.setOnClickListener(view ->{
              Controller c = Controller.getInstance();
-             c.logoutOverlay(SettingsFragment.this,((HomeView)getActivity()));
+             c.logoutSettingsOverlay(((HomeView)getActivity()));
         });
         return root;
     }

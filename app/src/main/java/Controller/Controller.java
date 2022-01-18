@@ -64,7 +64,7 @@ public class Controller {
         homeFragment.startActivity(i);
     }
 
-    public static void cleanFragment(FrameLayout frameLayout){
+    public void cleanFragment(FrameLayout frameLayout){
         frameLayout.removeAllViews();
     }
 
@@ -146,7 +146,6 @@ public class Controller {
     }
 
 
-
     public void openReportOverlay(DetailView detailView){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -163,13 +162,12 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void logoutOverlay(SettingsFragment settingsFragment, HomeView homeview){
+    public void logoutSettingsOverlay(HomeView homeview){
         FragmentManager fragmentManager = homeview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         LogoutFragment logoutoverlay = new LogoutFragment();
         fragmentTransaction.add(R.id.settingsContainer, logoutoverlay, null);
         fragmentTransaction.commit();
-
     }
 
     public void removeFromPlaylistOverlay(PlaylistDetailsView playlistdetailsview){
@@ -185,6 +183,14 @@ public class Controller {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         deletePathOverlay deletepathoverlay = new deletePathOverlay();
         fragmentTransaction.add(R.id.deletePathContainer, deletepathoverlay, null);
+        fragmentTransaction.commit();
+    }
+
+    public void logoutOverlay(HomeView homeview){
+        FragmentManager fragmentManager = homeview.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        LogoutFragment logoutoverlay = new LogoutFragment();
+        fragmentTransaction.add(R.id.homeFrameContainer, logoutoverlay, null);
         fragmentTransaction.commit();
     }
 }

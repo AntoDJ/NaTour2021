@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
@@ -14,6 +15,7 @@ import com.example.natour2021.R;
 import Controller.Controller;
 
 public class LoginView extends AppCompatActivity {
+    private int backButtonCount=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,5 +40,19 @@ public class LoginView extends AppCompatActivity {
             c.userRegistration(LoginView.this);
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backButtonCount >= 1)
+        {
+            backButtonCount=0;
+            finish();
+        }
+        else
+        {
+            Toast.makeText(this, "Premi indietro di nuovo per chiudere l'app", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
     }
 }

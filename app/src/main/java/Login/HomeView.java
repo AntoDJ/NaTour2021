@@ -3,6 +3,7 @@ package Login;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.example.natour2021.databinding.ActivityNavigationBinding;
@@ -15,8 +16,11 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import Controller.Controller;
+
 
 public class HomeView extends AppCompatActivity {
+    private int backButtonCount=0;
 
     private AppBarConfiguration mAppBarConfiguration;
 private ActivityNavigationBinding binding;
@@ -55,5 +59,20 @@ private ActivityNavigationBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backButtonCount >= 1)
+        {
+            backButtonCount=0;
+            Controller c = Controller.getInstance();
+            c.logoutOverlay(HomeView.this);
+        }
+        else
+        {
+            Toast.makeText(this, "Premi indietro di nuovo per chiudere l'app", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
     }
 }

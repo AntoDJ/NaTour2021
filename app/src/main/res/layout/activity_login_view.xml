@@ -137,10 +137,11 @@
 
     <FrameLayout
         android:id="@+id/passwordOverlayContainer"
-        android:layout_width="344sp"
-        android:layout_height="358sp"
+        android:layout_width="347sp"
+        android:layout_height="356sp"
         android:layout_marginTop="8sp"
         android:layout_marginBottom="8sp"
+        android:elevation="10sp"
         app:layout_constraintBottom_toTopOf="@+id/accediButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"

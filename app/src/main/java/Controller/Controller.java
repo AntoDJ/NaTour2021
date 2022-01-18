@@ -69,8 +69,11 @@ public class Controller {
     }
 
     public void openInsertPath(CreateView createView){
-        Intent i = new Intent(createView, MapView.class);
-        createView.startActivity(i);
+        FragmentManager fragmentManager = createView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapViewFragment mapViewFragment = new MapViewFragment();
+        fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
+        fragmentTransaction.commit();
     }
     public void resultView(SearchView searchView){
         Intent i = new Intent(searchView, ResultView.class);
@@ -192,5 +195,9 @@ public class Controller {
         LogoutFragment logoutoverlay = new LogoutFragment();
         fragmentTransaction.add(R.id.homeFrameContainer, logoutoverlay, null);
         fragmentTransaction.commit();
+    }
+
+    public void createPath() {
+
     }
 }

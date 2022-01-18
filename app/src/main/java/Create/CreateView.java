@@ -17,6 +17,7 @@ public class CreateView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_view);
+        Controller c = Controller.getInstance();
 
         Slider durataSlider = (Slider) findViewById(R.id.durataPlaylistSlider);
         Slider difficoltaSlider = (Slider) findViewById(R.id.difficoltaPlaylistSlider);
@@ -41,8 +42,12 @@ public class CreateView extends AppCompatActivity {
 
         Button inserisciTracciatoButton = (Button) findViewById(R.id.inserisciTracciatoButton);
         inserisciTracciatoButton.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
             c.openInsertPath(CreateView.this);
+        });
+
+        Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
+        creaSentiero.setOnClickListener(view -> {
+            c.createPath();
         });
     }
 }

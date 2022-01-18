@@ -47,9 +47,6 @@
             android:name="Search.ResultView"
             android:exported="false" />
         <activity
-            android:name="Create.MapView"
-            android:exported="false" />
-        <activity
             android:name="Create.CreateView"
             android:exported="false" />
         <activity

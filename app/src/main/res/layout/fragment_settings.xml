@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="410sp"
+        android:layout_width="wrap_content"
         android:layout_height="46sp"
         android:layout_marginTop="116sp"
         android:fontFamily="@font/neuemontreal"
@@ -47,7 +47,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -8,7 +8,7 @@ public class DBConnection {
     private static DBConnection instance;
     private Connection connection=null;
     private final String USERNAME = "postgres";
-    private final String PASSWORD = "password";
+    private final String PASSWORD = "i32jd9021kew94m";
     private final String url = "jdbc:postgresql://natourdb.cutwttntztpd.eu-west-2.rds.amazonaws.com:5432/postgres";
 
 

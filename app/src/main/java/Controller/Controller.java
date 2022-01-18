@@ -3,6 +3,7 @@ package Controller;
 import android.content.Intent;
 import android.media.tv.TvContract;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -23,9 +24,11 @@ import Login.ui.settings.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
+import UtenteDAO.UtenteDAO;
 
 
 public class Controller {
+    UtenteDAO utenteDAO = new UtenteDAO();
     //Singleton
     private static Controller instance;
     private Controller() {}
@@ -44,6 +47,11 @@ public class Controller {
     public void userRegistration(LoginView loginView){
         Intent i = new Intent(loginView, RegistrationView.class);
         loginView.startActivity(i);
+    }
+
+    public void registraUtente(String email, String password){
+        User utente = new User(email,password);
+        utenteDAO.registraUnUtente(email, password);
     }
 
     public void openForgotPasswordOverlay(LoginView loginView){

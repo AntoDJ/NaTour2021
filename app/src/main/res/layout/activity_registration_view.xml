@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <EditText
         android:id="@+id/emailPlainText"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordRegistrationPlainText" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/registrationButton"
         android:layout_width="270sp"
         android:layout_height="50sp"
         android:background="@drawable/base_button"
@@ -121,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/logoImageView"
         android:layout_width="151sp"
         android:layout_height="241sp"
         app:layout_constraintEnd_toEndOf="parent"

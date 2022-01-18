@@ -10,21 +10,21 @@
         android:id="@+id/textView4"
         android:layout_width="284sp"
         android:layout_height="49sp"
-        android:layout_marginTop="100dp"
         android:fontFamily="@font/neuemontreal"
         android:text="Sei sicuro di voler rimuovere il sentiero dalla playlist? "
         android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/removePlaylistNoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44sp"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="No"
@@ -33,13 +33,12 @@
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.257" />
+        app:layout_constraintVertical_bias="0.500" />
 
     <Button
         android:id="@+id/removePlaylistYesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44sp"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="Si"
@@ -48,5 +47,5 @@
         app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.259" />
+        app:layout_constraintVertical_bias="0.500" />
 </androidx.constraintlayout.widget.ConstraintLayout>

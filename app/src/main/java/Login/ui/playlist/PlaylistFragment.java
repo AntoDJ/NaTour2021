@@ -61,8 +61,4 @@ public class PlaylistFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-
-
-
 }

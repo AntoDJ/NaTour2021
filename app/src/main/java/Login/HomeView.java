@@ -66,6 +66,7 @@ private ActivityNavigationBinding binding;
         if(backButtonCount >= 1)
         {
             backButtonCount=0;
+
             Controller c = Controller.getInstance();
             c.logoutOverlay(HomeView.this);
         }

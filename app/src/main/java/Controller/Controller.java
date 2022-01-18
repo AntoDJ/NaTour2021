@@ -165,14 +165,6 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void logoutSettingsOverlay(HomeView homeview){
-        FragmentManager fragmentManager = homeview.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        LogoutFragment logoutoverlay = new LogoutFragment();
-        fragmentTransaction.add(R.id.settingsContainer, logoutoverlay, null);
-        fragmentTransaction.commit();
-    }
-
     public void removeFromPlaylistOverlay(PlaylistDetailsView playlistdetailsview){
         FragmentManager fragmentManager = playlistdetailsview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -193,7 +185,7 @@ public class Controller {
         FragmentManager fragmentManager = homeview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         LogoutFragment logoutoverlay = new LogoutFragment();
-        fragmentTransaction.add(R.id.homeFrameContainer, logoutoverlay, null);
+        fragmentTransaction.add(R.id.HomeContainer, logoutoverlay, null);
         fragmentTransaction.commit();
     }
 

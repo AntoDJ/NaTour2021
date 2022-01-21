@@ -46,7 +46,6 @@ public class Controller {
 
     public void registraUtente(String email, String password){
         User utente = new User(email,password);
-        utenteDAO.registraUnUtente(utente);
     }
 
     public void openForgotPasswordOverlay(LoginView loginView){

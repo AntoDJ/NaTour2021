@@ -2,11 +2,12 @@ package Entity;
 
 import android.provider.ContactsContract;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Path {
     private String nomeSentiero;
-    private String coordinate;
+    private ArrayList<String> coordinate;
     private String puntoIniziale;
     private int difficolta;
     private float durata;
@@ -16,7 +17,7 @@ public class Path {
     private String creatore;
 
 
-    public Path(String nomeSentiero, String coordinate, String puntoIniziale,
+    public Path(String nomeSentiero, ArrayList<String> coordinate, String puntoIniziale,
                 int difficolta, float durata, String descrizione, boolean accessibilitaDisabili, Date dataModifica, String creatore) {
         this.nomeSentiero = nomeSentiero;
         this.coordinate = coordinate;
@@ -46,11 +47,11 @@ public class Path {
         this.nomeSentiero = nomeSentiero;
     }
 
-    public String getCoordinate() {
+    public ArrayList<String> getCoordinate() {
         return coordinate;
     }
 
-    public void setCoordinate(String coordinate) {
+    public void setCoordinate(ArrayList<String> coordinate) {
         this.coordinate = coordinate;
     }
 
@@ -70,7 +71,7 @@ public class Path {
         this.difficolta = difficolta;
     }
 
-    public double getDurata() {
+    public float getDurata() {
         return durata;
     }
 

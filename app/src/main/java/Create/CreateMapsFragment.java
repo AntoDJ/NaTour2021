@@ -17,9 +17,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CreateMapsFragment extends Fragment {
+    private static int i=1;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -38,6 +40,17 @@ public class CreateMapsFragment extends Fragment {
             CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
             googleMap.moveCamera(cameraUpdate);
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+                @Override
+                public void onMapClick(@NonNull LatLng latLng) {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title("Punto "+i++);
+                    Marker marker= googleMap.addMarker(markerOptions);
+                    MapViewFragment.addMarker(marker);
+                }
+            });
         }
     };
 
@@ -57,5 +70,10 @@ public class CreateMapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    public static void removeCoordinata(Marker coordinata){
+        coordinata.remove();
+        i--;
     }
 }

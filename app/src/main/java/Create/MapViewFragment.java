@@ -4,12 +4,16 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.natour2021.R;
+import com.google.android.gms.maps.model.Marker;
+
+import java.util.ArrayList;
 
 import Controller.Controller;
 
@@ -19,7 +23,7 @@ import Controller.Controller;
  * create an instance of this fragment.
  */
 public class MapViewFragment extends Fragment {
-
+    private static ArrayList<Marker> coordinate = new ArrayList<Marker>();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,17 +34,9 @@ public class MapViewFragment extends Fragment {
     private String mParam2;
 
     public MapViewFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MapViewFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static MapViewFragment newInstance(String param1, String param2) {
         MapViewFragment fragment = new MapViewFragment();
@@ -67,10 +63,26 @@ public class MapViewFragment extends Fragment {
         Controller c = Controller.getInstance();
         view = inflater.inflate(R.layout.fragment_map_view, container, false);
 
+        Button annullaPuntoButton = (Button) view.findViewById(R.id.annullaUltimoPuntoButton);
+        annullaPuntoButton.setOnClickListener(view1 -> {
+            CreateMapsFragment.removeCoordinata(coordinate.get(coordinate.size()-1));
+            coordinate.remove(coordinate.size()-1);
+        });
+
         Button insertPathButton = (Button) view.findViewById(R.id.confermaTracciatoButton);
         insertPathButton.setOnClickListener(view1 -> {
-            c.cleanFragment(getActivity().findViewById(R.id.mapViewContainer));
+            ArrayList<String> temp= new ArrayList<>();
+            for(Marker m:coordinate){
+                temp.add(m.getPosition().latitude+" "+m.getPosition().longitude);
+            }
+            ((CreateView)getActivity()).setCoordinate(temp);
+            c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
         });
         return view;
     }
+
+    public static void addMarker(Marker marker){
+        coordinate.add(marker);
+    }
+
 }

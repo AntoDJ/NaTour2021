@@ -1,6 +1,7 @@
 package Controller;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.FragmentManager;
@@ -77,15 +78,6 @@ public class Controller {
         fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
         fragmentTransaction.commit();
     }
-    public void resultView(SearchView searchView){
-        Intent i = new Intent(searchView, ResultView.class);
-        searchView.startActivity(i);
-    }
-
-    public void detailView(ResultView resultView){
-        Intent i = new Intent(resultView, DetailView.class);
-        resultView.startActivity(i);
-    }
 
     //Mi salvo il nome della playlist se può servire dopo
     public String playlist;
@@ -103,8 +95,6 @@ public class Controller {
         ArrayList<Path> path = new ArrayList<>();
         path.add(p1);
         path.add(p2);
-
-
         //Scrivere codice che si collega al db per prendere i sentieri della playlist
         return path;
     }
@@ -140,7 +130,7 @@ public class Controller {
     }
 
 
-    public Path getAllDetailsOfPath(){
+    public Path getAllDetailsOfPath(String nomesentiero){
         //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
         return new Path();
     }
@@ -191,7 +181,83 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void createPath() {
+    public void createPath(String nome, String descrizione, float durata, float difficoltà, boolean access, String puntoiniziale, ArrayList<String> coordinate) {
+        //insert nel db con la roba sopra bisogna mettere i controlli da qualche parte non so se possiamo farlo tramite DB
+        Log.i("nome",nome);
+        Log.i("descrizione",descrizione);
+        Log.i("durata", String.valueOf(durata));
+        Log.i("difficolta",String.valueOf(difficoltà));
+        Log.i("access", String.valueOf(access));
+        Log.i("puntoinziiale",puntoiniziale);
+        int i=1;
+        for(String s: coordinate){
+            Log.i("punto "+i++,s);
+        }
+    }
 
+    public void searchPaths(SearchView searchView, float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
+        ArrayList<Path> sentierifiltrati = this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
+
+        //sentieri temporanei
+        Path p1 = new Path("Sentiero1",null, "40.956116 14.530439",3, 3.5f,null,true,null,"utente1");
+        Path p2 = new Path("Sentiero2",null, "41.255365 14.035338",3, 5f,null,true,null,"utente2");
+        Path p3 = new Path("Sentiero3",null, "41.136097 14.932931",3, 6f,null,true,null,"utente3");
+        sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3);
+        if(sentierifiltrati.size()==0){
+            Log.i("errore","Non esistono sentieri ");
+            //metodo errore nella view
+        }
+        else{
+            ArrayList<String> nomisentieri= new ArrayList<>();
+            ArrayList<String> puntiiniziali= new ArrayList<>();
+            ArrayList<Integer> difficoltasentieri= new ArrayList<>();
+            float[] duratasentieri = new float[sentierifiltrati.size()];
+            int i=0;
+            for (Path p: sentierifiltrati){
+                nomisentieri.add(p.getNomeSentiero());
+                puntiiniziali.add(p.getPuntoIniziale());
+                difficoltasentieri.add(p.getDifficolta());
+                duratasentieri[i++]=p.getDurata();
+            }
+            this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
+        }
+
+    }
+
+    private ArrayList<Path> getFilteredPaths(float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
+        ArrayList<Path> sentierifiltrati = new ArrayList<>();
+        //query per prendere i sentieri secondo questi campi dal database
+        return sentierifiltrati;
+
+    }
+
+    private void resultView(SearchView searchView, ArrayList<String> nomisentieri, ArrayList<String> puntiiniziali, ArrayList<Integer> difficoltasentieri, float[] duratasentieri) {
+        Intent i = new Intent(searchView, ResultView.class);
+        i.putExtra("Nomi", nomisentieri);
+        i.putExtra("PuntiIniziali", puntiiniziali);
+        i.putExtra("Difficoltà", difficoltasentieri);
+        i.putExtra("Durate", duratasentieri);
+        searchView.startActivity(i);
+    }
+
+    public void detailView(String title, ResultView resultView) {
+        //Query per i dettagli del sentiero
+        Path p1 = this.getAllDetailsOfPath(title);
+        //sentiero temporaneo per vedere se funziona tutto
+        ArrayList<String>coordinate = new ArrayList<>();
+        coordinate.add("41.255365 14.035338");
+        coordinate.add("41.136097 14.932931");
+        p1 = new Path(title,coordinate, "40.956116 14.530439",3, 3.5f,"che buona questa cadrega",true,null,"utente1");
+        Intent i = new Intent(resultView, DetailView.class);
+        i.putExtra("nomesentiero", p1.getNomeSentiero());
+        i.putExtra("coordinate", p1.getCoordinate());
+        i.putExtra("puntoiniziale", p1.getPuntoIniziale());
+        i.putExtra("difficolta", p1.getDifficolta());
+        i.putExtra("durata", p1.getDurata());
+        i.putExtra("descrizione", p1.getDescrizione());
+        i.putExtra("accessibilita", p1.isAccessibilitaDisabili());
+        i.putExtra("datamodifica", p1.getDataModifica());
+        i.putExtra("creatore", "utente1");
+        resultView.startActivity(i);
     }
 }

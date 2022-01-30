@@ -4,14 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.natour2021.R;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.slider.Slider;
+
+import java.util.ArrayList;
 
 import Controller.Controller;
 
 public class CreateView extends AppCompatActivity {
+    private ArrayList<String> coordinate= new ArrayList<>();
+    private String puntoiniziale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,9 @@ public class CreateView extends AppCompatActivity {
 
         TextView durataTextView = (TextView) findViewById(R.id.durataTextView);
         TextView difficoltaTextView = (TextView) findViewById(R.id.difficoltaTextView);
+        EditText nomeEditText = (EditText) findViewById(R.id.namePathTextView);
+        EditText descrizioneEditText = (EditText) findViewById(R.id.descrizionePlainText);
+        CheckBox accessibilitaCB = (CheckBox) findViewById((R.id.AccessibilitaCheckBox));
 
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
@@ -38,8 +48,6 @@ public class CreateView extends AppCompatActivity {
             difficoltaTextView.setText("Difficoltà: " + String.valueOf(difficoltaSlider.getValue()));
         });
 
-
-
         Button inserisciTracciatoButton = (Button) findViewById(R.id.inserisciTracciatoButton);
         inserisciTracciatoButton.setOnClickListener(view -> {
             c.openInsertPath(CreateView.this);
@@ -47,7 +55,15 @@ public class CreateView extends AppCompatActivity {
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
-            c.createPath();
+            c.createPath(nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoiniziale, coordinate);
         });
+    }
+
+    public void setCoordinate(ArrayList<String> coor){
+        if(coor.size()!=0){
+            puntoiniziale=coor.get(0);
+            coor.remove(0);
+            coordinate=coor;
+        }
     }
 }

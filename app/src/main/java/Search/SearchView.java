@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.natour2021.R;
@@ -14,6 +15,11 @@ import Controller.Controller;
 
 
 public class SearchView extends AppCompatActivity {
+    private static String posizione;
+
+    public static void setPosizione(String pos) {
+        posizione= pos;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +107,11 @@ public class SearchView extends AppCompatActivity {
             }
         });
 
-
+        CheckBox access = (CheckBox) findViewById(R.id.accessibilitàCheckBoxSearch);
         Button cercaButton=(Button) findViewById(R.id.searchButton);
         cercaButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
-            c.resultView(SearchView.this);
+            c.searchPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
         });
     }
-
-
 }

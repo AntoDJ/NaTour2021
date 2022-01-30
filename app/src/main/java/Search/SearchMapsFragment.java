@@ -41,7 +41,7 @@ public class SearchMapsFragment extends Fragment {
                     markerOptions.title("Cerco i sentieri attorno questo punto.");
                     googleMap.clear();
                     Marker marker = googleMap.addMarker(markerOptions);
-                    SearchView.setPosizione(marker.getPosition().latitude+" "+marker.getPosition().longitude);
+                    ((SearchView)getActivity()).setPosizione(marker.getPosition().latitude+" "+marker.getPosition().longitude);
                 }
             });
         }

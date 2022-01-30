@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Controller.Controller;
@@ -37,12 +38,15 @@ public class ResultMapsFragment extends Fragment {
             MarkerOptions markerOptions = new MarkerOptions();
             ArrayList<String> nomi = ((ResultView)getActivity()).getNomi();
             ArrayList<String> posizioni = ((ResultView)getActivity()).getPosizioni();
+            ArrayList<Integer> difficolta = ((ResultView)getActivity()).getDifficolta();
+            float[] durate = ((ResultView)getActivity()).getDurate();
             for(int i=0; i<nomi.size(); i++){
                 String parts[]= posizioni.get(i).split(" ", 2);
                 LatLng latlng= new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
                 markerOptions.position(latlng);
                 markerOptions.title(nomi.get(i));
-                Marker marker= googleMap.addMarker(markerOptions);
+                markerOptions.snippet("Durata: "+durate[i]+" ore Difficoltà: "+difficolta.get(i));
+                googleMap.addMarker(markerOptions);
             }
             googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override

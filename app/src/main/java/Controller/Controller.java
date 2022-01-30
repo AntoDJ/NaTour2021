@@ -130,11 +130,6 @@ public class Controller {
     }
 
 
-    public Path getAllDetailsOfPath(String nomesentiero){
-        //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
-        return new Path();
-    }
-
     public Path getAllDetailsOfPersonalPath(){
         //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
         return new Path();
@@ -221,7 +216,6 @@ public class Controller {
             }
             this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
         }
-
     }
 
     private ArrayList<Path> getFilteredPaths(float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
@@ -259,5 +253,10 @@ public class Controller {
         i.putExtra("datamodifica", p1.getDataModifica());
         i.putExtra("creatore", "utente1");
         resultView.startActivity(i);
+    }
+
+    public Path getAllDetailsOfPath(String nomesentiero){
+        //chiamata  al db che restituisce i dettagli del sentiero secondo nomesentiero
+        return new Path();
     }
 }

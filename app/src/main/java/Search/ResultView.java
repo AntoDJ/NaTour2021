@@ -9,13 +9,16 @@ import android.widget.Button;
 
 import com.example.natour2021.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Controller.Controller;
 
 public class ResultView extends AppCompatActivity {
     private ArrayList<String> Nomi;
-    private  ArrayList<String> Posizioni;
+    private ArrayList<String> Posizioni;
+    private ArrayList<Integer> difficolta;
+    private float[] durate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class ResultView extends AppCompatActivity {
         Intent intent = getIntent();
         Nomi= intent.getStringArrayListExtra("Nomi");
         Posizioni = intent.getStringArrayListExtra("PuntiIniziali");
+        difficolta = intent.getIntegerArrayListExtra("Difficoltà");
+        durate = intent.getFloatArrayExtra("Durate");
     }
 
     public ArrayList<String> getNomi(){
@@ -33,6 +38,10 @@ public class ResultView extends AppCompatActivity {
     public  ArrayList<String> getPosizioni(){
         return Posizioni;
     }
+
+    public ArrayList<Integer> getDifficolta() { return difficolta;}
+
+    public float[] getDurate() {return durate;}
 
     public void markerclicked(String title) {
         Controller c = Controller.getInstance();

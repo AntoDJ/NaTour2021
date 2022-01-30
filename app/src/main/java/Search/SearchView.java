@@ -15,9 +15,9 @@ import Controller.Controller;
 
 
 public class SearchView extends AppCompatActivity {
-    private static String posizione;
+    private String posizione;
 
-    public static void setPosizione(String pos) {
+    public void setPosizione(String pos) {
         posizione= pos;
     }
 

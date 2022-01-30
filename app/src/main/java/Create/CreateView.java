@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.natour2021.R;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class CreateView extends AppCompatActivity {
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
-            c.createPath(nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoiniziale, coordinate);
+            c.createPath(this,nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoiniziale, coordinate);
         });
     }
 

@@ -1,5 +1,8 @@
 package Search;
 
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_BLUE;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -27,26 +31,27 @@ public class DetailMapsFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng latLng= new LatLng(41.8,12.7);
-            CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
-            CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
-            googleMap.moveCamera(cameraUpdate);
             MarkerOptions markerOptions = new MarkerOptions();
             String puntoiniziale = ((DetailView)getActivity()).getPuntoIniziale();
             String part[]= puntoiniziale.split(" ", 2);
             LatLng latlng= new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(9.0f).build();
+            CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
+            googleMap.moveCamera(cameraUpdate);
             markerOptions.position(latlng);
-            markerOptions.title("puntoiniziale");
-            Marker marker= googleMap.addMarker(markerOptions);
+            markerOptions.title("Punto iniziale");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_BLUE));
+            googleMap.addMarker(markerOptions);
             ArrayList<String> coordinate = ((DetailView)getActivity()).getCoordinate();
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_RED));
+            int i=2;
             if(!coordinate.isEmpty()){
                 for(String s:coordinate){
                     part= s.split(" ", 2);
                     latlng=new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));
                     markerOptions.position(latlng);
-                    markerOptions.title("");
-                    marker= googleMap.addMarker(markerOptions);
-
+                    markerOptions.title("Punto "+i++);
+                    googleMap.addMarker(markerOptions);
                 }
             }
 

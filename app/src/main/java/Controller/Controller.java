@@ -1,6 +1,7 @@
 package Controller;
 
 import android.content.Intent;
+import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
 import android.widget.FrameLayout;
 
@@ -176,7 +177,7 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void createPath(String nome, String descrizione, float durata, float difficoltà, boolean access, String puntoiniziale, ArrayList<String> coordinate) {
+    public void createPath(CreateView createView,String nome, String descrizione, float durata, float difficoltà, boolean access, String puntoiniziale, ArrayList<String> coordinate) {
         //insert nel db con la roba sopra bisogna mettere i controlli da qualche parte non so se possiamo farlo tramite DB
         Log.i("nome",nome);
         Log.i("descrizione",descrizione);
@@ -188,6 +189,7 @@ public class Controller {
         for(String s: coordinate){
             Log.i("punto "+i++,s);
         }
+        createView.finish();
     }
 
     public void searchPaths(SearchView searchView, float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
@@ -220,6 +222,11 @@ public class Controller {
 
     private ArrayList<Path> getFilteredPaths(float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
         ArrayList<Path> sentierifiltrati = new ArrayList<>();
+        /*    accessibilità ricerca     accessiblità del sentiero    risultato
+        // bisogna ritornare solo nome sentiero, punto iniziale, durata e difficoltà
+            false                        *                              true
+            true                         true                           true
+            true                         false                          false*/
         //query per prendere i sentieri secondo questi campi dal database
         return sentierifiltrati;
 

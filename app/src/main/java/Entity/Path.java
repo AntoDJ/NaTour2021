@@ -38,6 +38,13 @@ public class Path {
         this.durata = durata;
     }
 
+    public Path(String nomeSentiero, int difficolta, float durata, String puntoiniziale) {
+        this.nomeSentiero = nomeSentiero;
+        this.difficolta = difficolta;
+        this.durata = durata;
+        this.puntoIniziale = puntoiniziale;
+    }
+
 
     public String getNomeSentiero() {
         return nomeSentiero;

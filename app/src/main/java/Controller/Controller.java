@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
 
+import DAO.PathDAO;
+import DAO.RetrofitIstance;
 import Login.*;
 import java.util.ArrayList;
 
@@ -22,9 +24,16 @@ import Playlist.*;
 import Search.*;
 import Create.*;
 import DAO.UtenteDAO;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class Controller {
+    PathDAO pathDAO;
+
+
     UtenteDAO utenteDAO = new UtenteDAO();
     //Singleton
     private static Controller instance;
@@ -37,6 +46,10 @@ public class Controller {
     }
 
     public void userLogin(LoginView loginView){
+        //Cose per retrofit, poi nel caso le togliamo da qua
+        Retrofit retrofit = RetrofitIstance.getIstanza();
+        pathDAO = retrofit.create(PathDAO.class);
+
         Intent i = new Intent(loginView, HomeView.class);
         loginView.startActivity(i);
     }
@@ -196,9 +209,9 @@ public class Controller {
         ArrayList<Path> sentierifiltrati = this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
 
         //sentieri temporanei
-        Path p1 = new Path("Sentiero1",null, "40.956116 14.530439",3, 3.5f,null,true,null,"utente1");
-        Path p2 = new Path("Sentiero2",null, "41.255365 14.035338",3, 5f,null,true,null,"utente2");
-        Path p3 = new Path("Sentiero3",null, "41.136097 14.932931",3, 6f,null,true,null,"utente3");
+        Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, 3.5f,null,true,null,"utente1");
+        Path p2 = new Path("sentiero2",null, "41.255365 14.035338",3, 5f,null,true,null,"utente2");
+        Path p3 = new Path("sentiero3",null, "41.136097 14.932931",3, 6f,null,true,null,"utente3");
         sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3);
         if(sentierifiltrati.size()==0){
             Log.i("errore","Non esistono sentieri ");
@@ -245,10 +258,10 @@ public class Controller {
         //Query per i dettagli del sentiero
         Path p1 = this.getAllDetailsOfPath(title);
         //sentiero temporaneo per vedere se funziona tutto
-        ArrayList<String>coordinate = new ArrayList<>();
-        coordinate.add("41.255365 14.035338");
-        coordinate.add("41.136097 14.932931");
-        p1 = new Path(title,coordinate, "40.956116 14.530439",3, 3.5f,"che buona questa cadrega",true,null,"utente1");
+        //ArrayList<String>coordinate = new ArrayList<>();
+        //coordinate.add("41.255365 14.035338");
+        //coordinate.add("41.136097 14.932931");
+        //p1 = new Path(title,coordinate, "40.956116 14.530439",3, 3.5f,"che buona questa cadrega",true,null,"utente1");
         Intent i = new Intent(resultView, DetailView.class);
         i.putExtra("nomesentiero", p1.getNomeSentiero());
         i.putExtra("coordinate", p1.getCoordinate());
@@ -262,8 +275,22 @@ public class Controller {
         resultView.startActivity(i);
     }
 
-    public Path getAllDetailsOfPath(String nomesentiero){
+    public Path getAllDetailsOfPath(String nomeSentiero){
         //chiamata  al db che restituisce i dettagli del sentiero secondo nomesentiero
-        return new Path();
+        final Path[] path = new Path[1];
+
+        Call<Path> call = pathDAO.getPathByName(nomeSentiero);
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                path[0] = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+
+            }
+        });
+        return path[0];
     }
 }

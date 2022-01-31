@@ -2,18 +2,37 @@ package Entity;
 
 import android.provider.ContactsContract;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Path {
+    @SerializedName("NomeSentiero")
     private String nomeSentiero;
+
+    @SerializedName("Coordinate")
     private ArrayList<String> coordinate;
+
+    @SerializedName("Punto Iniziale")
     private String puntoIniziale;
+
+    @SerializedName("Difficoltà")
     private int difficolta;
+
+    @SerializedName("durata")
     private float durata;
+
+    @SerializedName("Descrizione")
     private String descrizione;
+
+    @SerializedName("Accessibilità")
     private boolean accessibilitaDisabili;
+
+    @SerializedName("Data Modifica")
     private Date dataModifica;
+
+    @SerializedName("Creatore")
     private String creatore;
 
 
@@ -108,5 +127,21 @@ public class Path {
 
     public void setDataModifica(Date dataModifica) {
         this.dataModifica = dataModifica;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Path{" +
+                "nomeSentiero='" + nomeSentiero + '\'' +
+                ", coordinate=" + coordinate +
+                ", puntoIniziale='" + puntoIniziale + '\'' +
+                ", difficolta=" + difficolta +
+                ", durata=" + durata +
+                ", descrizione='" + descrizione + '\'' +
+                ", accessibilitaDisabili=" + accessibilitaDisabili +
+                ", dataModifica=" + dataModifica +
+                ", creatore='" + creatore + '\'' +
+                '}';
     }
 }

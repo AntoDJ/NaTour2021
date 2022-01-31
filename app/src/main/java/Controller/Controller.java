@@ -23,7 +23,7 @@ import Login.ui.settings.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
-import DAO.UtenteDAO;
+import DAO.*;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -206,13 +206,15 @@ public class Controller {
     }
 
     public void searchPaths(SearchView searchView, float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
-        ArrayList<Path> sentierifiltrati = this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
+        ArrayList<Path> sentierifiltrati = new ArrayList<>();
+                //this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
 
         //sentieri temporanei
-        //Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, 3.5f,null,true,null,"utente1");
-        //Path p2 = new Path("sentiero2",null, "41.255365 14.035338",3, 5f,null,true,null,"utente2");
-        //Path p3 = new Path("sentiero3",null, "41.136097 14.932931",3, 6f,null,true,null,"utente3");
-       // sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3);
+        Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, null,true,null,"utente1",3.5f);
+        Path p2 = new Path("sentiero2",null, "41.255365 14.035338",1, null,true,null,"utente2",5f);
+        Path p3 = new Path("sentiero3",null, "41.136097 14.932931",5, null,true,null,"utente3",6f);
+        Path p4 = new Path("sentiero4",null, "41.536097 14.432931",7, null,true,null,"utente3",9.5f);
+        sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3); sentierifiltrati.add(p4);
         if(sentierifiltrati.size()==0){
             Log.i("errore","Non esistono sentieri ");
             //metodo errore nella view
@@ -221,13 +223,13 @@ public class Controller {
             ArrayList<String> nomisentieri= new ArrayList<>();
             ArrayList<String> puntiiniziali= new ArrayList<>();
             ArrayList<Integer> difficoltasentieri= new ArrayList<>();
-            float[] duratasentieri = new float[sentierifiltrati.size()];
+            float[] duratasentieri= new float[sentierifiltrati.size()];
             int i=0;
             for (Path p: sentierifiltrati){
                 nomisentieri.add(p.getNomeSentiero());
                 puntiiniziali.add(p.getPuntoIniziale());
                 difficoltasentieri.add(p.getDifficolta());
-                //duratasentieri[i++]=p.getDurata();
+                duratasentieri[i++]=p.getDurata();
             }
             this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
         }
@@ -258,21 +260,20 @@ public class Controller {
         //Query per i dettagli del sentiero
         Path p1 = this.getAllDetailsOfPath(title);
         //sentiero temporaneo per vedere se funziona tutto
-        //ArrayList<String>coordinate = new ArrayList<>();
-        //coordinate.add("41.255365 14.035338");
-        //coordinate.add("41.136097 14.932931");
-        //p1 = new Path(title,coordinate, "40.956116 14.530439",3, 3.5f,"che buona questa cadrega",true,null,"utente1");
-        Intent i = new Intent(resultView, DetailView.class);
+        Float durata = 3.5f;
+        Boolean access = true;
+        Integer difficolta = 3;
+        //Path p1 = new Path(title,"41.255365 14.035338 41.136097 14.932931", "40.956116 14.530439",difficolta, "che buona questa cadrega",access,null,"utente1",durata);
+        /*Intent i = new Intent(resultView, DetailView.class);
         i.putExtra("nomesentiero", p1.getNomeSentiero());
-        i.putExtra("coordinate", p1.getCoordinate());
+        i.putExtra("coordinate", p1.getCoordinateAsArray());
         i.putExtra("puntoiniziale", p1.getPuntoIniziale());
         i.putExtra("difficolta", p1.getDifficolta());
         i.putExtra("durata", p1.getDurata());
         i.putExtra("descrizione", p1.getDescrizione());
-        i.putExtra("accessibilita", p1.isAccessibilita());
         i.putExtra("datamodifica", p1.getDataModifica());
-        i.putExtra("creatore", "utente1");
-        resultView.startActivity(i);
+        i.putExtra("creatore", p1.getCreatore());
+        resultView.startActivity(i);*/
     }
 
     public Path getAllDetailsOfPath(String nomeSentiero){

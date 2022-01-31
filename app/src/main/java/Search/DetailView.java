@@ -26,12 +26,22 @@ public class DetailView extends AppCompatActivity {
         Intent i = getIntent();
         puntoiniziale = i.getStringExtra("puntoiniziale");
         coordinate = i.getStringArrayListExtra("coordinate");
+
+        //Set Durata
         Slider durataSlider=(Slider) findViewById(R.id.durataSliderDetail);
         durataSlider.setValue(i.getFloatExtra("durata",5));
 
+        TextView durata = (TextView) findViewById(R.id.durataTextViewDetail);
+        durata.setText("Durata "+i.getFloatExtra("durata",0)+" ore");
+
+        //Set Difficoltà
         Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltàSliderDetail);
         difficoltàSlider.setValue(i.getFloatExtra("difficolta",5));
 
+        TextView difficoltà = (TextView) findViewById(R.id.difficoltàTextViewDetail);
+        difficoltà.setText("Difficoltà "+i.getIntExtra("difficolta",0));
+
+        //Set Nome e Descrizione
         TextView nome = (TextView) findViewById(R.id.nomeTextView);
         nome.setText(i.getStringExtra("nomesentiero"));
 
@@ -39,15 +49,11 @@ public class DetailView extends AppCompatActivity {
         if(i.getStringExtra("descrizione")!=null){
             descrizione.setText(i.getStringExtra("descrizione"));
         }
-
-        TextView durata = (TextView) findViewById(R.id.durataTextViewDetail);
-        durata.setText("Durata "+i.getFloatExtra("durata",0)+" ore");
-
-        TextView difficoltà = (TextView) findViewById(R.id.difficoltàTextViewDetail);
-        difficoltà.setText("Difficoltà "+i.getIntExtra("difficolta",0));
+        //Set Ultima Modifica
 
         TextView ultimaModifica = (TextView) findViewById(R.id.modificaTextViewDetail);
 
+        //Bottoni
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();

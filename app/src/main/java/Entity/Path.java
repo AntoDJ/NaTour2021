@@ -1,6 +1,7 @@
 package Entity;
 
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -43,52 +44,52 @@ public class Path {
         this.durata = durata;
     }
 
-    public Path(String nomeSentiero, int difficolta, float durata, String puntoiniziale) {
-        this.nomeSentiero = nomeSentiero;
-        this.difficolta = difficolta;
-        this.durata = durata;
-        this.puntoIniziale = puntoiniziale;
-    }
-
-
     public String getNomeSentiero() {
-        return nomeSentiero;
+        return this.nomeSentiero;
     }
-
-
 
     public String getCoordinate() {
-        return coordinate;
+        return this.coordinate;
     }
 
-
     public String getPuntoIniziale() {
-        return puntoIniziale;
+        return this.puntoIniziale;
     }
 
     public int getDifficolta() {
-        return difficolta;
+        return this.difficolta;
     }
 
-
     public Float getDurata() {
-        return durata;
+        return this.durata;
     }
 
     public String getDescrizione() {
-        return descrizione;
+        return this.descrizione;
     }
-
 
     public Boolean isAccessibilita() {
-        return accessibilita;
+        return this.accessibilita;
     }
-
 
     public Date getDataModifica() {
-        return dataModifica;
+        return this.dataModifica;
     }
 
+    public String getCreatore(){
+        return this.creatore;
+    }
+
+    public ArrayList<String> getCoordinateAsArray(){
+        ArrayList<String> array = new ArrayList<>();
+        if(!this.coordinate.equals("")){
+            String[] parts = this.coordinate.split(" ");
+            for(int i=0; i<parts.length/2; i++){
+                array.add(parts[i*2]+" "+parts[i*2+1]);
+            }
+        }
+        return array;
+    }
 
 
 }

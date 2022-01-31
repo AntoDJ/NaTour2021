@@ -45,7 +45,8 @@ public class ResultMapsFragment extends Fragment {
                 LatLng latlng= new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
                 markerOptions.position(latlng);
                 markerOptions.title(nomi.get(i));
-                markerOptions.snippet("Durata: "+durate[i]+" ore Difficoltà: "+difficolta.get(i));
+                if(durate[i]-(int)durate[i]==0.5)   markerOptions.snippet("Durata: " + (int)durate[i] + ":30 ore Difficoltà: " + difficolta.get(i));
+                else    markerOptions.snippet("Durata: " + (int)durate[i] + " ore Difficoltà: " + difficolta.get(i));
                 googleMap.addMarker(markerOptions);
             }
             googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {

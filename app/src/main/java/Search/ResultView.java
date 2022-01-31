@@ -41,7 +41,7 @@ public class ResultView extends AppCompatActivity {
 
     public ArrayList<Integer> getDifficolta() { return difficolta;}
 
-    public float[] getDurate() {return durate;}
+    public float[] getDurate() { return durate; }
 
     public void markerclicked(String title) {
         Controller c = Controller.getInstance();

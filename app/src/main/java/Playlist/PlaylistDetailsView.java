@@ -25,7 +25,7 @@ public class PlaylistDetailsView extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_details_view);
 
         c = Controller.getInstance();
-        path = c.getAllDetailsOfPath("");
+       // path = c.getAllDetailsOfPath("");
 
         Slider durataSlider = (Slider) findViewById(R.id.durataPlaylistSlider);
         durataSlider.setValue(5);

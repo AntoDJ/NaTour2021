@@ -23,6 +23,8 @@ import Search.*;
 import Create.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -255,9 +257,16 @@ public class Controller {
         searchView.startActivity(i);
     }
 
-    public void detailView(String title, ResultView resultView) {
+    public void detailView(ResultView resultView) {
         //Query per i dettagli del sentiero
-        Path p1 = this.getAllDetailsOfPath(title);
+
+        Intent i = new Intent(resultView, DetailView.class);
+        resultView.startActivity(i);
+
+
+
+       /*Path p1 = new Path();
+
         //sentiero temporaneo per vedere se funziona tutto
         Float durata = 3.5f;
         Boolean access = true;
@@ -272,29 +281,37 @@ public class Controller {
         i.putExtra("descrizione", p1.getDescrizione());
         i.putExtra("datamodifica", p1.getDataModifica());
         i.putExtra("creatore", p1.getCreatore());
-        resultView.startActivity(i);
+        resultView.startActivity(i);*/
     }
 
-    public Path getAllDetailsOfPath(String nomeSentiero){
+    Path definitivo[] = new Path[1];
+
+    public void getAllDetailsOfPath(String nomeSentiero){
         //chiamata  al db che restituisce i dettagli del sentiero secondo nomesentiero
-        final Path[] path = new Path[1];
 
+        Retrofit retrofit = RetrofitIstance.getIstanza();
+        PathDAO pathdao = retrofit.create(PathDAO.class);
+        Path tmpPath = new Path(nomeSentiero);
+        Call<Path> call = pathdao.getPath(tmpPath);
 
-        Path pathParam = new Path(nomeSentiero);
-        Call<Path> call = pathDAO.getPath(pathParam);
-
-        call.enqueue(new Callback<Path>() {
+        Thread t = new Thread(new Runnable() {
             @Override
-            public void onResponse(Call<Path> call, Response<Path> response) {
-                Log.i("arrivato", "arrivatoooo");
-                path[0] = response.body();
-                Log.i("path", path[0].getDescrizione());
-            }
+            public void run() {
+                call.enqueue(new Callback<Path>() {
+                    @Override
+                    public void onResponse(Call<Path> call, Response<Path> response) {
 
-            @Override
-            public void onFailure(Call<Path> call, Throwable t) {
+                        definitivo[0] = response.body();
+                        Log.i("path", definitivo[0].toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Path> call, Throwable t) {
+                    }
+                });
+
             }
         });
-        return path[0];
+        t.start();
     }
 }

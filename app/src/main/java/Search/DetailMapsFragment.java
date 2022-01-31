@@ -21,7 +21,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class DetailMapsFragment extends Fragment {
             markerOptions.title("Punto iniziale");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_BLUE));
             googleMap.addMarker(markerOptions);
-           /* ArrayList<String> coordinate = ((DetailView)getActivity()).getCoordinate();
+            ArrayList<String> coordinate = ((DetailView)getActivity()).getCoordinate();
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_RED));
             int i=2;
             if(!coordinate.isEmpty()){
@@ -53,7 +52,7 @@ public class DetailMapsFragment extends Fragment {
                     markerOptions.title("Punto "+i++);
                     googleMap.addMarker(markerOptions);
                 }
-            }*/
+            }
 
         }
     };

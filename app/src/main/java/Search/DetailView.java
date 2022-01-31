@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Controller.Controller;

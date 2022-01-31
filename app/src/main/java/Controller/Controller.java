@@ -1,7 +1,6 @@
 package Controller;
 
 import android.content.Intent;
-import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
 import android.widget.FrameLayout;
 
@@ -10,20 +9,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.natour2021.R;
 
-import DAO.PathDAO;
-import DAO.RetrofitIstance;
-import Login.*;
-import java.util.ArrayList;
+import DAO.*;
 
-import Login.ui.MyPath.*;
 import Entity.*;
+
+import Login.*;
 import Login.ui.home.*;
 import Login.ui.playlist.*;
 import Login.ui.settings.*;
+import Login.ui.MyPath.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
-import DAO.*;
+
+import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -264,7 +263,7 @@ public class Controller {
         Boolean access = true;
         Integer difficolta = 3;
         //Path p1 = new Path(title,"41.255365 14.035338 41.136097 14.932931", "40.956116 14.530439",difficolta, "che buona questa cadrega",access,null,"utente1",durata);
-        /*Intent i = new Intent(resultView, DetailView.class);
+        Intent i = new Intent(resultView, DetailView.class);
         i.putExtra("nomesentiero", p1.getNomeSentiero());
         i.putExtra("coordinate", p1.getCoordinateAsArray());
         i.putExtra("puntoiniziale", p1.getPuntoIniziale());
@@ -273,7 +272,7 @@ public class Controller {
         i.putExtra("descrizione", p1.getDescrizione());
         i.putExtra("datamodifica", p1.getDataModifica());
         i.putExtra("creatore", p1.getCreatore());
-        resultView.startActivity(i);*/
+        resultView.startActivity(i);
     }
 
     public Path getAllDetailsOfPath(String nomeSentiero){

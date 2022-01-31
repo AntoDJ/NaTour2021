@@ -8,50 +8,36 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Path {
-    @SerializedName("NomeSentiero")
     private String nomeSentiero;
-
-    @SerializedName("Coordinate")
-    private ArrayList<String> coordinate;
-
-    @SerializedName("Punto Iniziale")
+    private String coordinate;
     private String puntoIniziale;
-
-    @SerializedName("Difficoltà")
-    private int difficolta;
-
-    @SerializedName("durata")
-    private float durata;
-
-    @SerializedName("Descrizione")
+    private Integer difficolta;
     private String descrizione;
-
-    @SerializedName("Accessibilità")
-    private boolean accessibilitaDisabili;
-
-    @SerializedName("Data Modifica")
+    private Boolean accessibilita;
     private Date dataModifica;
-
-    @SerializedName("Creatore")
     private String creatore;
+    private Float durata;
+
+    public Path(String nomeSentiero) {
+        this.nomeSentiero = nomeSentiero;
+    }
 
 
-    public Path(String nomeSentiero, ArrayList<String> coordinate, String puntoIniziale,
-                int difficolta, float durata, String descrizione, boolean accessibilitaDisabili, Date dataModifica, String creatore) {
+    public Path(String nomeSentiero, String coordinate, String puntoIniziale, Integer difficolta, String descrizione, Boolean accessibilita, Date dataModifica, String creatore, float durata) {
         this.nomeSentiero = nomeSentiero;
         this.coordinate = coordinate;
         this.puntoIniziale = puntoIniziale;
         this.difficolta = difficolta;
-        this.durata = durata;
         this.descrizione = descrizione;
-        this.accessibilitaDisabili = accessibilitaDisabili;
+        this.accessibilita = accessibilita;
         this.dataModifica = dataModifica;
         this.creatore = creatore;
+        this.durata = durata;
     }
 
     public Path(){}
 
-    public Path(String nomeSentiero, int difficolta, float durata) {
+    public Path(String nomeSentiero, Integer difficolta, float durata) {
         this.nomeSentiero = nomeSentiero;
         this.difficolta = difficolta;
         this.durata = durata;
@@ -69,79 +55,40 @@ public class Path {
         return nomeSentiero;
     }
 
-    public void setNomeSentiero(String nomeSentiero) {
-        this.nomeSentiero = nomeSentiero;
-    }
 
-    public ArrayList<String> getCoordinate() {
+
+    public String getCoordinate() {
         return coordinate;
     }
 
-    public void setCoordinate(ArrayList<String> coordinate) {
-        this.coordinate = coordinate;
-    }
 
     public String getPuntoIniziale() {
         return puntoIniziale;
-    }
-
-    public void setPuntoIniziale(String puntoIniziale) {
-        this.puntoIniziale = puntoIniziale;
     }
 
     public int getDifficolta() {
         return difficolta;
     }
 
-    public void setDifficolta(int difficolta) {
-        this.difficolta = difficolta;
-    }
 
-    public float getDurata() {
+    public Float getDurata() {
         return durata;
-    }
-
-    public void setDurata(float durata) {
-        this.durata = durata;
     }
 
     public String getDescrizione() {
         return descrizione;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+
+    public Boolean isAccessibilita() {
+        return accessibilita;
     }
 
-    public boolean isAccessibilitaDisabili() {
-        return accessibilitaDisabili;
-    }
-
-    public void setAccessibilitaDisabili(boolean accessibilitaDisabili) {
-        this.accessibilitaDisabili = accessibilitaDisabili;
-    }
 
     public Date getDataModifica() {
         return dataModifica;
     }
 
-    public void setDataModifica(Date dataModifica) {
-        this.dataModifica = dataModifica;
-    }
 
 
-    @Override
-    public String toString() {
-        return "Path{" +
-                "nomeSentiero='" + nomeSentiero + '\'' +
-                ", coordinate=" + coordinate +
-                ", puntoIniziale='" + puntoIniziale + '\'' +
-                ", difficolta=" + difficolta +
-                ", durata=" + durata +
-                ", descrizione='" + descrizione + '\'' +
-                ", accessibilitaDisabili=" + accessibilitaDisabili +
-                ", dataModifica=" + dataModifica +
-                ", creatore='" + creatore + '\'' +
-                '}';
-    }
 }

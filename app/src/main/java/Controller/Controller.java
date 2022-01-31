@@ -209,10 +209,10 @@ public class Controller {
         ArrayList<Path> sentierifiltrati = this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
 
         //sentieri temporanei
-        Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, 3.5f,null,true,null,"utente1");
-        Path p2 = new Path("sentiero2",null, "41.255365 14.035338",3, 5f,null,true,null,"utente2");
-        Path p3 = new Path("sentiero3",null, "41.136097 14.932931",3, 6f,null,true,null,"utente3");
-        sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3);
+        //Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, 3.5f,null,true,null,"utente1");
+        //Path p2 = new Path("sentiero2",null, "41.255365 14.035338",3, 5f,null,true,null,"utente2");
+        //Path p3 = new Path("sentiero3",null, "41.136097 14.932931",3, 6f,null,true,null,"utente3");
+       // sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3);
         if(sentierifiltrati.size()==0){
             Log.i("errore","Non esistono sentieri ");
             //metodo errore nella view
@@ -227,7 +227,7 @@ public class Controller {
                 nomisentieri.add(p.getNomeSentiero());
                 puntiiniziali.add(p.getPuntoIniziale());
                 difficoltasentieri.add(p.getDifficolta());
-                duratasentieri[i++]=p.getDurata();
+                //duratasentieri[i++]=p.getDurata();
             }
             this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
         }
@@ -269,7 +269,7 @@ public class Controller {
         i.putExtra("difficolta", p1.getDifficolta());
         i.putExtra("durata", p1.getDurata());
         i.putExtra("descrizione", p1.getDescrizione());
-        i.putExtra("accessibilita", p1.isAccessibilitaDisabili());
+        i.putExtra("accessibilita", p1.isAccessibilita());
         i.putExtra("datamodifica", p1.getDataModifica());
         i.putExtra("creatore", "utente1");
         resultView.startActivity(i);
@@ -279,10 +279,13 @@ public class Controller {
         //chiamata  al db che restituisce i dettagli del sentiero secondo nomesentiero
         final Path[] path = new Path[1];
 
-        Call<Path> call = pathDAO.getPathByName(nomeSentiero);
+        Path pathParam = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.getPath(pathParam);
+
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
+
                 path[0] = response.body();
             }
 
@@ -291,6 +294,7 @@ public class Controller {
 
             }
         });
+
         return path[0];
     }
 }

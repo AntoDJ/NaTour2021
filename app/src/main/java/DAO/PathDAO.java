@@ -7,5 +7,5 @@ import retrofit2.http.POST;
 
 public interface PathDAO {
     @POST("getpathbyname")
-    Call<Path> getPathByName(@Body String nomeSentiero);
+    Call<Path> getPath(@Body Path path);
 }

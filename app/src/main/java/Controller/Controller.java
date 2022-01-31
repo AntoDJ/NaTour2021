@@ -280,22 +280,22 @@ public class Controller {
         //chiamata  al db che restituisce i dettagli del sentiero secondo nomesentiero
         final Path[] path = new Path[1];
 
+
         Path pathParam = new Path(nomeSentiero);
         Call<Path> call = pathDAO.getPath(pathParam);
 
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
-
+                Log.i("arrivato", "arrivatoooo");
                 path[0] = response.body();
+                Log.i("path", path[0].getDescrizione());
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-
             }
         });
-
         return path[0];
     }
 }

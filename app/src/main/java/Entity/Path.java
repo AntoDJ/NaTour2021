@@ -1,10 +1,5 @@
 package Entity;
 
-import android.provider.ContactsContract;
-import android.util.Log;
-
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.Date;
 

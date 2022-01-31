@@ -12,8 +12,6 @@ import android.widget.Button;
 import com.example.natour2021.R;
 
 import Controller.Controller;
-import Login.HomeView;
-import Login.ui.home.HomeFragment;
 
 /**
  * A simple {@link Fragment} subclass.

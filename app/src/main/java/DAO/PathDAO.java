@@ -8,4 +8,7 @@ import retrofit2.http.POST;
 public interface PathDAO {
     @POST("getpathbyname")
     Call<Path> getPath(@Body Path path);
+
+    @POST("insertpath")
+    Call<Path> insertPath(@Body Path path);
 }

@@ -202,9 +202,21 @@ public class Controller {
         Log.i("access", String.valueOf(access));
         Log.i("puntoinziiale",puntoiniziale);
 
-        //INSERT
+        Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, "antonio", durata);
+        //Path tmpPath = new Path( "Sentiero bello bello", "15616516515 64864564", "44.5454646 44.1544156", 5, "Bello", true, "antonio", (float)5.7);
 
+        Call<Path> call = pathDAO.insertPath(tmpPath);
 
+        call.enqueue(new Callback<Path>() {
+                         @Override
+                         public void onResponse(Call<Path> call, Response<Path> response) {
+                             createView.finish();
+                         }
+
+                         @Override
+                         public void onFailure(Call<Path> call, Throwable t) {
+                         }
+                     });
         createView.finish();
     }
 

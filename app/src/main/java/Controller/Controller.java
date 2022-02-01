@@ -191,18 +191,20 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void createPath(CreateView createView,String nome, String descrizione, float durata, float difficoltà, boolean access, String puntoiniziale, ArrayList<String> coordinate) {
-        //insert nel db con la roba sopra bisogna mettere i controlli da qualche parte non so se possiamo farlo tramite DB
+    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficoltà, boolean access, String puntoiniziale, String coordinate) {
+        // RICORDA DI CAMBIARE IL CREATORE
+        Path p = new Path(nome, coordinate, puntoiniziale, difficoltà, descrizione, access, "creatorerandom",durata);
         Log.i("nome",nome);
+        Log.i("punto ",coordinate);
         Log.i("descrizione",descrizione);
         Log.i("durata", String.valueOf(durata));
         Log.i("difficolta",String.valueOf(difficoltà));
         Log.i("access", String.valueOf(access));
         Log.i("puntoinziiale",puntoiniziale);
-        int i=1;
-        for(String s: coordinate){
-            Log.i("punto "+i++,s);
-        }
+
+        //INSERT
+
+
         createView.finish();
     }
 
@@ -211,10 +213,10 @@ public class Controller {
                 //this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
 
         //sentieri temporanei
-        Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, null,true,null,"utente1",3.5f);
-        Path p2 = new Path("sentiero2",null, "41.255365 14.035338",1, null,true,null,"utente2",5f);
-        Path p3 = new Path("sentiero3",null, "41.136097 14.932931",5, null,true,null,"utente3",6f);
-        Path p4 = new Path("sentiero4",null, "41.536097 14.432931",7, null,true,null,"utente3",9.5f);
+        Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, null,true,"utente1",3.5f);
+        Path p2 = new Path("sentiero2",null, "41.255365 14.035338",1, null,true,"utente2",5f);
+        Path p3 = new Path("sentiero3",null, "41.136097 14.932931",5, null,true,"utente3",6f);
+        Path p4 = new Path("sentiero4",null, "41.536097 14.432931",7, null,true,"utente3",9.5f);
         sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3); sentierifiltrati.add(p4);
         if(sentierifiltrati.size()==0){
             Log.i("errore","Non esistono sentieri ");
@@ -257,61 +259,33 @@ public class Controller {
         searchView.startActivity(i);
     }
 
-    public void detailView(ResultView resultView) {
-        //Query per i dettagli del sentiero
-
+    public void detailView(ResultView resultView, Path p) {
         Intent i = new Intent(resultView, DetailView.class);
+        i.putExtra("nomesentiero", p.getNomeSentiero());
+        i.putExtra("coordinate", p.getCoordinateAsArray());
+        i.putExtra("puntoiniziale", p.getPuntoIniziale());
+        i.putExtra("difficolta", p.getDifficolta());
+        i.putExtra("durata", p.getDurata());
+        i.putExtra("descrizione", p.getDescrizione());
+        i.putExtra("datamodifica", p.getDataModifica());
+        i.putExtra("creatore", p.getCreatore());
         resultView.startActivity(i);
-
-
-
-       /*Path p1 = new Path();
-
-        //sentiero temporaneo per vedere se funziona tutto
-        Float durata = 3.5f;
-        Boolean access = true;
-        Integer difficolta = 3;
-        //Path p1 = new Path(title,"41.255365 14.035338 41.136097 14.932931", "40.956116 14.530439",difficolta, "che buona questa cadrega",access,null,"utente1",durata);
-        Intent i = new Intent(resultView, DetailView.class);
-        i.putExtra("nomesentiero", p1.getNomeSentiero());
-        i.putExtra("coordinate", p1.getCoordinateAsArray());
-        i.putExtra("puntoiniziale", p1.getPuntoIniziale());
-        i.putExtra("difficolta", p1.getDifficolta());
-        i.putExtra("durata", p1.getDurata());
-        i.putExtra("descrizione", p1.getDescrizione());
-        i.putExtra("datamodifica", p1.getDataModifica());
-        i.putExtra("creatore", p1.getCreatore());
-        resultView.startActivity(i);*/
     }
 
-    Path definitivo[] = new Path[1];
 
-    public void getAllDetailsOfPath(String nomeSentiero){
-        //chiamata  al db che restituisce i dettagli del sentiero secondo nomesentiero
-
-        Retrofit retrofit = RetrofitIstance.getIstanza();
-        PathDAO pathdao = retrofit.create(PathDAO.class);
+    public void getAllDetailsOfPath(ResultView resultview,String nomeSentiero){
         Path tmpPath = new Path(nomeSentiero);
-        Call<Path> call = pathdao.getPath(tmpPath);
+        Call<Path> call = pathDAO.getPath(tmpPath);
 
-        Thread t = new Thread(new Runnable() {
+        call.enqueue(new Callback<Path>() {
             @Override
-            public void run() {
-                call.enqueue(new Callback<Path>() {
-                    @Override
-                    public void onResponse(Call<Path> call, Response<Path> response) {
-
-                        definitivo[0] = response.body();
-                        Log.i("path", definitivo[0].toString());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Path> call, Throwable t) {
-                    }
-                });
-
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                Controller c = Controller.getInstance();
+                c.detailView(resultview, response.body());
+            }
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
             }
         });
-        t.start();
     }
 }

@@ -70,18 +70,20 @@ public class MapViewFragment extends Fragment {
 
         Button insertPathButton = (Button) view.findViewById(R.id.confermaTracciatoButton);
         insertPathButton.setOnClickListener(view1 -> {
-            ArrayList<String> temp= new ArrayList<>();
+            String temp = "";
+            String puntoiniziale=(coordinate.get(0).getPosition().latitude+" "+coordinate.get(0).getPosition().longitude);
+            coordinate.remove(0);
             for(Marker m:coordinate){
-                temp.add(m.getPosition().latitude+" "+m.getPosition().longitude);
+                temp+=(m.getPosition().latitude+" "+m.getPosition().longitude+" ");
             }
-            ((CreateView)getActivity()).setCoordinate(temp);
+            ((CreateView)getActivity()).setCoordinate(puntoiniziale, temp.trim());
             c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
         });
+
         return view;
     }
 
     public static void addMarker(Marker marker){
         coordinate.add(marker);
     }
-
 }

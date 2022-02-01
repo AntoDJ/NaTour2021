@@ -42,7 +42,6 @@ public class ResultView extends AppCompatActivity {
 
     public void markerclicked(String title) {
         Controller c = Controller.getInstance();
-        c.getAllDetailsOfPath("sentiero1");
-        //c.detailView(title, ResultView.this);
+        c.getAllDetailsOfPath(this,title);
     }
 }

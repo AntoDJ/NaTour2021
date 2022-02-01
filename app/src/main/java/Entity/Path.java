@@ -19,14 +19,14 @@ public class Path {
     }
 
 
-    public Path(String nomeSentiero, String coordinate, String puntoIniziale, Integer difficolta, String descrizione, Boolean accessibilita, Date dataModifica, String creatore, float durata) {
+    public Path(String nomeSentiero, String coordinate, String puntoIniziale, Integer difficolta, String descrizione, Boolean accessibilita, String creatore, float durata) {
         this.nomeSentiero = nomeSentiero;
         this.coordinate = coordinate;
         this.puntoIniziale = puntoIniziale;
         this.difficolta = difficolta;
         this.descrizione = descrizione;
         this.accessibilita = accessibilita;
-        this.dataModifica = dataModifica;
+        this.dataModifica = null;
         this.creatore = creatore;
         this.durata = durata;
     }

@@ -28,14 +28,15 @@ public class DetailView extends AppCompatActivity {
 
         //Set Durata
         Slider durataSlider=(Slider) findViewById(R.id.durataSliderDetail);
-        durataSlider.setValue(i.getFloatExtra("durata",5));
+        durataSlider.setValue(i.getFloatExtra("durata",0));
 
         TextView durata = (TextView) findViewById(R.id.durataTextViewDetail);
-        durata.setText("Durata "+i.getFloatExtra("durata",0)+" ore");
+        if(i.getFloatExtra("durata",0)-(int)i.getFloatExtra("durata",0)==0.5)   durata.setText("Durata "+(int)i.getFloatExtra("durata",0)+":30 ore");
+        else durata.setText("Durata "+(int)i.getFloatExtra("durata",0)+" ore");
 
         //Set Difficoltà
         Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltàSliderDetail);
-        difficoltàSlider.setValue(i.getFloatExtra("difficolta",5));
+        difficoltàSlider.setValue(i.getIntExtra("difficolta",0));
 
         TextView difficoltà = (TextView) findViewById(R.id.difficoltàTextViewDetail);
         difficoltà.setText("Difficoltà "+i.getIntExtra("difficolta",0));

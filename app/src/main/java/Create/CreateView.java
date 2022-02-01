@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import Controller.Controller;
 
 public class CreateView extends AppCompatActivity {
-    private ArrayList<String> coordinate= new ArrayList<>();
-    private String puntoiniziale;
+    private String coordinate="";
+    private String puntoIniziale="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +37,14 @@ public class CreateView extends AppCompatActivity {
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
             if(durataSlider.getValue() - (int) durataSlider.getValue() == 0.5){
-                durataTextView.setText("Durata: " + String.valueOf((int) durataSlider.getValue() + ":30 ore"));
+                durataTextView.setText("Durata: " +(int) durataSlider.getValue() + ":30 ore");
             }else{
-                durataTextView.setText("Durata: " + String.valueOf((int) durataSlider.getValue() + " ore"));
+                durataTextView.setText("Durata: " + (int) durataSlider.getValue() + " ore");
             }
         });
 
         difficoltaSlider.addOnChangeListener((slider, value, fromUser) -> {
-            difficoltaTextView.setText("Difficoltà: " + String.valueOf(difficoltaSlider.getValue()));
+            difficoltaTextView.setText("Difficoltà: " + (int)difficoltaSlider.getValue());
         });
 
         Button inserisciTracciatoButton = (Button) findViewById(R.id.inserisciTracciatoButton);
@@ -54,15 +54,12 @@ public class CreateView extends AppCompatActivity {
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
-            c.createPath(this,nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoiniziale, coordinate);
+            c.createPath(this,nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),(int)difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoIniziale, coordinate);
         });
     }
 
-    public void setCoordinate(ArrayList<String> coor){
-        if(coor.size()!=0){
-            puntoiniziale=coor.get(0);
-            coor.remove(0);
-            coordinate=coor;
-        }
+    public void setCoordinate(String puntoiniziale, String coor){
+        this.coordinate=coor;
+        this.puntoIniziale=puntoiniziale;
     }
 }

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +32,18 @@ public class DetailMapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             MarkerOptions markerOptions = new MarkerOptions();
+            // METTO IL PUNTO INIZIALE SULLA MAPPA E CENTRO LA MAPPA
             String puntoiniziale = ((DetailView)getActivity()).getPuntoIniziale();
             String part[]= puntoiniziale.split(" ", 2);
             LatLng latlng= new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(9.0f).build();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(8.0f).build();
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
             googleMap.moveCamera(cameraUpdate);
             markerOptions.position(latlng);
             markerOptions.title("Punto iniziale");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_BLUE));
             googleMap.addMarker(markerOptions);
+            
             ArrayList<String> coordinate = ((DetailView)getActivity()).getCoordinate();
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_RED));
             int i=2;

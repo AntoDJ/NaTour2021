@@ -66,7 +66,7 @@ public class SearchView extends AppCompatActivity {
         Button cercaButton=(Button) findViewById(R.id.searchButton);
         cercaButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
-            c.searchPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
+            c.getFilteredPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
         });
     }
 }

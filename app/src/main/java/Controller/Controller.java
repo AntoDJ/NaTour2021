@@ -208,17 +208,8 @@ public class Controller {
         createView.finish();
     }
 
-    public void searchPaths(SearchView searchView, float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
-        ArrayList<Path> sentierifiltrati = new ArrayList<>();
-                //this.getFilteredPaths(mindiff, maxdiff, mindur, maxdur, pos, access);
-
-        //sentieri temporanei
-        Path p1 = new Path("sentiero1",null, "40.956116 14.530439",3, null,true,"utente1",3.5f);
-        Path p2 = new Path("sentiero2",null, "41.255365 14.035338",1, null,true,"utente2",5f);
-        Path p3 = new Path("sentiero3",null, "41.136097 14.932931",5, null,true,"utente3",6f);
-        Path p4 = new Path("sentiero4",null, "41.536097 14.432931",7, null,true,"utente3",9.5f);
-        sentierifiltrati.add(p1); sentierifiltrati.add(p2); sentierifiltrati.add(p3); sentierifiltrati.add(p4);
-        if(sentierifiltrati.size()==0){
+    private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {
+        if(sentieritrovati.size()==0){
             Log.i("errore","Non esistono sentieri ");
             //metodo errore nella view
         }
@@ -226,9 +217,9 @@ public class Controller {
             ArrayList<String> nomisentieri= new ArrayList<>();
             ArrayList<String> puntiiniziali= new ArrayList<>();
             ArrayList<Integer> difficoltasentieri= new ArrayList<>();
-            float[] duratasentieri= new float[sentierifiltrati.size()];
+            float[] duratasentieri= new float[sentieritrovati.size()];
             int i=0;
-            for (Path p: sentierifiltrati){
+            for (Path p: sentieritrovati){
                 nomisentieri.add(p.getNomeSentiero());
                 puntiiniziali.add(p.getPuntoIniziale());
                 difficoltasentieri.add(p.getDifficolta());
@@ -238,16 +229,14 @@ public class Controller {
         }
     }
 
-    private ArrayList<Path> getFilteredPaths(float mindiff, float maxdiff, float mindur, float maxdur, String pos, boolean access) {
-        ArrayList<Path> sentierifiltrati = new ArrayList<>();
+    public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
         /*    accessibilità ricerca     accessiblità del sentiero    risultato
         // bisogna ritornare solo nome sentiero, punto iniziale, durata e difficoltà
             false                        *                              true
             true                         true                           true
             true                         false                          false*/
         //query per prendere i sentieri secondo questi campi dal database
-        return sentierifiltrati;
-
+        //il result deve chiamare searchPaths sta subito sopra
     }
 
     private void resultView(SearchView searchView, ArrayList<String> nomisentieri, ArrayList<String> puntiiniziali, ArrayList<Integer> difficoltasentieri, float[] duratasentieri) {
@@ -259,7 +248,7 @@ public class Controller {
         searchView.startActivity(i);
     }
 
-    public void detailView(ResultView resultView, Path p) {
+    private void detailView(ResultView resultView, Path p) {
         Intent i = new Intent(resultView, DetailView.class);
         i.putExtra("nomesentiero", p.getNomeSentiero());
         i.putExtra("coordinate", p.getCoordinateAsArray());

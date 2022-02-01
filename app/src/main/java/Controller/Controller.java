@@ -191,14 +191,14 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficoltà, boolean access, String puntoiniziale, String coordinate) {
+    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
         // RICORDA DI CAMBIARE IL CREATORE
-        Path p = new Path(nome, coordinate, puntoiniziale, difficoltà, descrizione, access, "creatorerandom",durata);
+        Path p = new Path(nome, coordinate, puntoiniziale, difficolta, descrizione, access, "creatorerandom",durata);
         Log.i("nome",nome);
         Log.i("punto ",coordinate);
         Log.i("descrizione",descrizione);
         Log.i("durata", String.valueOf(durata));
-        Log.i("difficolta",String.valueOf(difficoltà));
+        Log.i("difficolta",String.valueOf(difficolta));
         Log.i("access", String.valueOf(access));
         Log.i("puntoinziiale",puntoiniziale);
 

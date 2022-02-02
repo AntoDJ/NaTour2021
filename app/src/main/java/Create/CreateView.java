@@ -18,6 +18,7 @@ import Controller.Controller;
 public class CreateView extends AppCompatActivity {
     private String coordinate="";
     private String puntoIniziale="";
+    private MapViewFragment mapViewFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class CreateView extends AppCompatActivity {
 
         Button inserisciTracciatoButton = (Button) findViewById(R.id.inserisciTracciatoButton);
         inserisciTracciatoButton.setOnClickListener(view -> {
-            c.openInsertPath(CreateView.this);
+            mapViewFragment = c.openInsertPath(CreateView.this);
         });
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
@@ -61,5 +62,15 @@ public class CreateView extends AppCompatActivity {
     public void setCoordinate(String puntoiniziale, String coor){
         this.coordinate=coor;
         this.puntoIniziale=puntoiniziale;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mapViewFragment!=null){
+            Controller c = Controller.getInstance();
+            c.cleanFragment(findViewById(R.id.mapViewContainer));
+            mapViewFragment=null;
+        }
+        else super.onBackPressed();
     }
 }

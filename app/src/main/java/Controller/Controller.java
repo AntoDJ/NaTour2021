@@ -23,7 +23,6 @@ import Search.*;
 import Create.*;
 
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,12 +85,13 @@ public class Controller {
         frameLayout.removeAllViews();
     }
 
-    public void openInsertPath(CreateView createView){
+    public MapViewFragment openInsertPath(CreateView createView){
         FragmentManager fragmentManager = createView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MapViewFragment mapViewFragment = new MapViewFragment();
         fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
         fragmentTransaction.commit();
+        return mapViewFragment;
     }
 
     //Mi salvo il nome della playlist se può servire dopo

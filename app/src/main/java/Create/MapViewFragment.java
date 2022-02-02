@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,24 +60,22 @@ public class MapViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
+        coordinate.clear();
         Controller c = Controller.getInstance();
         view = inflater.inflate(R.layout.fragment_map_view, container, false);
 
         Button annullaPuntoButton = (Button) view.findViewById(R.id.annullaUltimoPuntoButton);
         annullaPuntoButton.setOnClickListener(view1 -> {
-            CreateMapsFragment.removeCoordinata(coordinate.get(coordinate.size()-1));
-            coordinate.remove(coordinate.size()-1);
+            if(coordinate.size()!=0) {
+                CreateMapsFragment.removeCoordinata(coordinate.get(coordinate.size() - 1));
+                coordinate.remove(coordinate.size() - 1);
+            }
         });
 
         Button insertPathButton = (Button) view.findViewById(R.id.confermaTracciatoButton);
         insertPathButton.setOnClickListener(view1 -> {
-            String temp = "";
-            String puntoiniziale=(coordinate.get(0).getPosition().latitude+" "+coordinate.get(0).getPosition().longitude);
-            coordinate.remove(0);
-            for(Marker m:coordinate){
-                temp+=(m.getPosition().latitude+" "+m.getPosition().longitude+" ");
-            }
-            ((CreateView)getActivity()).setCoordinate(puntoiniziale, temp.trim());
+            for(Marker m:coordinate)  Log.i("prova",m.getPosition().toString());
+            ((CreateView) getActivity()).setCoordinate(coordinate);
             c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
         });
 

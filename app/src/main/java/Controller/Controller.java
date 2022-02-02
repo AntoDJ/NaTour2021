@@ -203,7 +203,6 @@ public class Controller {
         Log.i("puntoinziiale",puntoiniziale);
 
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, "antonio", durata);
-        //Path tmpPath = new Path( "Sentiero bello bello", "15616516515 64864564", "44.5454646 44.1544156", 5, "Bello", true, "antonio", (float)5.7);
 
         Call<Path> call = pathDAO.insertPath(tmpPath);
 
@@ -217,7 +216,6 @@ public class Controller {
                          public void onFailure(Call<Path> call, Throwable t) {
                          }
                      });
-        createView.finish();
     }
 
     private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {

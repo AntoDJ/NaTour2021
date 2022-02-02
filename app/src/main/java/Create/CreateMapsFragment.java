@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class CreateMapsFragment extends Fragment {
     private static int i=1;
-
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -40,6 +42,16 @@ public class CreateMapsFragment extends Fragment {
             CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
             googleMap.moveCamera(cameraUpdate);
+            ArrayList<Marker> coordinateinserite =((CreateView)getActivity()).getCoordinate();
+            for(Marker m:coordinateinserite){
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(m.getPosition());
+                markerOptions.title(m.getTitle());
+                Marker marker =googleMap.addMarker(markerOptions);
+                MapViewFragment.addMarker(marker);
+            }
+
+
             googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
                 @Override

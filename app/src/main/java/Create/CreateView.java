@@ -3,12 +3,14 @@ package Create;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.natour2021.R;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
@@ -16,8 +18,7 @@ import java.util.ArrayList;
 import Controller.Controller;
 
 public class CreateView extends AppCompatActivity {
-    private String coordinate="";
-    private String puntoIniziale="";
+    private ArrayList<Marker> coordinate;
     private MapViewFragment mapViewFragment;
 
     @Override
@@ -25,6 +26,8 @@ public class CreateView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_view);
         Controller c = Controller.getInstance();
+
+        coordinate=new ArrayList<>();
 
         Slider durataSlider = (Slider) findViewById(R.id.durataPlaylistSlider);
         Slider difficoltaSlider = (Slider) findViewById(R.id.difficoltaPlaylistSlider);
@@ -55,13 +58,21 @@ public class CreateView extends AppCompatActivity {
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
-            c.createPath(this,nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),(int)difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoIniziale, coordinate);
+            for(Marker m:coordinate)  Log.i("prova",m.getPosition().toString());
+            String puntoInziale=coordinate.get(0).getPosition().latitude+" "+coordinate.get(0).getPosition().longitude;
+            coordinate.remove(0);
+            String coor="";
+            for(Marker mar:coordinate) coor += mar.getPosition().latitude+" "+mar.getPosition().longitude+" ";
+            c.createPath(this,nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),(int)difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoInziale, coor);
         });
     }
 
-    public void setCoordinate(String puntoiniziale, String coor){
-        this.coordinate=coor;
-        this.puntoIniziale=puntoiniziale;
+    public void setCoordinate(ArrayList<Marker> coor){
+        coordinate.clear();
+        coordinate.addAll(coor);
+    }
+    public ArrayList<Marker> getCoordinate(){
+        return coordinate;
     }
 
     @Override

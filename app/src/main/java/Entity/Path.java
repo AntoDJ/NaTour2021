@@ -101,5 +101,32 @@ public class Path {
                 '}';
     }
 
+    public static class PathToFilter{
+
+        float durataMin;
+        float durataMax;
+        float difficoltaMin;
+        float difficoltaMax;
+        String latitudine;
+        String longitudine;
+        String accessibilita;
+
+        public PathToFilter(float durataMin, float durataMax, float difficoltaMin, float difficoltaMax, String latitudine, String longitudine, boolean accessibilita) {
+            this.durataMin = durataMin;
+            this.durataMax = durataMax;
+            this.difficoltaMin = difficoltaMin;
+            this.difficoltaMax = difficoltaMax;
+            this.latitudine = latitudine;
+            this.longitudine = longitudine;
+            this.accessibilita = String.valueOf(accessibilita);
+        }
+
+
+
+        public String isAccessibilita() {
+            return String.valueOf(accessibilita);
+        }
+    }
+
 
 }

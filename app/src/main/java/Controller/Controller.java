@@ -249,6 +249,24 @@ public class Controller {
             true                         false                          false*/
         //query per prendere i sentieri secondo questi campi dal database
         //il result deve chiamare searchPaths sta subito sopra
+        String[] parts = pos.split(" ");
+
+        Path.PathToFilter pathToFilter = new Path.PathToFilter(mindur,maxdur,mindiff,maxdiff, parts[0], parts[1], access);
+        Call<ArrayList<Path>> call = pathDAO.getAllFilteredPath(pathToFilter);
+
+        call.enqueue(new Callback<ArrayList<Path>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
+                ArrayList<Path> paths = response.body();
+                searchPaths(searchView, paths);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void resultView(SearchView searchView, ArrayList<String> nomisentieri, ArrayList<String> puntiiniziali, ArrayList<Integer> difficoltasentieri, float[] duratasentieri) {

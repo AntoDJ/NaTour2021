@@ -1,5 +1,7 @@
 package DAO;
 
+import java.util.ArrayList;
+
 import Entity.Path;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -11,4 +13,7 @@ public interface PathDAO {
 
     @POST("insertpath")
     Call<Path> insertPath(@Body Path path);
+
+    @POST("getfilteredpaths")
+    Call<ArrayList<Path>> getAllFilteredPath(@Body Path.PathToFilter pt);
 }

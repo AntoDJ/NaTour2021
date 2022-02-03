@@ -16,4 +16,7 @@ public interface PathDAO {
 
     @POST("getfilteredpaths")
     Call<ArrayList<Path>> getAllFilteredPath(@Body Path.PathToFilter pt);
+
+    @POST("getalldetailsofpersonalpath")
+    Call<Path> getAllDetailsOfPersonalPath(@Body Path path);
 }

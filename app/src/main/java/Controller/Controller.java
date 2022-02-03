@@ -146,7 +146,20 @@ public class Controller {
 
 
     public Path getAllDetailsOfPersonalPath(){
-        //chiamata  al db che restituisce i dettagli utilizzando la variabile 'namePath' e mettendola a null dopo l'utilizzo
+        Path path = new Path("sentiero2");
+        Call<Path> call = pathDAO.getAllDetailsOfPersonalPath(path);
+
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                Path resPath = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+            }
+        });
+
         return new Path();
     }
 

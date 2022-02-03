@@ -253,11 +253,16 @@ public class Controller {
         call.enqueue(new Callback<ArrayList<Path>>() {
             @Override
             public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
-                ArrayList<Path> paths = new ArrayList<>();
-                Controller c = Controller.getInstance();
-                paths = response.body();
-                if(paths.size()==0) searchView.errore();
-                else c.searchPaths(searchView,paths);
+                ArrayList<Path> paths = response.body();
+                Log.i("msg","provo l'if");
+                if(paths != null&& paths.size()!=0) {
+                    Log.i("msg","dentro l'if");
+                    searchPaths(searchView, paths);
+                }
+                else{
+                    Log.i("msg","dentro l'else");
+                    searchView.errore();
+                }
             }
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {

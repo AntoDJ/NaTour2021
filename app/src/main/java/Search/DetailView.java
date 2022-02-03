@@ -74,4 +74,10 @@ public class DetailView extends AppCompatActivity {
     public ArrayList<String> getCoordinate(){
         return coordinate;
     }
+
+    public void ReportPath(String Motivazione){
+        Intent i = getIntent();
+        Controller c = Controller.getInstance();
+        c.reportPath(DetailView.this, i.getStringExtra("nomesentiero"), Motivazione, i.getStringExtra("creatore"));
+    }
  }

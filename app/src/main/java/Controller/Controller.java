@@ -192,30 +192,19 @@ public class Controller {
     }
 
     public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
-        // RICORDA DI CAMBIARE IL CREATORE
-        Path p = new Path(nome, coordinate, puntoiniziale, difficolta, descrizione, access, "creatorerandom",durata);
-        Log.i("nome",nome);
-        Log.i("punto ",coordinate);
-        Log.i("descrizione",descrizione);
-        Log.i("durata", String.valueOf(durata));
-        Log.i("difficolta",String.valueOf(difficolta));
-        Log.i("access", String.valueOf(access));
-        Log.i("puntoinziiale",puntoiniziale);
-
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, "antonio", durata);
-
         Call<Path> call = pathDAO.insertPath(tmpPath);
 
         call.enqueue(new Callback<Path>() {
-                         @Override
-                         public void onResponse(Call<Path> call, Response<Path> response) {
-                             createView.finish();
-                         }
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                createView.finish();
+            }
 
-                         @Override
-                         public void onFailure(Call<Path> call, Throwable t) {
-                         }
-                     });
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+            }
+        });
     }
 
     private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {
@@ -240,13 +229,6 @@ public class Controller {
     }
 
     public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
-        /*    accessibilità ricerca     accessiblità del sentiero    risultato
-        // bisogna ritornare solo nome sentiero, punto iniziale, durata e difficoltà
-            false                        *                              true
-            true                         true                           true
-            true                         false                          false*/
-        //query per prendere i sentieri secondo questi campi dal database
-        //il result deve chiamare searchPaths sta subito sopra
         String[] parts = pos.split(" ");
 
         Path.PathToFilter pathToFilter = new Path.PathToFilter(mindur,maxdur,mindiff,maxdiff, parts[0], parts[1], access);
@@ -290,6 +272,8 @@ public class Controller {
     }
 
 
+
+
     public void getAllDetailsOfPath(ResultView resultview,String nomeSentiero){
         Path tmpPath = new Path(nomeSentiero);
         Call<Path> call = pathDAO.getPath(tmpPath);
@@ -304,5 +288,10 @@ public class Controller {
             public void onFailure(Call<Path> call, Throwable t) {
             }
         });
+    }
+
+    public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
+        //Insert nel Database per il report ricorda di cambiare l'utente in utenteloggato
+        Report report = new Report(1,motivazione, nomesentiero,"utente",segnalato);
     }
 }

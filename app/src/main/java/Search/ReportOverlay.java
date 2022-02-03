@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.natour2021.R;
 
@@ -32,15 +33,6 @@ public class ReportOverlay extends Fragment {
     public ReportOverlay() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment reportOverlay.
-     */
     // TODO: Rename and change types and number of parameters
     public static ReportOverlay newInstance(String param1, String param2) {
         ReportOverlay fragment = new ReportOverlay();
@@ -72,7 +64,16 @@ public class ReportOverlay extends Fragment {
             c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
 
         });
+
+        EditText reportMotivation = (EditText) view.findViewById(R.id.reportMotivation);
+        Button reportButton = (Button) view.findViewById(R.id.confermaReportButton);
+        reportButton.setOnClickListener(view1 -> {
+            Controller c = Controller.getInstance();
+            ((DetailView)getActivity()).ReportPath(reportMotivation.getText().toString().trim());
+            c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+        });
         return view;
 
     }
+
 }

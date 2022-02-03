@@ -221,28 +221,31 @@ public class Controller {
     }
 
     private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {
-        if(sentieritrovati.size()==0){
-            Log.i("errore","Non esistono sentieri ");
-            //metodo errore nella view
+        ArrayList<String> nomisentieri= new ArrayList<>();
+        ArrayList<String> puntiiniziali= new ArrayList<>();
+        ArrayList<Integer> difficoltasentieri= new ArrayList<>();
+        float[] duratasentieri= new float[sentieritrovati.size()];
+        int i=0;
+        for (Path p: sentieritrovati){
+            nomisentieri.add(p.getNomeSentiero());
+            puntiiniziali.add(p.getPuntoIniziale());
+            difficoltasentieri.add(p.getDifficolta());
+            duratasentieri[i++]=p.getDurata();
         }
-        else{
-            ArrayList<String> nomisentieri= new ArrayList<>();
-            ArrayList<String> puntiiniziali= new ArrayList<>();
-            ArrayList<Integer> difficoltasentieri= new ArrayList<>();
-            float[] duratasentieri= new float[sentieritrovati.size()];
-            int i=0;
-            for (Path p: sentieritrovati){
-                nomisentieri.add(p.getNomeSentiero());
-                puntiiniziali.add(p.getPuntoIniziale());
-                difficoltasentieri.add(p.getDifficolta());
-                duratasentieri[i++]=p.getDurata();
-            }
-            this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
-        }
+        this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
     }
 
     public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
         String[] parts = pos.split(" ");
+
+        Log.i("msg", String.valueOf(mindur));
+        Log.i("msg", String.valueOf(maxdur));
+        Log.i("msg", String.valueOf(mindiff));
+        Log.i("msg", String.valueOf(maxdiff));
+        Log.i("msg",pos);
+        Log.i("msg", String.valueOf(access));
+
+
 
         Path.PathToFilter pathToFilter = new Path.PathToFilter(mindur,maxdur,mindiff,maxdiff, parts[0], parts[1], access);
         Call<ArrayList<Path>> call = pathDAO.getAllFilteredPath(pathToFilter);
@@ -250,13 +253,14 @@ public class Controller {
         call.enqueue(new Callback<ArrayList<Path>>() {
             @Override
             public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
-                ArrayList<Path> paths = response.body();
-                searchPaths(searchView, paths);
+                ArrayList<Path> paths = new ArrayList<>();
+                Controller c = Controller.getInstance();
+                paths = response.body();
+                if(paths.size()==0) searchView.errore();
+                else c.searchPaths(searchView,paths);
             }
-
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-
             }
         });
 

@@ -77,16 +77,18 @@ public class addToPlaylistOverlay extends Fragment {
         View view;
         view=inflater.inflate(R.layout.fragment_add_to_playlist_overlay, container, false);
 
-        ListView overlayListView = (ListView) view.findViewById(R.id.overlayPlaylistView);
+        ListView PlaylistList = (ListView) view.findViewById(R.id.overlayPlaylistView);
         ArrayList<String> playlist = new ArrayList<String>();
         playlist.add("Sentieri preferiti");
         playlist.add("Sentieri da visitare");
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, playlist);
-        overlayListView.setAdapter(arrayAdapter);
-  /*      playlistListView.setOnItemClickListener((adapterView, view12, i, l) -> {
-
-        });*/
+        PlaylistList.setAdapter(arrayAdapter);
+        PlaylistList.setOnItemClickListener((adapterView, view1, i, l) -> {
+            Controller c = Controller.getInstance();
+            ((DetailView)getActivity()).addToPlaylist(PlaylistList.getItemAtPosition(i).toString());
+            c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+        });
         Button backButton= (Button) view.findViewById(R.id.backButton);
         backButton.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();

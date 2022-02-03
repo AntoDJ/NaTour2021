@@ -305,6 +305,21 @@ public class Controller {
 
     public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
         //Insert nel Database per il report ricorda di cambiare l'utente in utenteloggato
+        //log di prova per vedere se passa roba giusta
+        Log.i("prova",nomesentiero);
+        Log.i("prova",motivazione);
+        Log.i("prova",segnalato);
         Report report = new Report(1,motivazione, nomesentiero,"utente",segnalato);
+    }
+
+    public void addPathToPlaylist(DetailView detailView, String nomesentiero, String nomePlaylist) {
+        //log di prova per vedere se passa roba giusta
+        Log.i("prova",nomesentiero);
+        Log.i("prova",nomePlaylist);
+        //Insert nel DB nella tabella di mezzo tra sentiero e playlist, non so come
+        //praticamente c'è la tabella dove hai sentiero playlist e creatore della playlist
+        //il creatore chiamalo "utente" che come sopra dobbiamo prenderlo dall'utenteloggato
+        //Questa deve ritornare qualcosa perchè se l'insert non va vuol dire che ci sta un problema grave
+        // te la lascio vuota perchè non so cosa scriverci, nel caso fai la call e il corpo lo metto io se serve
     }
 }

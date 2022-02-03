@@ -80,4 +80,10 @@ public class DetailView extends AppCompatActivity {
         Controller c = Controller.getInstance();
         c.reportPath(DetailView.this, i.getStringExtra("nomesentiero"), Motivazione, i.getStringExtra("creatore"));
     }
+
+    public void addToPlaylist(String nomePlaylist){
+        Intent i = getIntent();
+        Controller c = Controller.getInstance();
+        c.addPathToPlaylist(DetailView.this, i.getStringExtra("nomesentiero"),nomePlaylist);
+    }
  }

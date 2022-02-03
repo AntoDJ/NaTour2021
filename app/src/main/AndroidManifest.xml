@@ -20,15 +20,19 @@
         android:theme="@style/Theme.NaTour2021" >
         <activity
             android:name="Playlist.ModificationView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Playlist.PersonalDetailView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Playlist.PlaylistDetailsView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Playlist.PlaylistView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -44,33 +48,44 @@
 
         <activity
             android:name="Search.DetailView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Search.ResultView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Create.CreateView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Search.SearchView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Login.HomeView"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.NaTour2021.NoActionBar" />
         <activity
             android:name="Login.prova"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Login.LoginView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="Login.RegistrationView"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:screenOrientation="portrait"
+            android:exported="true"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

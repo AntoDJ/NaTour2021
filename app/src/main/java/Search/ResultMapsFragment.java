@@ -25,28 +25,36 @@ import java.util.ArrayList;
 import Controller.Controller;
 
 public class ResultMapsFragment extends Fragment {
+    double averageLongitude=0;
+    double averageLatitude=0;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng latLng= new LatLng(41.8,12.7);
-            CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
-            CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
-            googleMap.moveCamera(cameraUpdate);
+            Marker marker = null;
             MarkerOptions markerOptions = new MarkerOptions();
+            //prendo tutte le variabili
             ArrayList<String> nomi = ((ResultView)getActivity()).getNomi();
             ArrayList<String> posizioni = ((ResultView)getActivity()).getPosizioni();
             ArrayList<Integer> difficolta = ((ResultView)getActivity()).getDifficolta();
             float[] durate = ((ResultView)getActivity()).getDurate();
+            //creo un marker per ogni sentiero
             for(int i=0; i<nomi.size(); i++){
                 String parts[]= posizioni.get(i).split(" ", 2);
                 LatLng latlng= new LatLng(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+                averageLatitude+=Double.parseDouble(parts[0]);
+                averageLongitude+=Double.parseDouble(parts[1]);
                 markerOptions.position(latlng);
                 markerOptions.title(nomi.get(i));
                 if(durate[i]-(int)durate[i]==0.5)   markerOptions.snippet("Durata: " + (int)durate[i] + ":30 ore Difficoltà: " + difficolta.get(i));
-                else    markerOptions.snippet("Durata: " + (int)durate[i] + " ore Difficoltà: " + difficolta.get(i));
+                else markerOptions.snippet("Durata: " + (int)durate[i] + " ore Difficoltà: " + difficolta.get(i));
                 googleMap.addMarker(markerOptions);
+
             }
+            LatLng latlng = new LatLng(averageLatitude/nomi.size(),averageLongitude/nomi.size());
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(7.0f).build();
+            CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
+            googleMap.moveCamera(cameraUpdate);
             googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(@NonNull Marker marker) {

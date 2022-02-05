@@ -225,6 +225,7 @@ public class Controller {
 
     public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
         // Ricorda di prendere utente loggato
+
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, "antonio", durata);
         Call<Path> call = pathDAO.insertPath(tmpPath);
 
@@ -257,16 +258,7 @@ public class Controller {
 
     public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
         String[] parts = pos.split(" ");
-
-        Log.i("msg", String.valueOf(mindur));
-        Log.i("msg", String.valueOf(maxdur));
-        Log.i("msg", String.valueOf(mindiff));
-        Log.i("msg", String.valueOf(maxdiff));
-        Log.i("msg",pos);
-        Log.i("msg", String.valueOf(access));
-
-
-
+        // ricorda di cambiare la lambda da 1 e 1.5 a 0.75 e 1
         Path.PathToFilter pathToFilter = new Path.PathToFilter(mindur,maxdur,mindiff,maxdiff, parts[0], parts[1], access);
         Call<ArrayList<Path>> call = pathDAO.getAllFilteredPath(pathToFilter);
 
@@ -286,6 +278,7 @@ public class Controller {
             }
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
+                Log.i("msg","failure");
             }
         });
 

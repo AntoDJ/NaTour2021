@@ -19,4 +19,6 @@ public interface PathDAO {
 
     @POST("getalldetailsofpersonalpath")
     Call<Path> getAllDetailsOfPersonalPath(@Body Path path);
+
+
 }

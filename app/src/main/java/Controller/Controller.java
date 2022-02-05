@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
 
 import DAO.*;
@@ -32,9 +33,9 @@ import retrofit2.Retrofit;
 
 public class Controller {
     PathDAO pathDAO;
+    UtenteDAO utenteDAO;
 
 
-    UtenteDAO utenteDAO = new UtenteDAO();
     //Singleton
     private static Controller instance;
     private Controller() {}
@@ -45,10 +46,28 @@ public class Controller {
         return(instance);
     }
 
-    public void userLogin(LoginView loginView){
-        //Cose per retrofit, poi nel caso le togliamo da qua
+    private void bigError() {
+
+    }
+
+    public void loginView(MainActivity mainActivity){
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
+        //utenteDAO = retrofit.create(UtenteDAO.class);
+        //reportDAO = retrofit.create(ReportDAO.class);
+        //playlistDAO = retrofit.create(PlaylistDAO.class);
+        //String utenteloggato = prendi dalle preferencies;
+        //controllo bla lba
+
+        Intent i = new Intent(mainActivity, LoginView.class);
+        mainActivity.startActivity(i);
+        mainActivity.finish();
+    }
+
+
+    public void userLogin(LoginView loginView){
+        //Cose per retrofit, poi nel caso le togliamo da qua
+
 
         Intent i = new Intent(loginView, HomeView.class);
         loginView.startActivity(i);
@@ -205,6 +224,7 @@ public class Controller {
     }
 
     public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
+        // Ricorda di prendere utente loggato
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, "antonio", durata);
         Call<Path> call = pathDAO.insertPath(tmpPath);
 
@@ -221,10 +241,10 @@ public class Controller {
     }
 
     private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {
-        ArrayList<String> nomisentieri= new ArrayList<>();
-        ArrayList<String> puntiiniziali= new ArrayList<>();
-        ArrayList<Integer> difficoltasentieri= new ArrayList<>();
-        float[] duratasentieri= new float[sentieritrovati.size()];
+        ArrayList<String> nomisentieri = new ArrayList<>();
+        ArrayList<String> puntiiniziali = new ArrayList<>();
+        ArrayList<Integer> difficoltasentieri = new ArrayList<>();
+        float[] duratasentieri = new float[sentieritrovati.size()];
         int i=0;
         for (Path p: sentieritrovati){
             nomisentieri.add(p.getNomeSentiero());
@@ -294,8 +314,6 @@ public class Controller {
     }
 
 
-
-
     public void getAllDetailsOfPath(ResultView resultview,String nomeSentiero){
         Path tmpPath = new Path(nomeSentiero);
         Call<Path> call = pathDAO.getPath(tmpPath);
@@ -303,8 +321,14 @@ public class Controller {
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
-                Controller c = Controller.getInstance();
-                c.detailView(resultview, response.body());
+                if(response.body()!=null&&response.body().getNomeSentiero().equals(nomeSentiero)) {
+                    Controller c = Controller.getInstance();
+                    c.detailView(resultview, response.body());
+                }
+                else{
+                    Controller c = Controller.getInstance();
+                    c.bigError();
+                }
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
@@ -312,9 +336,14 @@ public class Controller {
         });
     }
 
+
+
     public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
         //Insert nel Database per il report ricorda di cambiare l'utente in utenteloggato
         //log di prova per vedere se passa roba giusta
+        // l'id del report l'ho messo a caso perchè giustamente se lo dovrebbe prendere il db
+        //il segnalante chiamalo "utente" che come sopra dobbiamo prenderlo dall'utenteloggato
+        // Ricorda di cambiare a unique key motivazione, nomesentiero, segnalante e segnalato
         Log.i("prova",nomesentiero);
         Log.i("prova",motivazione);
         Log.i("prova",segnalato);

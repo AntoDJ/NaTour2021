@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import Controller.Controller;
 import Login.LoginView;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,10 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Intent i = new Intent(this, LoginView.class);
-        startActivity(i);
-        finish();
-
+        Controller c = Controller.getInstance();
+        c.loginView(this);
     }
 }

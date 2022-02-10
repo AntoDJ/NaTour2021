@@ -3,6 +3,7 @@ package Playlist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,20 +27,20 @@ public class PlaylistView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_view);
+        Intent intent = getIntent();
 
         ListView sentieriPlaylist = (ListView) findViewById(R.id.sentieriPlaylistListView);
 
         c = Controller.getInstance();
         TextView nomePlaylist = (TextView) findViewById(R.id.nomePlaylistTextView);
-        nomePlaylist.setText(c.playlist);
+        nomePlaylist.setText(intent.getStringExtra("nomePlaylist"));
 
+        ArrayList<String> nomiSentieri = intent.getStringArrayListExtra("nomiSentieri");
+        ArrayList<String> durdiffSentieri = intent.getStringArrayListExtra("durdiffSentieri");
 
-        path = c.getPathOfPlaylist(nomePlaylist.getText().toString());
-        ArrayList<String> dettagliSentiero = new ArrayList<>();
-        for(Path p : path){
-            dettagliSentiero.add(p.getNomeSentiero() + " \nDurata:" + p.getDurata() + "    Difficoltà:" + p.getDifficolta());
-        }
-
+        ArrayList<String> dettagliSentiero= new ArrayList<>();
+        for(int i=0;i<nomiSentieri.size();i++)
+            dettagliSentiero.add(nomiSentieri.get(i)+" "+durdiffSentieri.get(i));
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dettagliSentiero);
         sentieriPlaylist.setAdapter(arrayAdapter);
@@ -47,10 +48,7 @@ public class PlaylistView extends AppCompatActivity {
 
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
-            String text = sentieriPlaylist.getItemAtPosition(i).toString();
-            int index = text.indexOf(' ');
-            String sentiero = text.substring(0, index);
-            c.openPlaylistDetailsView(this, sentiero);
+            c.getAllDetailsOfPlaylistPath(this, intent.getStringExtra("nomePlaylist"),nomiSentieri.get(i));
         });
 
 

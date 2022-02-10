@@ -49,10 +49,8 @@ public class PlaylistFragment extends Fragment {
         playlistListView.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
             String nomePlaylist = playlistListView.getItemAtPosition(i).toString();
-            c.openPlaylistView(this, nomePlaylist);
+            c.getPathOfPlaylist(this, nomePlaylist);
         });
-
-
         return root;
     }
 

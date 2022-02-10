@@ -113,30 +113,74 @@ public class Controller {
         return mapViewFragment;
     }
 
-    //Mi salvo il nome della playlist se può servire dopo
-    public String playlist;
-    public void openPlaylistView(PlaylistFragment playlistFragment, String nomePlaylist){
-        playlist = nomePlaylist;
+    public void getPathOfPlaylist(PlaylistFragment playlistFragment, String nomePlaylist){
+
+        Path p1 = new Path("Sentiero prova", 5, 2);
+        Path p2 = new Path("Sentiero30", 3, 2);
+
+        ArrayList<Path> path = new ArrayList<>();
+        path.add(p1);
+        path.add(p2);
+        //Scrivere codice che si collega al db per prendere i sentieri della playlist
+        //Chiamare openPlaylistView giù nel success
+        this.openPlayListView(playlistFragment,path, nomePlaylist);
+    }
+
+    public void openPlayListView(PlaylistFragment playlistFragment, ArrayList<Path> pathOfPlaylist, String nomePlaylist){
+        ArrayList<String> nomiSentieri = new ArrayList<>();
+        ArrayList<String> durdiffSentieri= new ArrayList<>();
+        for(Path p:pathOfPlaylist) {
+            nomiSentieri.add(p.getNomeSentiero());
+            durdiffSentieri.add("  Durata: "+p.getDurata()+"  Difficoltà: "+p.getDifficolta());
+        }
         Intent i = new Intent(playlistFragment.getActivity(), PlaylistView.class);
+        i.putExtra("nomiSentieri",nomiSentieri);
+        i.putExtra("durdiffSentieri",durdiffSentieri);
+        i.putExtra("nomePlaylist",nomePlaylist);
         playlistFragment.startActivity(i);
     }
 
-    public ArrayList<Path> getPathOfPlaylist(String nomePlaylist){
 
-        Path p1 = new Path("s1", 5, 2);
-        Path p2 = new Path("s2", 3, 2);
 
-        ArrayList<Path> path = new ArrayList<>();
-        path.add(p1);
-        path.add(p2);
-        //Scrivere codice che si collega al db per prendere i sentieri della playlist
-        return path;
+    public void getAllDetailsOfPlaylistPath(PlaylistView playlistView,String nomePlaylist ,String nomeSentiero){
+        Path tmpPath = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.getPath(tmpPath);
+
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body()!=null&&response.body().getNomeSentiero().equals(nomeSentiero)) {
+                    Controller c = Controller.getInstance();
+                    c.openPlaylistDetailsView(playlistView, nomePlaylist, response.body());
+                }
+                else{
+                    Controller c = Controller.getInstance();
+                    c.bigError();
+                }
+            }
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+            }
+        });
     }
 
+    public void openPlaylistDetailsView(PlaylistView playlistView, String playlistName, Path p){
+        Intent i = new Intent(playlistView, PlaylistDetailsView.class);
+        i.putExtra("nomesentiero", p.getNomeSentiero());
+        i.putExtra("coordinate", p.getCoordinateAsArray());
+        i.putExtra("puntoiniziale", p.getPuntoIniziale());
+        i.putExtra("difficolta", p.getDifficolta());
+        i.putExtra("durata", p.getDurata());
+        i.putExtra("descrizione", p.getDescrizione());
+        i.putExtra("datamodifica", p.getDataModifica());
+        i.putExtra("creatore", p.getCreatore());
+        i.putExtra("playlist", playlistName);
+        playlistView.startActivity(i);
+    }
     public ArrayList<Path> getPersonalPathOfPlaylist(){
 
-        Path p1 = new Path("s3", 5, 2);
-        Path p2 = new Path("s4", 5, 2);
+        Path p1 = new Path("Sentiero prova", 5, 2);
+        Path p2 = new Path("Sentiero30", 5, 2);
 
         ArrayList<Path> path = new ArrayList<>();
         path.add(p1);
@@ -144,13 +188,6 @@ public class Controller {
 
         //Scrivere codice che si collega al db per prendere i sentieri della playlist
         return path;
-    }
-
-    public String namePath;
-    public void openPlaylistDetailsView(PlaylistView playlistView, String pathName){
-        namePath = pathName;
-        Intent i = new Intent(playlistView, PlaylistDetailsView.class);
-        playlistView.startActivity(i);
     }
 
     public void openPersonalDetailsView(PersonalPlaylistView personalPlaylistView){

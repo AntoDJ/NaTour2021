@@ -60,9 +60,9 @@ public class Controller {
         //String utenteloggato = prendi dalle preferencies;
         //controllo bla lba
 
-        Intent i = new Intent(mainActivity, LoginView.class);
-        mainActivity.startActivity(i);
-        mainActivity.finish();
+        //Intent i = new Intent(mainActivity, LoginView.class);
+        //mainActivity.startActivity(i);
+        //mainActivity.finish();
     }
 
 

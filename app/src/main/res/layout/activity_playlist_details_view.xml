@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/durataDetailsView"
+        android:id="@+id/durataPlaylistDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/neuemontreal"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView" />
 
     <TextView
-        android:id="@+id/difficoltaDetailsView"
+        android:id="@+id/difficoltaPlaylistDetailsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/durataDetailsView"
+        app:layout_constraintTop_toBottomOf="@+id/durataPlaylistDetailsView"
         app:thumbColor="#000000"
         app:thumbStrokeColor="#4AB261"
         app:trackColorActive="#4AB261"
@@ -81,14 +81,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.862"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficoltaDetailsView"
+        app:layout_constraintTop_toBottomOf="@+id/difficoltaPlaylistDetailsView"
         app:thumbColor="#000000"
         app:thumbStrokeColor="#4AB261"
         app:trackColorActive="#4AB261"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/descrizioneDetailsView"
+        android:id="@+id/descrizionePlaylistDetailsView"
         android:layout_width="320sp"
         android:layout_height="150sp"
         android:layout_marginTop="22sp"
@@ -107,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/durataPlaylistSlider" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/mapPlaylistContainerView"
         android:name="Search.DetailMapsFragment"
         android:layout_width="340sp"
         android:layout_height="150sp"
@@ -115,7 +115,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descrizioneDetailsView" />
+        app:layout_constraintTop_toBottomOf="@+id/descrizionePlaylistDetailsView" />
 
     <Button
         android:id="@+id/eliminaSentieroDallaPlaylistButton"
@@ -128,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
+        app:layout_constraintTop_toBottomOf="@+id/mapPlaylistContainerView"
         app:layout_constraintVertical_bias="0.15" />
 
     <FrameLayout

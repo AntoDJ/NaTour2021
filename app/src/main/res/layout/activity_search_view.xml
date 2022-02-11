@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
+        app:layout_constraintTop_toBottomOf="@+id/mapPlaylistContainerView" />
 
     <TextView
         android:id="@+id/durataTextViewSearch"
@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/durataSliderSearch" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/mapPlaylistContainerView"
         android:name="Search.SearchMapsFragment"
         android:layout_width="360sp"
         android:layout_height="240sp"

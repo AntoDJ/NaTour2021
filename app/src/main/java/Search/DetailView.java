@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import Controller.Controller;
 
-public class DetailView extends AppCompatActivity {
+public class DetailView extends AppCompatActivity implements DetailInterface{
     String puntoiniziale;
     ArrayList<String> coordinate;
 

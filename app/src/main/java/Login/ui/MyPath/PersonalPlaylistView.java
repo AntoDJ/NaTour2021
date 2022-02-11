@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.natour2021.R;
 import com.example.natour2021.databinding.ActivityPersonalPlaylistViewBinding;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import Controller.Controller;
@@ -21,30 +24,18 @@ import Entity.Path;
 
 
 public class PersonalPlaylistView extends Fragment {
-    Controller c;
-    ArrayList<Path> path;
 
     private MyPathViewModel myPathViewModel;
-private ActivityPersonalPlaylistViewBinding binding;
+    private ActivityPersonalPlaylistViewBinding binding;
+    private ListView sentieriPlaylist;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         myPathViewModel = new ViewModelProvider(this).get(MyPathViewModel.class);
         binding = ActivityPersonalPlaylistViewBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        ListView sentieriPlaylist = (ListView) root.findViewById(R.id.personalPathListView);
-        c = Controller.getInstance();
-
-        path = c.getPersonalPathOfPlaylist();
-        ArrayList<String> dettagliSentiero = new ArrayList<>();
-        for(Path p : path){
-            dettagliSentiero.add(p.getNomeSentiero() + " \nDurata:" + p.getDurata() + "    Difficoltà:" + p.getDifficolta());
-        }
-
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, dettagliSentiero);
-        sentieriPlaylist.setAdapter(arrayAdapter);
-
+        root = binding.getRoot();
+        sentieriPlaylist = (ListView) root.findViewById(R.id.personalPathListView);
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
             String text = sentieriPlaylist.getItemAtPosition(i).toString();
@@ -53,7 +44,8 @@ private ActivityPersonalPlaylistViewBinding binding;
             c.openPersonalDetailsView(this);
             //Finireeeeeeeee
         });
-
+        Controller c = Controller.getInstance();
+        c.getPersonalPathOfPlaylist(this);
 
 
         return root;
@@ -63,5 +55,18 @@ private ActivityPersonalPlaylistViewBinding binding;
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void setPersonalList(ArrayList<String> nomisentieri){
+        TextView testo = (TextView) root.findViewById(R.id.textPersonalPlaylist);
+        if(nomisentieri.size()!=0) {
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, nomisentieri);
+            testo.setText("Ecco i sentieri che hai creato");
+            sentieriPlaylist.setAdapter(arrayAdapter);
+            sentieriPlaylist.setEnabled(true);
+        }
+        else{
+            testo.setText("Non hai creato sentieri");
+        }
     }
 }

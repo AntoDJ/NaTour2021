@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/difficoltaPlaylistSlider" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/mapPlaylistContainerView"
         android:name="Search.DetailMapsFragment"
         android:layout_width="340sp"
         android:layout_height="150sp"
@@ -118,7 +118,7 @@
         android:background="@drawable/base_button"
         android:text="Modifica\n sentiero"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
+        app:layout_constraintTop_toBottomOf="@+id/mapPlaylistContainerView" />
 
     <Button
         android:id="@+id/deletePathButton"
@@ -129,7 +129,7 @@
         android:text="Cancella\n sentiero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/modificaSentieroButton"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
+        app:layout_constraintTop_toBottomOf="@+id/mapPlaylistContainerView" />
 
     <TextView
         android:id="@+id/textView3"

@@ -31,12 +31,14 @@ public class DetailMapsFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
             MarkerOptions markerOptions = new MarkerOptions();
             // METTO IL PUNTO INIZIALE SULLA MAPPA E CENTRO LA MAPPA
-            String puntoiniziale = ((DetailView)getActivity()).getPuntoIniziale();
+            DetailInterface callingView =(DetailInterface)getActivity();
+            String puntoiniziale = callingView.getPuntoIniziale();
             String part[]= puntoiniziale.split(" ", 2);
             LatLng latlng= new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(8.0f).build();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(7.0f).build();
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
             googleMap.moveCamera(cameraUpdate);
             markerOptions.position(latlng);
@@ -44,7 +46,7 @@ public class DetailMapsFragment extends Fragment {
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_BLUE));
             googleMap.addMarker(markerOptions);
             
-            ArrayList<String> coordinate = ((DetailView)getActivity()).getCoordinate();
+            ArrayList<String> coordinate = callingView.getCoordinate();
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_RED));
             int i=2;
             if(!coordinate.isEmpty()){

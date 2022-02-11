@@ -31,7 +31,7 @@ public class ResultMapsFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            Marker marker = null;
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
             MarkerOptions markerOptions = new MarkerOptions();
             //prendo tutte le variabili
             ArrayList<String> nomi = ((ResultView)getActivity()).getNomi();

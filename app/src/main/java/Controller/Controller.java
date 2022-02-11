@@ -3,6 +3,7 @@ package Controller;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -78,8 +79,26 @@ public class Controller {
         loginView.startActivity(i);
     }
 
-    public void registraUtente(String email, String password){
-        User utente = new User(email,password);
+    public void registraUtente(RegistrationView registrationView, String email, String password){
+        //Codice di cognito per la registrazione e il mandamento del codice
+        FragmentManager fragmentManager = registrationView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        RegistrationConfirmFragment registrationConfirmFragment = new RegistrationConfirmFragment();
+        fragmentTransaction.add(R.id.registrationFrameLayout, registrationConfirmFragment, null);
+        fragmentTransaction.commit();
+    }
+
+    public void confermaRegistrazione(String codice, FrameLayout frameLayout, RegistrationView registrationView){
+        //controllo codice di cognito, se è giusto una cosa, se è sbagliato l'altra, mo metto n'if strano
+        Log.i("codice",codice);
+        if(codice.equals("giusto")){
+            Toast.makeText(registrationView,"Codice giusto", Toast.LENGTH_SHORT).show();
+            frameLayout.removeAllViews();
+            registrationView.finish();
+        }
+        else {
+            //metodo di errore nel fragment
+        }
     }
 
     public void openForgotPasswordOverlay(LoginView loginView){
@@ -177,17 +196,24 @@ public class Controller {
         i.putExtra("playlist", playlistName);
         playlistView.startActivity(i);
     }
-    public ArrayList<Path> getPersonalPathOfPlaylist(){
+    public void getPersonalPathOfPlaylist(PersonalPlaylistView personalPlaylistView){
 
         Path p1 = new Path("Sentiero prova", 5, 2);
         Path p2 = new Path("Sentiero30", 5, 2);
+        Path p3 = new Path("Sentiero31", 5, 2);
+        Path p4 = new Path("Sentiero2", 5, 2);
 
         ArrayList<Path> path = new ArrayList<>();
-        path.add(p1);
-        path.add(p2);
+        //path.add(p1);
+     //   path.add(p2);path.add(p3);path.add(p4);
+
+        ArrayList<String> Sentieri = new ArrayList<>();
+        for(Path p:path){
+            Sentieri.add(p.getNomeSentiero());
+        }
 
         //Scrivere codice che si collega al db per prendere i sentieri della playlist
-        return path;
+        personalPlaylistView.setPersonalList(Sentieri);
     }
 
     public void openPersonalDetailsView(PersonalPlaylistView personalPlaylistView){

@@ -32,10 +32,7 @@ public class RegistrationView extends AppCompatActivity {
             if((password.getText().toString().equals(confermaPassword.getText().toString())) && !(password.getText().toString().equals(""))
                     && !(confermaPassword.getText().toString().equals("")) && !(email.getText().toString().equals(""))){
 
-
-                Log.i("email", email.getText().toString());
-                Log.i("password", password.getText().toString());
-                c.registraUtente(email.getText().toString(), password.getText().toString());
+                c.registraUtente(this, email.getText().toString().trim(), password.getText().toString().trim());
             }else{
                 Toast.makeText(this, "Controlla le credenziali",Toast.LENGTH_SHORT).show();
             }

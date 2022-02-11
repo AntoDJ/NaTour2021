@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="@string/sentieri_creati"
+        android:text="Attendi il caricamento dei sentieri"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -24,6 +24,7 @@
     <ListView
         android:id="@+id/personalPathListView"
         android:layout_width="match_parent"
+        android:enabled="false"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25sp"
         android:layout_marginTop="56dp"

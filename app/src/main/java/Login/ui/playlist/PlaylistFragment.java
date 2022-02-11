@@ -28,13 +28,12 @@ import Controller.Controller;
 
 public class PlaylistFragment extends Fragment {
 
-    private PlaylistViewModel playlistViewModel;
     private FragmentPlaylistBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        playlistViewModel = new ViewModelProvider(this).get(PlaylistViewModel.class);
+        PlaylistViewModel playlistViewModel = new ViewModelProvider(this).get(PlaylistViewModel.class);
         binding = FragmentPlaylistBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 

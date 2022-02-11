@@ -26,6 +26,7 @@ public class SearchMapsFragment extends Fragment {
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
             LatLng latLng= new LatLng(41.8,12.7);
             CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);

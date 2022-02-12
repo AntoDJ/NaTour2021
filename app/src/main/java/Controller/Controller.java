@@ -8,6 +8,9 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
+import com.amplifyframework.core.Amplify;
 import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
 
@@ -67,9 +70,6 @@ public class Controller {
 
 
     public void userLogin(LoginView loginView){
-        //Cose per retrofit, poi nel caso le togliamo da qua
-
-
         Intent i = new Intent(loginView, HomeView.class);
         loginView.startActivity(i);
     }
@@ -81,6 +81,14 @@ public class Controller {
 
     public void registraUtente(RegistrationView registrationView, String email, String password){
         //Codice di cognito per la registrazione e il mandamento del codice
+        AuthSignUpOptions options = AuthSignUpOptions.builder()
+                .userAttribute(AuthUserAttributeKey.email(), email)
+                .build();
+        Amplify.Auth.signUp(email, password, options,
+                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
+                error -> Log.i("Erroreee!!", error.getMessage())
+        );
+
         FragmentManager fragmentManager = registrationView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         RegistrationConfirmFragment registrationConfirmFragment = new RegistrationConfirmFragment();
@@ -90,16 +98,34 @@ public class Controller {
 
     public void confermaRegistrazione(String codice, FrameLayout frameLayout, RegistrationView registrationView){
         //controllo codice di cognito, se è giusto una cosa, se è sbagliato l'altra, mo metto n'if strano
-        Log.i("codice",codice);
-        if(codice.equals("giusto")){
-            Toast.makeText(registrationView,"Codice giusto", Toast.LENGTH_SHORT).show();
+
+        Amplify.Auth.confirmSignUp(
+                "antoniodig2017@gmail.com",
+                codice,
+                result -> {
+                    Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete");
+                    printMessageRegistration(registrationView, frameLayout, 1);
+                },
+                error -> {
+                    Log.e("AuthQuickstart", error.toString());
+                    printMessageRegistration(registrationView, frameLayout,  0);
+        }
+        );
+    }
+
+    //DA VEDERE COME RISOLVERE
+    public void printMessageRegistration(RegistrationView registrationView, FrameLayout frameLayout, int res){
+        if(res == 1){
+            Toast.makeText(registrationView,"Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
             frameLayout.removeAllViews();
             registrationView.finish();
         }
         else {
-            //metodo di errore nel fragment
+            Toast.makeText(registrationView,"Codice Errato!", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     public void openForgotPasswordOverlay(LoginView loginView){
         FragmentManager fragmentManager = loginView.getSupportFragmentManager();
@@ -205,7 +231,7 @@ public class Controller {
 
         ArrayList<Path> path = new ArrayList<>();
         //path.add(p1);
-     //   path.add(p2);path.add(p3);path.add(p4);
+        //path.add(p2);path.add(p3);path.add(p4);
 
         ArrayList<String> Sentieri = new ArrayList<>();
         for(Path p:path){

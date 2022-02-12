@@ -58,7 +58,6 @@ public class CreateView extends AppCompatActivity {
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
-            for(Marker m:coordinate)  Log.i("prova",m.getPosition().toString());
             String puntoInziale=coordinate.get(0).getPosition().latitude+" "+coordinate.get(0).getPosition().longitude;
             coordinate.remove(0);
             String coor="";
@@ -83,5 +82,9 @@ public class CreateView extends AppCompatActivity {
             mapViewFragment=null;
         }
         else super.onBackPressed();
+    }
+
+    public void errore() {
+        Log.i("msg","errore");
     }
 }

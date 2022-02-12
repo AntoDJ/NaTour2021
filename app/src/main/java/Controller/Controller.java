@@ -60,9 +60,9 @@ public class Controller {
         //String utenteloggato = prendi dalle preferencies;
         //controllo bla lba
 
-        //Intent i = new Intent(mainActivity, LoginView.class);
-        //mainActivity.startActivity(i);
-        //mainActivity.finish();
+        Intent i = new Intent(mainActivity, LoginView.class);
+        mainActivity.startActivity(i);
+        mainActivity.finish();
     }
 
 
@@ -295,7 +295,10 @@ public class Controller {
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body().getNomeSentiero()!=null){
                 createView.finish();
+                }
+                else createView.errore();
             }
 
             @Override
@@ -329,19 +332,15 @@ public class Controller {
             @Override
             public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
                 ArrayList<Path> paths = response.body();
-                Log.i("msg","provo l'if");
                 if(paths != null&& paths.size()!=0) {
-                    Log.i("msg","dentro l'if");
                     searchPaths(searchView, paths);
                 }
                 else{
-                    Log.i("msg","dentro l'else");
                     searchView.errore();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-                Log.i("msg","failure");
             }
         });
 

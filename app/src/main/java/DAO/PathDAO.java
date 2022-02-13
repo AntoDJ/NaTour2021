@@ -2,7 +2,9 @@ package DAO;
 
 import java.util.ArrayList;
 
+import Entity.AssPlaylistSentiero;
 import Entity.Path;
+import Entity.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -19,6 +21,13 @@ public interface PathDAO {
 
     @POST("getalldetailsofpersonalpath")
     Call<Path> getAllDetailsOfPersonalPath(@Body Path path);
+
+    @POST("getpathofplaylist")
+    Call<ArrayList<Path>> getPathsOfPlaylist(@Body AssPlaylistSentiero assPlaylistSentiero);
+
+
+
+
 
 
 }

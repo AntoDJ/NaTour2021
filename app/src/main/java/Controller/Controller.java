@@ -1,6 +1,8 @@
 package Controller;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ import retrofit2.Retrofit;
 
 public class Controller {
     PathDAO pathDAO;
+    PlaylistDAO playlistDAO;
     UtenteDAO utenteDAO;
 
 
@@ -57,9 +60,9 @@ public class Controller {
     public void loginView(MainActivity mainActivity){
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
-        //utenteDAO = retrofit.create(UtenteDAO.class);
+        utenteDAO = retrofit.create(UtenteDAO.class);
         //reportDAO = retrofit.create(ReportDAO.class);
-        //playlistDAO = retrofit.create(PlaylistDAO.class);
+        playlistDAO = retrofit.create(PlaylistDAO.class);
         //String utenteloggato = prendi dalle preferencies;
         //controllo bla lba
 
@@ -70,8 +73,19 @@ public class Controller {
 
 
     public void userLogin(LoginView loginView){
-        Intent i = new Intent(loginView, HomeView.class);
-        loginView.startActivity(i);
+
+        Amplify.Auth.signIn(
+                "antoniodig2017@gmail.com",
+                "",
+                result -> {
+                    Intent i = new Intent(loginView, HomeView.class);
+                    loginView.startActivity(i);
+                },
+                error -> {
+                    //fare toast "credenziali sbagliate"
+                }
+        );
+
     }
 
     public void userRegistration(LoginView loginView){
@@ -85,7 +99,11 @@ public class Controller {
                 .userAttribute(AuthUserAttributeKey.email(), email)
                 .build();
         Amplify.Auth.signUp(email, password, options,
-                result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
+                result -> {
+                    Log.i("AuthQuickStart", "Result: " + result.toString());
+                    //inserimento user all'interno del db
+                    insertUser(email);
+                },
                 error -> Log.i("Erroreee!!", error.getMessage())
         );
 
@@ -98,19 +116,55 @@ public class Controller {
 
     public void confermaRegistrazione(String codice, FrameLayout frameLayout, RegistrationView registrationView){
         //controllo codice di cognito, se è giusto una cosa, se è sbagliato l'altra, mo metto n'if strano
+        String email = "antoniodig2017@gmail.com";
 
         Amplify.Auth.confirmSignUp(
-                "antoniodig2017@gmail.com",
+                email,
                 codice,
                 result -> {
                     Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete");
-                    printMessageRegistration(registrationView, frameLayout, 1);
+                    createPlaylistUser(email);
                 },
                 error -> {
                     Log.e("AuthQuickstart", error.toString());
-                    printMessageRegistration(registrationView, frameLayout,  0);
         }
         );
+    }
+
+    //inserimento user all'interno del db
+    public void insertUser(String email){
+        User user = new User(email, null);
+        Call<User> call = utenteDAO.insertUser(user);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.i("Creato user", "Creato user");
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.i("errore user", "errore user");
+            }
+        });
+    }
+
+    //creazione delle playlist dell'utente
+    public void createPlaylistUser(String email){
+        User user = new User(email, null);
+        Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
+
+        call.enqueue(new Callback<Playlist>() {
+            @Override
+            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
+                Log.i("Creato user", "Creato user");
+            }
+
+            @Override
+            public void onFailure(Call<Playlist> call, Throwable t) {
+                Log.i("errore user", "errore user");
+            }
+        });
     }
 
     //DA VEDERE COME RISOLVERE
@@ -160,15 +214,26 @@ public class Controller {
 
     public void getPathOfPlaylist(PlaylistFragment playlistFragment, String nomePlaylist){
 
-        Path p1 = new Path("Sentiero prova", 5, 2);
-        Path p2 = new Path("Sentiero30", 3, 2);
 
-        ArrayList<Path> path = new ArrayList<>();
-        path.add(p1);
-        path.add(p2);
-        //Scrivere codice che si collega al db per prendere i sentieri della playlist
-        //Chiamare openPlaylistView giù nel success
-        this.openPlayListView(playlistFragment,path, nomePlaylist);
+    //SOSTITUIRE QUESTO CEATORE CON QUELLO NELLE SHARED
+        String creatorePlaylist = "antoniodig2017@gmail.com";
+
+        AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist, creatorePlaylist);
+        Call<ArrayList<Path>> call = pathDAO.getPathsOfPlaylist(assPlaylistSentiero);
+
+        call.enqueue(new Callback<ArrayList<Path>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
+                ArrayList<Path> paths = response.body();
+                openPlayListView(playlistFragment,paths, nomePlaylist);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
+
+            }
+        });
     }
 
     public void openPlayListView(PlaylistFragment playlistFragment, ArrayList<Path> pathOfPlaylist, String nomePlaylist){

@@ -1,11 +1,11 @@
 package DAO;
 
-public class UtenteDAO {
+import Entity.User;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
-
-    public UtenteDAO() {
-
-    }
-
-
+public interface UtenteDAO {
+    @POST("insertuser")
+    Call<User> insertUser(@Body User user);
 }

@@ -41,6 +41,7 @@ public class Controller {
     PathDAO pathDAO;
     PlaylistDAO playlistDAO;
     UtenteDAO utenteDAO;
+    ReportDAO reportDAO;
 
 
     //Singleton
@@ -61,7 +62,7 @@ public class Controller {
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
         utenteDAO = retrofit.create(UtenteDAO.class);
-        //reportDAO = retrofit.create(ReportDAO.class);
+        reportDAO = retrofit.create(ReportDAO.class);
         playlistDAO = retrofit.create(PlaylistDAO.class);
         //String utenteloggato = prendi dalle preferencies;
         //controllo bla lba
@@ -287,6 +288,8 @@ public class Controller {
         i.putExtra("playlist", playlistName);
         playlistView.startActivity(i);
     }
+
+
     public void getPersonalPathOfPlaylist(PersonalPlaylistView personalPlaylistView){
 
         Path p1 = new Path("Sentiero prova", 5, 2);
@@ -294,17 +297,33 @@ public class Controller {
         Path p3 = new Path("Sentiero31", 5, 2);
         Path p4 = new Path("Sentiero2", 5, 2);
 
-        ArrayList<Path> path = new ArrayList<>();
-        //path.add(p1);
-        //path.add(p2);path.add(p3);path.add(p4);
 
-        ArrayList<String> Sentieri = new ArrayList<>();
-        for(Path p:path){
-            Sentieri.add(p.getNomeSentiero());
-        }
 
-        //Scrivere codice che si collega al db per prendere i sentieri della playlist
-        personalPlaylistView.setPersonalList(Sentieri);
+    //SOSTITUIRE CREATORE CON SHARED
+        String creatore = "antoniodig2017@gmail.com";
+        User tmpUser = new User(creatore, null);
+        Call<ArrayList<Path>> call = pathDAO.getPersonalPathsOfPlaylist(tmpUser);
+
+        call.enqueue(new Callback<ArrayList<Path>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
+                ArrayList<Path> path = response.body();
+
+                ArrayList<String> Sentieri = new ArrayList<>();
+                for(Path p:path){
+                    Log.i("Sentiero", p.toString());
+                    Sentieri.add(p.getNomeSentiero());
+                }
+                personalPlaylistView.setPersonalList(Sentieri);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     public void openPersonalDetailsView(PersonalPlaylistView personalPlaylistView){
@@ -493,7 +512,27 @@ public class Controller {
         Log.i("prova",nomesentiero);
         Log.i("prova",motivazione);
         Log.i("prova",segnalato);
-        Report report = new Report(1,motivazione, nomesentiero,"utente",segnalato);
+
+
+        Report report = new Report(1,motivazione, nomesentiero,"antoniodig2017@gmail.com",segnalato);
+        Call<Report> call = reportDAO.reportPath(report);
+
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                Report tmpReport = response.body();
+                if(tmpReport.getNomeSentiero().equals(nomesentiero)){
+                    // il report è stato aggiunto. fare qualcosa
+                }else{
+                    // il report non è stato aggiunto. fare qualcosa
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+
+            }
+        });
     }
 
     public void addPathToPlaylist(DetailView detailView, String nomesentiero, String nomePlaylist) {

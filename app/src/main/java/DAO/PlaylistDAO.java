@@ -1,6 +1,5 @@
 package DAO;
 
-import Entity.Path;
 import Entity.Playlist;
 import Entity.User;
 import retrofit2.Call;

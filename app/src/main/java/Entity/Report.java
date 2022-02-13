@@ -21,4 +21,28 @@ public class Report {
         this.idSegnalazione=idSegnalazione;
         this.risposta=risposta;
     }
+
+    public int getIdSegnalazione() {
+        return idSegnalazione;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public String getRisposta() {
+        return risposta;
+    }
+
+    public String getNomeSentiero() {
+        return nomeSentiero;
+    }
+
+    public String getSegnalante() {
+        return segnalante;
+    }
+
+    public String getSegnalato() {
+        return segnalato;
+    }
 }

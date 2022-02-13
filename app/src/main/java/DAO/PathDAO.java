@@ -25,6 +25,9 @@ public interface PathDAO {
     @POST("getpathofplaylist")
     Call<ArrayList<Path>> getPathsOfPlaylist(@Body AssPlaylistSentiero assPlaylistSentiero);
 
+    @POST("getpersonalpathofplaylist")
+    Call<ArrayList<Path>> getPersonalPathsOfPlaylist(@Body User user);
+
 
 
 

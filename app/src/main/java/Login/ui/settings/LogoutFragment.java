@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.example.natour2021.R;
 
 import Controller.Controller;
+import Login.HomeView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,10 +67,16 @@ public class LogoutFragment extends Fragment {
         View view;
         view=  inflater.inflate(R.layout.fragment_logout, container, false);
 
-        Button b1 = (Button) view.findViewById(R.id.noLogoutButton);
-        b1.setOnClickListener(view1 -> {
+        Button nologout = (Button) view.findViewById(R.id.noLogoutButton);
+        nologout.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();
             c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
+        });
+
+        Button yeslogout = (Button)  view.findViewById(R.id.YesLogoutButton);
+        yeslogout.setOnClickListener(view1 -> {
+            Controller c = Controller.getInstance();
+            c.logout(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()), (HomeView) getActivity());
         });
         return view;
     }

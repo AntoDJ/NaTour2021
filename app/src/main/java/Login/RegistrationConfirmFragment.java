@@ -22,8 +22,7 @@ public class RegistrationConfirmFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String email;
 
     public RegistrationConfirmFragment() {
         // Required empty public constructor
@@ -42,8 +41,7 @@ public class RegistrationConfirmFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            email = getArguments().getString("email");
         }
     }
 
@@ -59,7 +57,7 @@ public class RegistrationConfirmFragment extends Fragment {
             if(confirmRegistrationEditText.getText().toString().trim().length()==6) {
                 Controller.getInstance().confermaRegistrazione(confirmRegistrationEditText.getText().toString().trim(),
                         getActivity().findViewById(R.id.registrationFrameLayout),
-                        (RegistrationView) getActivity());
+                        (RegistrationView) getActivity(), email);
             }
             else Toast.makeText ((RegistrationView)getActivity(), "Inserisci correttamente il codice",Toast.LENGTH_SHORT).show();
         });

@@ -3,6 +3,7 @@ package Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -67,23 +68,30 @@ public class Controller {
         //String utenteloggato = prendi dalle preferencies;
         //controllo bla lba
 
+
+
         Intent i = new Intent(mainActivity, LoginView.class);
         mainActivity.startActivity(i);
         mainActivity.finish();
     }
 
 
-    public void userLogin(LoginView loginView){
-
+    public void userLogin(LoginView loginView, String email, String password){
+        Log.i("email",email);
+        Log.i("pass",password);
         Amplify.Auth.signIn(
-                "antoniodig2017@gmail.com",
-                "",
+                email,
+                password,
                 result -> {
                     Intent i = new Intent(loginView, HomeView.class);
                     loginView.startActivity(i);
                 },
                 error -> {
-                    //fare toast "credenziali sbagliate"
+                    loginView.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(loginView, "Credenziali Errate", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
         );
 
@@ -95,45 +103,58 @@ public class Controller {
     }
 
     public void registraUtente(RegistrationView registrationView, String email, String password){
-        //Codice di cognito per la registrazione e il mandamento del codice
+        Log.i("email",email);
+        Log.i("pass",password);
         AuthSignUpOptions options = AuthSignUpOptions.builder()
                 .userAttribute(AuthUserAttributeKey.email(), email)
                 .build();
         Amplify.Auth.signUp(email, password, options,
-                result -> {
-                    Log.i("AuthQuickStart", "Result: " + result.toString());
-                    //inserimento user all'interno del db
-                    insertUser(email);
-                },
-                error -> Log.i("Erroreee!!", error.getMessage())
+                result -> Controller.getInstance().openRegistrationConfirmFragment(email, registrationView),
+                error -> {
+                    Log.i("Erroreee!!", error.getMessage());
+                    registrationView.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(registrationView, "Errore nella registrazione: "+error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
         );
+    }
 
+    public void openRegistrationConfirmFragment(String email, RegistrationView registrationView){
         FragmentManager fragmentManager = registrationView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         RegistrationConfirmFragment registrationConfirmFragment = new RegistrationConfirmFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("email",email);
+        registrationConfirmFragment.setArguments(bundle);
         fragmentTransaction.add(R.id.registrationFrameLayout, registrationConfirmFragment, null);
         fragmentTransaction.commit();
     }
 
-    public void confermaRegistrazione(String codice, FrameLayout frameLayout, RegistrationView registrationView){
+    public void confermaRegistrazione(String codice, FrameLayout frameLayout, RegistrationView registrationView, String email){
         //controllo codice di cognito, se è giusto una cosa, se è sbagliato l'altra, mo metto n'if strano
-        String email = "antoniodig2017@gmail.com";
 
         Amplify.Auth.confirmSignUp(
                 email,
                 codice,
                 result -> {
                     Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete");
-                    createPlaylistUser(email);
+                    insertUser(email, frameLayout, registrationView);
                 },
                 error -> {
-                    Log.e("AuthQuickstart", error.toString());
-        }
+                    registrationView.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(registrationView, "Codice sbagliato", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
         );
     }
 
+
     //inserimento user all'interno del db
-    public void insertUser(String email){
+    public void insertUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
         User user = new User(email, null);
         Call<User> call = utenteDAO.insertUser(user);
 
@@ -141,6 +162,7 @@ public class Controller {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.i("Creato user", "Creato user");
+                Controller.getInstance().createPlaylistUser(email, frameLayout, registrationView);
             }
 
             @Override
@@ -151,14 +173,16 @@ public class Controller {
     }
 
     //creazione delle playlist dell'utente
-    public void createPlaylistUser(String email){
+    public void createPlaylistUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
         User user = new User(email, null);
         Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
 
         call.enqueue(new Callback<Playlist>() {
             @Override
             public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                Log.i("Creato user", "Creato user");
+                Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
+                cleanFragment(frameLayout);
+                registrationView.finish();
             }
 
             @Override
@@ -168,18 +192,11 @@ public class Controller {
         });
     }
 
-    //DA VEDERE COME RISOLVERE
-    public void printMessageRegistration(RegistrationView registrationView, FrameLayout frameLayout, int res){
-        if(res == 1){
-            Toast.makeText(registrationView,"Registrazione avvenuta con successo", Toast.LENGTH_SHORT).show();
-            frameLayout.removeAllViews();
-            registrationView.finish();
-        }
-        else {
-            Toast.makeText(registrationView,"Codice Errato!", Toast.LENGTH_SHORT).show();
-        }
+    public void logout(FrameLayout frameLayout, HomeView homeview){
+        //qui fai il logout con amplify
+        cleanFragment(frameLayout);
+        homeview.finish();
     }
-
 
 
     public void openForgotPasswordOverlay(LoginView loginView){
@@ -214,7 +231,6 @@ public class Controller {
     }
 
     public void getPathOfPlaylist(PlaylistFragment playlistFragment, String nomePlaylist){
-
 
     //SOSTITUIRE QUESTO CEATORE CON QUELLO NELLE SHARED
         String creatorePlaylist = "antoniodig2017@gmail.com";

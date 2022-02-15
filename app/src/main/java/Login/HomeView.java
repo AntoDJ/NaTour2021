@@ -66,13 +66,11 @@ private ActivityNavigationBinding binding;
         if(backButtonCount >= 1)
         {
             backButtonCount=0;
-
-            Controller c = Controller.getInstance();
-            c.logoutOverlay(HomeView.this);
+            System.exit(0);
         }
         else
         {
-            Toast.makeText(this, "Premi indietro di nuovo per chiudere l'app", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Premi di nuovo indietro per chiudere l'app", Toast.LENGTH_SHORT).show();
             backButtonCount++;
         }
     }

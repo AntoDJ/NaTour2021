@@ -43,6 +43,7 @@ public class Controller {
     PlaylistDAO playlistDAO;
     UtenteDAO utenteDAO;
     ReportDAO reportDAO;
+    SharedPreferences sharedPref;
 
 
     //Singleton
@@ -59,17 +60,35 @@ public class Controller {
 
     }
 
-    public void loginView(MainActivity mainActivity){
+    public void logincheck(MainActivity mainActivity){
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
         utenteDAO = retrofit.create(UtenteDAO.class);
         reportDAO = retrofit.create(ReportDAO.class);
         playlistDAO = retrofit.create(PlaylistDAO.class);
-        //String utenteloggato = prendi dalle preferencies;
-        //controllo bla lba
+
+        sharedPref= mainActivity.getSharedPreferences(String.valueOf(R.string.preference_file_key),Context.MODE_PRIVATE);
+        String email = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+
+        if(!email.equals("")) {
+            Amplify.Auth.signIn(
+                    email,
+                    "",
+                    result -> {
+                        Intent i = new Intent(mainActivity, HomeView.class);
+                        mainActivity.startActivity(i);
+                        mainActivity.finish();
+                    },
+                    error -> {
+                        loginView(mainActivity);
+                    }
+            );
+        }
+        else loginView(mainActivity);
+    }
 
 
-
+    public void loginView(MainActivity mainActivity){
         Intent i = new Intent(mainActivity, LoginView.class);
         mainActivity.startActivity(i);
         mainActivity.finish();
@@ -77,14 +96,18 @@ public class Controller {
 
 
     public void userLogin(LoginView loginView, String email, String password){
-        Log.i("email",email);
-        Log.i("pass",password);
         Amplify.Auth.signIn(
                 email,
                 password,
                 result -> {
+                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                    editor.putString(String.valueOf(R.string.logged_email),email);
+                    editor.apply();
+
                     Intent i = new Intent(loginView, HomeView.class);
                     loginView.startActivity(i);
+                    loginView.finish();
                 },
                 error -> {
                     loginView.runOnUiThread(new Runnable() {
@@ -193,8 +216,22 @@ public class Controller {
     }
 
     public void logout(FrameLayout frameLayout, HomeView homeview){
-        //qui fai il logout con amplify
+        Amplify.Auth.signOut(
+                () -> {
+                    homeview.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(homeview, "Logout effettuato con successo", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                },
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(String.valueOf(R.string.logged_email),"");
+        editor.apply();
         cleanFragment(frameLayout);
+        Intent intent = new Intent(homeview,LoginView.class);
+        homeview.startActivity(intent);
         homeview.finish();
     }
 

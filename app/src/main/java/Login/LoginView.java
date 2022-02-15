@@ -2,6 +2,8 @@ package Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +17,6 @@ import Controller.Controller;
 
 public class LoginView extends AppCompatActivity {
     private int backButtonCount=0;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

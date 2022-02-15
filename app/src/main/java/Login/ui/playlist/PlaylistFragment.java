@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Controller.Controller;
+import Login.HomeView;
 
 
 public class PlaylistFragment extends Fragment {
@@ -57,5 +58,9 @@ public class PlaylistFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void playlistvuota(String nomePlaylist) {
+        Toast.makeText(getActivity(),"Non ci sono sentieri nella playlist "+nomePlaylist,Toast.LENGTH_LONG).show();
     }
 }

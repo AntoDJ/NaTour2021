@@ -270,7 +270,7 @@ public class Controller {
     public void getPathOfPlaylist(PlaylistFragment playlistFragment, String nomePlaylist){
 
     //SOSTITUIRE QUESTO CEATORE CON QUELLO NELLE SHARED
-        String creatorePlaylist = "antoniodig2017@gmail.com";
+        String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
 
         AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist, creatorePlaylist);
         Call<ArrayList<Path>> call = pathDAO.getPathsOfPlaylist(assPlaylistSentiero);
@@ -279,7 +279,10 @@ public class Controller {
             @Override
             public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
                 ArrayList<Path> paths = response.body();
-                openPlayListView(playlistFragment,paths, nomePlaylist);
+                if(paths.size()!=0) {
+                    openPlayListView(playlistFragment, paths, nomePlaylist);
+                }
+                else playlistFragment.playlistvuota(nomePlaylist);
 
             }
 
@@ -345,7 +348,7 @@ public class Controller {
 
     public void getPersonalPathOfPlaylist(PersonalPlaylistView personalPlaylistView){
     //SOSTITUIRE CREATORE CON SHARED
-        String creatore = "antoniodig2017@gmail.com";
+        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         User tmpUser = new User(creatore, null);
         Call<ArrayList<Path>> call = pathDAO.getPersonalPathsOfPlaylist(tmpUser);
 
@@ -356,7 +359,6 @@ public class Controller {
 
                 ArrayList<String> Sentieri = new ArrayList<>();
                 for(Path p:path){
-                    Log.i("Sentiero", p.toString());
                     Sentieri.add(p.getNomeSentiero());
                 }
                 personalPlaylistView.setPersonalList(Sentieri);

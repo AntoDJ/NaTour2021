@@ -17,6 +17,7 @@
         android:fontFamily="@font/neuemontreal"
         android:text="Nome del Sentiero"
         android:textAlignment="center"
+        android:gravity="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -32,7 +33,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/neuemontreal"
         android:background="@drawable/descrizione_bg"
-
+        android:gravity="center"
         android:text="Descrizione del Sentiero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -17,23 +17,14 @@ import com.example.natour2021.R;
 import Controller.Controller;
 
 public class RegistrationConfirmFragment extends Fragment {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String email;
 
     public RegistrationConfirmFragment() {
         // Required empty public constructor
     }
 
-    public static RegistrationConfirmFragment newInstance(String param1, String param2) {
+    public static RegistrationConfirmFragment newInstance() {
         RegistrationConfirmFragment fragment = new RegistrationConfirmFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 

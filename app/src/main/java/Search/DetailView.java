@@ -58,6 +58,7 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         playlistButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
             c.addToPlaylistOverlay(DetailView.this);
+            c.cleanFragment(findViewById(R.id.detailOverlayContainer));
         });
 
         Button reportButton=(Button) findViewById(R.id.reportButton);

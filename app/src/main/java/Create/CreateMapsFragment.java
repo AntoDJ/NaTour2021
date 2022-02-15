@@ -29,6 +29,7 @@ public class CreateMapsFragment extends Fragment {
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            i=1;
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             LatLng latLng= new LatLng(41.8,12.7);
             CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
@@ -38,7 +39,7 @@ public class CreateMapsFragment extends Fragment {
             for(Marker m:coordinateinserite){
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(m.getPosition());
-                markerOptions.title(m.getTitle());
+                markerOptions.title("Punto "+i++);
                 Marker marker =googleMap.addMarker(markerOptions);
                 MapViewFragment.addMarker(marker);
             }

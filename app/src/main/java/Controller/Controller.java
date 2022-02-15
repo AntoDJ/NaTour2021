@@ -344,14 +344,6 @@ public class Controller {
 
 
     public void getPersonalPathOfPlaylist(PersonalPlaylistView personalPlaylistView){
-
-        Path p1 = new Path("Sentiero prova", 5, 2);
-        Path p2 = new Path("Sentiero30", 5, 2);
-        Path p3 = new Path("Sentiero31", 5, 2);
-        Path p4 = new Path("Sentiero2", 5, 2);
-
-
-
     //SOSTITUIRE CREATORE CON SHARED
         String creatore = "antoniodig2017@gmail.com";
         User tmpUser = new User(creatore, null);
@@ -450,9 +442,9 @@ public class Controller {
     }
 
     public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
-        // Ricorda di prendere utente loggato
+        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
 
-        Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, "antonio", durata);
+        Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, creatore, durata);
         Call<Path> call = pathDAO.insertPath(tmpPath);
 
         call.enqueue(new Callback<Path>() {
@@ -557,17 +549,8 @@ public class Controller {
 
 
     public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
-        //Insert nel Database per il report ricorda di cambiare l'utente in utenteloggato
-        //log di prova per vedere se passa roba giusta
-        // l'id del report l'ho messo a caso perchè giustamente se lo dovrebbe prendere il db
-        //il segnalante chiamalo "utente" che come sopra dobbiamo prenderlo dall'utenteloggato
-        // Ricorda di cambiare a unique key motivazione, nomesentiero, segnalante e segnalato
-        Log.i("prova",nomesentiero);
-        Log.i("prova",motivazione);
-        Log.i("prova",segnalato);
-
-
-        Report report = new Report(1,motivazione, nomesentiero,"antoniodig2017@gmail.com",segnalato);
+        String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        Report report = new Report(1,motivazione, nomesentiero,segnalante,segnalato);
         Call<Report> call = reportDAO.reportPath(report);
 
         call.enqueue(new Callback<Report>() {
@@ -589,6 +572,8 @@ public class Controller {
     }
 
     public void addPathToPlaylist(DetailView detailView, String nomesentiero, String nomePlaylist) {
+        String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+
         //log di prova per vedere se passa roba giusta
         Log.i("prova",nomesentiero);
         Log.i("prova",nomePlaylist);

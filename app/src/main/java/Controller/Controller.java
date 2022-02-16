@@ -11,13 +11,13 @@ import android.widget.Toast;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.amplifyframework.auth.AuthProvider;
+import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import DAO.*;
 
@@ -34,6 +34,7 @@ import Search.*;
 import Create.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +48,7 @@ public class Controller {
     UtenteDAO utenteDAO;
     ReportDAO reportDAO;
     SharedPreferences sharedPref;
+    LoginView loginView;
 
 
     //Singleton
@@ -63,6 +65,10 @@ public class Controller {
 
     }
 
+    public void setLoginView(LoginView loginView) {
+        this.loginView=loginView;
+    }
+
     public void logincheck(MainActivity mainActivity){
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
@@ -72,26 +78,50 @@ public class Controller {
 
         sharedPref= mainActivity.getSharedPreferences(String.valueOf(R.string.preference_file_key),Context.MODE_PRIVATE);
         String email = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        String tipo = sharedPref.getString(String.valueOf(R.string.tipo_login),"");
 
-        if(!email.equals("")) {
-            Amplify.Auth.signIn(
-                    email,
-                    "",
-                    result -> {
-                        Intent i = new Intent(mainActivity, HomeView.class);
-                        mainActivity.startActivity(i);
-                        mainActivity.finish();
-                    },
-                    error -> {
-                        loginView(mainActivity);
-                    }
-            );
+        switch(tipo){
+            case "normale":
+                Amplify.Auth.signIn(
+                        email,
+                        "",
+                        result -> {
+                            Intent i = new Intent(mainActivity, HomeView.class);
+                            mainActivity.startActivity(i);
+                            mainActivity.finish();
+                        },
+                        error -> {
+                            openloginView(mainActivity);
+                        }
+                );
+                break;
+            case "google":
+                Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), mainActivity,
+                        result -> {
+                            Intent i = new Intent(mainActivity, HomeView.class);
+                            mainActivity.startActivity(i);
+                            mainActivity.finish();
+                        },
+                        error -> openloginView(mainActivity)
+                );
+                break;
+            case "facebook":
+                Amplify.Auth.signInWithSocialWebUI(AuthProvider.facebook(), mainActivity,
+                        result -> {
+                            Intent i = new Intent(mainActivity, HomeView.class);
+                            mainActivity.startActivity(i);
+                            mainActivity.finish();
+                        },
+                        error -> openloginView(mainActivity)
+                );
+                break;
+            default: openloginView(mainActivity);
+
         }
-        else loginView(mainActivity);
     }
 
 
-    public void loginView(MainActivity mainActivity){
+    public void openloginView(MainActivity mainActivity){
         Intent i = new Intent(mainActivity, LoginView.class);
         mainActivity.startActivity(i);
         mainActivity.finish();
@@ -102,16 +132,7 @@ public class Controller {
         Amplify.Auth.signIn(
                 email,
                 password,
-                result -> {
-                    SharedPreferences.Editor editor = sharedPref.edit();
-
-                    editor.putString(String.valueOf(R.string.logged_email),email);
-                    editor.apply();
-
-                    Intent i = new Intent(loginView, HomeView.class);
-                    loginView.startActivity(i);
-                    loginView.finish();
-                },
+                result -> Controller.getInstance().openHomeView(loginView, email),
                 error -> {
                     loginView.runOnUiThread(new Runnable() {
                         public void run() {
@@ -122,22 +143,28 @@ public class Controller {
         );
     }
 
-    public void getMail(LoginView loginView) { ;
-        Amplify.Auth.fetchUserAttributes(
-                attributes -> Controller.getInstance().logintoDB(attributes.get(0).toString()),
-                error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
-        );
-    }
-
-    public void logintoDB(String email){
-        Log.i("email",email);
+    public void openHomeView(LoginView loginview, String email){
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(String.valueOf(R.string.logged_email),email);
+        editor.putString(String.valueOf(R.string.tipo_login),"normale");
         editor.apply();
 
-        /*Intent i = new Intent(loginView, HomeView.class);
+        Intent i = new Intent(loginView, HomeView.class);
+        loginview.startActivity(i);
+        loginview.finish();
+    }
+
+
+
+    public void logintoDB(String tipo,List<AuthUserAttribute> attributes){
+        String email = attributes.get(3).getValue();
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(String.valueOf(R.string.logged_email),email);
+        editor.putString(String.valueOf(R.string.tipo_login),tipo);
+        editor.apply();
+        Intent i = new Intent(loginView, HomeView.class);
         loginView.startActivity(i);
-        loginView.finish();*/
+        loginView.finish();
     }
 
     public void userRegistration(LoginView loginView){
@@ -200,7 +227,7 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.body().getEmail()!=null) {
+                if(response.body()!=null) {
                     Controller.getInstance().createPlaylistUser(email, frameLayout, registrationView);
                 }
                 else{
@@ -250,6 +277,7 @@ public class Controller {
         );
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(String.valueOf(R.string.logged_email),"");
+        editor.putString(String.valueOf(R.string.tipo_login),"");
         editor.apply();
         cleanFragment(frameLayout);
         Intent intent = new Intent(homeview,LoginView.class);
@@ -612,6 +640,7 @@ public class Controller {
 
     public void getNotification(NotificationFragment notificationFragment) {
     }
+
 
 
 }

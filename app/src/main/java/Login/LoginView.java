@@ -26,6 +26,7 @@ public class LoginView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_view);
+        Controller.getInstance().setLoginView(this);
         EditText campomail = (EditText) findViewById(R.id.emailLoginPlainText);
         EditText campopass = (EditText) findViewById(R.id.passwordLoginPlainText);
 
@@ -54,7 +55,13 @@ public class LoginView extends AppCompatActivity {
         ImageButton facebookButton = (ImageButton) findViewById(R.id.facebookButton);
         facebookButton.setOnClickListener(view -> {
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.facebook(), this,
-                    result -> Controller.getInstance().getMail((LoginView) getParent()),
+                    result -> {
+                        Log.i("successo","login success");
+                        Amplify.Auth.fetchUserAttributes(
+                                attributes -> Controller.getInstance().logintoDB("facebook",attributes),
+                                error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+                        );
+                    },
                     error -> Log.i("errore","errore")
             );
         });
@@ -62,13 +69,14 @@ public class LoginView extends AppCompatActivity {
         ImageButton googleButton = (ImageButton) findViewById(R.id.googleButton);
         googleButton.setOnClickListener(view -> {
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), this,
-                    result -> Log.i("successo","login success"),
+                    result -> {
+                        Log.i("successo","login success");
+                        Amplify.Auth.fetchUserAttributes(
+                                attributes -> Controller.getInstance().logintoDB("google",attributes),
+                                error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+                        );
+                    },
                     error -> Log.i("errore","errore")
-            );
-
-            Amplify.Auth.fetchUserAttributes(
-                    attributes -> Controller.getInstance().logintoDB(attributes.toString()),
-                    error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
             );
         });
     }

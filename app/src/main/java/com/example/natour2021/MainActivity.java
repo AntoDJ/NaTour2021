@@ -2,13 +2,10 @@ package com.example.natour2021;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
+
 import Controller.Controller;
-import Login.LoginView;
 
 public class MainActivity extends AppCompatActivity {
 

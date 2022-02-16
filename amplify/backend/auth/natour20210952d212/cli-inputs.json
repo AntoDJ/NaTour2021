@@ -70,6 +70,7 @@
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"natour2021://LoginView/\"],\"LogoutURLs\":[\"natour2021://HomeView/\"]}"
+    "hostedUIProviderCreds": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"natour2021://LoginView/\",\"natour2021://MainActivity/\"],\"LogoutURLs\":[\"natour2021://HomeView/\"]}"
   }
 }

@@ -1,24 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-progettonatour-dev-192134-authRole",
-      "UnauthRoleArn": "arn:aws:iam::040359737007:role/amplify-progettonatour-dev-192134-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::040359737007:role/amplify-progettonatour-dev-192134-authRole",
+      "AuthRoleName": "amplify-natour2021-dev-105949-authRole",
+      "UnauthRoleArn": "arn:aws:iam::040359737007:role/amplify-natour2021-dev-105949-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::040359737007:role/amplify-natour2021-dev-105949-authRole",
       "Region": "eu-west-3",
-      "DeploymentBucketName": "amplify-progettonatour-dev-192134-deployment",
-      "UnauthRoleName": "amplify-progettonatour-dev-192134-unauthRole",
-      "StackName": "amplify-progettonatour-dev-192134",
-      "StackId": "arn:aws:cloudformation:eu-west-3:040359737007:stack/amplify-progettonatour-dev-192134/4900fc70-8a9e-11ec-a927-0e15aa09d268",
-      "AmplifyAppId": "dqyw0s6sn4qfi"
+      "DeploymentBucketName": "amplify-natour2021-dev-105949-deployment",
+      "UnauthRoleName": "amplify-natour2021-dev-105949-unauthRole",
+      "StackName": "amplify-natour2021-dev-105949",
+      "StackId": "arn:aws:cloudformation:eu-west-3:040359737007:stack/amplify-natour2021-dev-105949/2fd2ac60-8f0f-11ec-a4f8-06f430654b44",
+      "AmplifyAppId": "d26vm77x55lcn6"
     },
     "categories": {
       "auth": {
-        "progettonatour152e31b1": {
-          "userPoolId": "eu-west-3_c1viNUyRt",
-          "userPoolName": "natour2021886f3eeb_userpool_886f3eeb-dev",
-          "webClientId": "12b4hqn5i2chlo0kdgmj8p9tcv",
-          "nativeClientId": "12b4hqn5i2chlo0kdgmj8p9tcv"
-        }
+        "natour20210952d212": {}
       }
     }
   }

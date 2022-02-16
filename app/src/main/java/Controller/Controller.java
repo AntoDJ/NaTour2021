@@ -16,6 +16,8 @@ import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import DAO.*;
 
@@ -23,6 +25,7 @@ import Entity.*;
 
 import Login.*;
 import Login.ui.home.*;
+import Login.ui.notification.NotificationFragment;
 import Login.ui.playlist.*;
 import Login.ui.settings.*;
 import Login.ui.MyPath.*;
@@ -117,7 +120,24 @@ public class Controller {
                     });
                 }
         );
+    }
 
+    public void getMail(LoginView loginView) { ;
+        Amplify.Auth.fetchUserAttributes(
+                attributes -> Controller.getInstance().logintoDB(attributes.get(0).toString()),
+                error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+        );
+    }
+
+    public void logintoDB(String email){
+        Log.i("email",email);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(String.valueOf(R.string.logged_email),email);
+        editor.apply();
+
+        /*Intent i = new Intent(loginView, HomeView.class);
+        loginView.startActivity(i);
+        loginView.finish();*/
     }
 
     public void userRegistration(LoginView loginView){
@@ -126,8 +146,6 @@ public class Controller {
     }
 
     public void registraUtente(RegistrationView registrationView, String email, String password){
-        Log.i("email",email);
-        Log.i("pass",password);
         AuthSignUpOptions options = AuthSignUpOptions.builder()
                 .userAttribute(AuthUserAttributeKey.email(), email)
                 .build();
@@ -156,8 +174,6 @@ public class Controller {
     }
 
     public void confermaRegistrazione(String codice, FrameLayout frameLayout, RegistrationView registrationView, String email){
-        //controllo codice di cognito, se è giusto una cosa, se è sbagliato l'altra, mo metto n'if strano
-
         Amplify.Auth.confirmSignUp(
                 email,
                 codice,
@@ -184,8 +200,14 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.i("Creato user", "Creato user");
-                Controller.getInstance().createPlaylistUser(email, frameLayout, registrationView);
+                if(response.body().getEmail()!=null) {
+                    Controller.getInstance().createPlaylistUser(email, frameLayout, registrationView);
+                }
+                else{
+                    Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
+                    cleanFragment(frameLayout);
+                    registrationView.finish();
+                }
             }
 
             @Override
@@ -250,6 +272,8 @@ public class Controller {
     }
 
     public void searchView(HomeFragment homeFragment){
+        Log.i("msg",sharedPref.getString(String.valueOf(R.string.logged_email),""));
+
         Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
         homeFragment.startActivity(i);
     }
@@ -585,4 +609,9 @@ public class Controller {
         //Questa deve ritornare qualcosa perchè se l'insert non va vuol dire che ci sta un problema grave
         // te la lascio vuota perchè non so cosa scriverci, nel caso fai la call e il corpo lo metto io se serve
     }
+
+    public void getNotification(NotificationFragment notificationFragment) {
+    }
+
+
 }

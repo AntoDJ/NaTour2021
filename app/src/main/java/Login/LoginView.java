@@ -1,17 +1,21 @@
 package Login;
 
+import static com.google.android.gms.auth.api.signin.GoogleSignInOptions.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplifyframework.auth.AuthProvider;
+import com.amplifyframework.core.Amplify;
 import com.example.natour2021.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import Controller.Controller;
 
@@ -47,6 +51,26 @@ public class LoginView extends AppCompatActivity {
             c.userRegistration(LoginView.this);
         });
 
+        ImageButton facebookButton = (ImageButton) findViewById(R.id.facebookButton);
+        facebookButton.setOnClickListener(view -> {
+            Amplify.Auth.signInWithSocialWebUI(AuthProvider.facebook(), this,
+                    result -> Controller.getInstance().getMail((LoginView) getParent()),
+                    error -> Log.i("errore","errore")
+            );
+        });
+
+        ImageButton googleButton = (ImageButton) findViewById(R.id.googleButton);
+        googleButton.setOnClickListener(view -> {
+            Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), this,
+                    result -> Log.i("successo","login success"),
+                    error -> Log.i("errore","errore")
+            );
+
+            Amplify.Auth.fetchUserAttributes(
+                    attributes -> Controller.getInstance().logintoDB(attributes.toString()),
+                    error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+            );
+        });
     }
 
     @Override

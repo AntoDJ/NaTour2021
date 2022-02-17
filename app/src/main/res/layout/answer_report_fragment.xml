@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fragment_shape"
     android:clickable="true"
-    tools:context="Login.ui.notification.answerReportOverlay">
+    tools:context="Login.ui.notification.AnswerReportFragment">
 
     <TextView
         android:id="@+id/textView6"

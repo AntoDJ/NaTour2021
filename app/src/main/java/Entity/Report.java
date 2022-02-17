@@ -22,6 +22,7 @@ public class Report {
         this.risposta=risposta;
     }
 
+
     public int getIdSegnalazione() {
         return idSegnalazione;
     }

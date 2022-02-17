@@ -13,12 +13,7 @@ import com.example.natour2021.R;
 
 import Controller.Controller;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link answerReportOverlay#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class answerReportOverlay extends Fragment {
+public class AnswerReportFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +24,7 @@ public class answerReportOverlay extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public answerReportOverlay() {
+    public AnswerReportFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +34,11 @@ public class answerReportOverlay extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment answerReportOverlay.
+     * @return A new instance of fragment AnswerReportFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static answerReportOverlay newInstance(String param1, String param2) {
-        answerReportOverlay fragment = new answerReportOverlay();
+    public static AnswerReportFragment newInstance(String param1, String param2) {
+        AnswerReportFragment fragment = new AnswerReportFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +59,7 @@ public class answerReportOverlay extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
-        view= inflater.inflate(R.layout.fragment_answer_report_overlay, container, false);
+        view= inflater.inflate(R.layout.answer_report_fragment, container, false);
 
         Button b1 = (Button) view.findViewById(R.id.reportAnswerButton);
         Button b2 = (Button) view.findViewById(R.id.reportIgnoreButton);

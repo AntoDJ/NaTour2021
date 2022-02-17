@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,15 +17,21 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.natour2021.R;
 import com.example.natour2021.databinding.FragmentNotificationBinding;
 
+import java.util.ArrayList;
+
 import Controller.Controller;
+import Login.HomeView;
 
 
 public class NotificationFragment extends Fragment {
 
     private NotificationViewModel notificationViewModel;
     private FragmentNotificationBinding binding;
-    private ListView notifiche;
+    private ListView notificheList;
     private View root;
+    private ArrayList<String> nomiSentieri;
+    private ArrayList<String> descrizioni;
+    private ArrayList<Integer> ID;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -32,13 +39,13 @@ public class NotificationFragment extends Fragment {
         notificationViewModel =
                 new ViewModelProvider(this).get(NotificationViewModel.class);
 
-    binding = FragmentNotificationBinding.inflate(inflater, container, false);
-    View root = binding.getRoot();
+        binding = FragmentNotificationBinding.inflate(inflater, container, false);
+        root = binding.getRoot();
 
-        notifiche = (ListView) root.findViewById(R.id.personalPathListView);
-        notifiche.setOnItemClickListener((adapterView, view, i, l) -> {
+        notificheList = (ListView) root.findViewById(R.id.notificationListView);
+        notificheList.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
-
+            c.openAnswerReportOverlay(nomiSentieri.get(i),descrizioni.get(i),ID.get(i),(HomeView) getActivity());
         });
         Controller c = Controller.getInstance();
         c.getNotification(this);
@@ -51,4 +58,27 @@ public class NotificationFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    public void setNotification(ArrayList<String> nomiSentieri, ArrayList<String> descrizioni, ArrayList<Integer> notificheID){
+        TextView testo = (TextView) root.findViewById(R.id.textNotification);
+        this.nomiSentieri=nomiSentieri;
+        this.descrizioni=descrizioni;
+        this.ID=notificheID;
+        if(nomiSentieri.size()!=0) {
+            ArrayList<String> notificaToList = new ArrayList<>();
+            for(String s:nomiSentieri)  notificaToList.add("Segnalazione su sentiero "+s);
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, notificaToList);
+            testo.setText("Ecco le tue notifiche");
+            notificheList.setAdapter(arrayAdapter);
+            notificheList.setEnabled(true);
+        }
+        else{
+            testo.setText("Non hai nuove notifiche");
+        }
+    }
+
+    public void removeNotification(Integer id){
+
+    }
 }
+

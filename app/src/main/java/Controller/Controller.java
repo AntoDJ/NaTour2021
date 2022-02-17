@@ -25,7 +25,7 @@ import Entity.*;
 
 import Login.*;
 import Login.ui.home.*;
-import Login.ui.notification.NotificationFragment;
+import Login.ui.notification.*;
 import Login.ui.playlist.*;
 import Login.ui.settings.*;
 import Login.ui.MyPath.*;
@@ -300,8 +300,6 @@ public class Controller {
     }
 
     public void searchView(HomeFragment homeFragment){
-        Log.i("msg",sharedPref.getString(String.valueOf(R.string.logged_email),""));
-
         Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
         homeFragment.startActivity(i);
     }
@@ -639,8 +637,38 @@ public class Controller {
     }
 
     public void getNotification(NotificationFragment notificationFragment) {
+        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        ArrayList<String> descrizioniNotifiche = new ArrayList<>();
+        ArrayList<String> nomiSentieriNotifiche = new ArrayList<>();
+        ArrayList<Integer> notificheID = new ArrayList<>();
+        //Prendere le notifiche che hanno come segnalato il creatore e non hanno una risposta
+
+        ArrayList<Report> notifiche = new ArrayList<>();
+        Report r1 = new Report(1, "molto brutto","sentiero Prova","utente a",creatore);
+        Report r2 = new Report(2, "molto brutto","sentiero4","utente a",creatore);
+        Report r3 = new Report(3, "molto brutto","sentiero2","utente a",creatore);
+        notifiche.add(r1);        notifiche.add(r2);        notifiche.add(r3);
+
+        for(Report r:notifiche){
+            nomiSentieriNotifiche.add(r.getNomeSentiero());
+            descrizioniNotifiche.add(r.getDescrizione());
+            notificheID.add(r.getIdSegnalazione());
+        }
+        notificationFragment.setNotification(nomiSentieriNotifiche,descrizioniNotifiche,notificheID);
     }
 
+    public void openAnswerReportOverlay(String nomesentiero, String descrizione, Integer id, HomeView homeView){
+        FragmentManager fragmentManager = homeView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AnswerReportFragment answerReportFragment = new AnswerReportFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("nomesentiero",nomesentiero);
+        bundle.putString("descrizione",descrizione);
+        bundle.putInt("id",id);
+        answerReportFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.HomeContainer,answerReportFragment,null);
+        fragmentTransaction.commit();
+    }
 
 
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,6 +22,7 @@ import Controller.Controller;
 
 public class LoginView extends AppCompatActivity {
     private int backButtonCount=0;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class LoginView extends AppCompatActivity {
 
         Button accediButton = (Button) findViewById(R.id.accediButton);
         accediButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             if(campomail.getText().toString().trim().length()!=0&&campopass.getText().toString().trim().length()!=0) {
                 Controller c = Controller.getInstance();
                 c.userLogin(LoginView.this, campomail.getText().toString().trim(), campopass.getText().toString().trim());
@@ -48,12 +51,14 @@ public class LoginView extends AppCompatActivity {
 
         Button registratiButton = (Button) findViewById(R.id.registratiButton);
         registratiButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             Controller c = Controller.getInstance();
             c.userRegistration(LoginView.this);
         });
 
         ImageButton facebookButton = (ImageButton) findViewById(R.id.facebookButton);
         facebookButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.facebook(), this,
                     result -> {
                         Log.i("successo","login success");
@@ -68,6 +73,7 @@ public class LoginView extends AppCompatActivity {
 
         ImageButton googleButton = (ImageButton) findViewById(R.id.googleButton);
         googleButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), this,
                     result -> {
                         Log.i("successo","login success");

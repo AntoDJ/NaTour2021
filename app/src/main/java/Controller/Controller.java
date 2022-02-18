@@ -648,10 +648,7 @@ public class Controller {
 
     public void getNotification(NotificationFragment notificationFragment) {
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-        ArrayList<String> descrizioniNotifiche = new ArrayList<>();
-        ArrayList<String> nomiSentieriNotifiche = new ArrayList<>();
-        ArrayList<Integer> notificheID = new ArrayList<>();
-        //Prendere le notifiche che hanno come segnalato il creatore e non hanno una risposta
+
 
         Report report = new Report(0, null,null,null, creatore);
         Call<ArrayList<Report>> call = reportDAO.getNotification(report);
@@ -659,6 +656,9 @@ public class Controller {
             @Override
             public void onResponse(Call<ArrayList<Report>> call, Response<ArrayList<Report>> response) {
                 ArrayList < Report > notifiche = response.body();
+                ArrayList<String> descrizioniNotifiche = new ArrayList<>();
+                ArrayList<String> nomiSentieriNotifiche = new ArrayList<>();
+                ArrayList<Integer> notificheID = new ArrayList<>();
                 for(Report r:notifiche){
                     nomiSentieriNotifiche.add(r.getNomeSentiero());
                     descrizioniNotifiche.add(r.getDescrizione());
@@ -678,14 +678,19 @@ public class Controller {
         FragmentManager fragmentManager = homeView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AnswerReportFragment answerReportFragment = new AnswerReportFragment();
+        this.notificationFragment= notificationFragment;
         Bundle bundle = new Bundle();
         bundle.putString("nomesentiero",nomesentiero);
         bundle.putString("descrizione",descrizione);
         bundle.putInt("id",id);
         answerReportFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.HomeContainer,answerReportFragment,null);
+        fragmentTransaction.add(R.id.reportAnswerLayout,answerReportFragment,null);
         fragmentTransaction.commit();
     }
 
 
+    public void rispondiSegnalazione(int idnotifica, String risposta) {
+        notificationFragment.removeNotification(idnotifica);
+        //update di risposta sulla notifica con idnotifica
+    }
 }

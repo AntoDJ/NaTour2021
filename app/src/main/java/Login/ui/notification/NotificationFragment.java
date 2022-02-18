@@ -45,7 +45,7 @@ public class NotificationFragment extends Fragment {
         notificheList = (ListView) root.findViewById(R.id.notificationListView);
         notificheList.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
-            c.openAnswerReportOverlay(nomiSentieri.get(i),descrizioni.get(i),ID.get(i),(HomeView) getActivity());
+            c.openAnswerReportOverlay(nomiSentieri.get(i),descrizioni.get(i),ID.get(i),(HomeView) getActivity(),this);
         });
         Controller c = Controller.getInstance();
         c.getNotification(this);
@@ -78,7 +78,26 @@ public class NotificationFragment extends Fragment {
     }
 
     public void removeNotification(Integer id){
-
+        TextView testo = (TextView) root.findViewById(R.id.textNotification);
+        int posizione=-1;
+        for(Integer idnotifica:ID){
+            if(idnotifica==id) posizione=ID.indexOf(idnotifica);
+        }
+        if(posizione!=-1) {
+            nomiSentieri.remove(posizione);
+            descrizioni.remove(posizione);
+            ID.remove(posizione);
+            if(nomiSentieri.size()==0){
+                notificheList.setVisibility(View.GONE);
+                testo.setText("Non hai nuove notifiche");
+            }
+            else{
+                ArrayList<String> notificaToList = new ArrayList<>();
+                for(String s:nomiSentieri)  notificaToList.add("Segnalazione su sentiero "+s);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, notificaToList);
+                notificheList.setAdapter(arrayAdapter);
+            }
+        }
     }
 }
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class Controller {
     ReportDAO reportDAO;
     SharedPreferences sharedPref;
     LoginView loginView;
+    NotificationFragment notificationFragment;
 
 
     //Singleton
@@ -598,8 +600,6 @@ public class Controller {
         });
     }
 
-
-
     public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
         String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         Report report = new Report(1,motivazione, nomesentiero,segnalante,segnalato);
@@ -645,8 +645,8 @@ public class Controller {
 
         ArrayList<Report> notifiche = new ArrayList<>();
         Report r1 = new Report(1, "molto brutto","sentiero Prova","utente a",creatore);
-        Report r2 = new Report(2, "molto brutto","sentiero4","utente a",creatore);
-        Report r3 = new Report(3, "molto brutto","sentiero2","utente a",creatore);
+        Report r2 = new Report(2, "veramente brutto","sentiero4","utente a",creatore);
+        Report r3 = new Report(3, "bruttissimo","sentiero2","utente a",creatore);
         notifiche.add(r1);        notifiche.add(r2);        notifiche.add(r3);
 
         for(Report r:notifiche){
@@ -657,18 +657,23 @@ public class Controller {
         notificationFragment.setNotification(nomiSentieriNotifiche,descrizioniNotifiche,notificheID);
     }
 
-    public void openAnswerReportOverlay(String nomesentiero, String descrizione, Integer id, HomeView homeView){
+    public void openAnswerReportOverlay(String nomesentiero, String descrizione, Integer id, HomeView homeView, NotificationFragment notificationFragment){
         FragmentManager fragmentManager = homeView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AnswerReportFragment answerReportFragment = new AnswerReportFragment();
+        this.notificationFragment=notificationFragment;
         Bundle bundle = new Bundle();
         bundle.putString("nomesentiero",nomesentiero);
         bundle.putString("descrizione",descrizione);
         bundle.putInt("id",id);
         answerReportFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.HomeContainer,answerReportFragment,null);
+        fragmentTransaction.add(R.id.reportAnswerLayout,answerReportFragment,null);
         fragmentTransaction.commit();
     }
 
 
+    public void rispondiSegnalazione(int idnotifica, String risposta) {
+        //Update nel DB sulla notifica con idnotifica con la risposta
+        notificationFragment.removeNotification(idnotifica);
+    }
 }

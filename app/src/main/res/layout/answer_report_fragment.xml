@@ -8,13 +8,13 @@
     tools:context="Login.ui.notification.AnswerReportFragment">
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="320sp"
-        android:layout_height="28sp"
+        android:id="@+id/nomeSentieroReport"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
         android:layout_marginTop="28sp"
+        android:fontFamily="@font/neuemontreal"
         android:text="Ecco la motivazione di questa segnalazione"
         android:textAlignment="center"
-        android:fontFamily="@font/neuemontreal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,22 +32,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/motivationeText" />
 
-    <EditText
+    <TextView
         android:id="@+id/motivationeText"
         android:layout_width="320sp"
         android:layout_height="150sp"
-        android:layout_marginTop="8sp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/descrizione_bg"
         android:ems="10"
         android:fontFamily="@font/neuemontreal"
         android:gravity="center"
-        android:hint="Motivazione Segnalazione"
-        android:inputType="textMultiLine"
         android:padding="8sp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/nomeSentieroReport" />
 
     <EditText
         android:id="@+id/rispostaText"
@@ -69,23 +68,23 @@
 
     <Button
         android:id="@+id/reportIgnoreButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="32dp"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="Ignora"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.859"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reportAnswerButton"
-        app:layout_constraintVertical_bias="0.149" />
+        app:layout_constraintVertical_bias="0.218" />
 
     <Button
         android:id="@+id/reportAnswerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="32dp"
         android:layout_marginTop="24sp"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
@@ -108,8 +107,8 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rispostaText"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.23" />
 </androidx.constraintlayout.widget.ConstraintLayout>

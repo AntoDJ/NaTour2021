@@ -8,41 +8,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 
+import org.w3c.dom.Text;
+
 import Controller.Controller;
+import Login.HomeView;
 
 public class AnswerReportFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String nomesentiero;
+    private String descrizione;
+    private int idnotifica;
 
     public AnswerReportFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AnswerReportFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static AnswerReportFragment newInstance(String param1, String param2) {
+    public static AnswerReportFragment newInstance() {
         AnswerReportFragment fragment = new AnswerReportFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -50,8 +39,9 @@ public class AnswerReportFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            descrizione = getArguments().getString("descrizione");
+            nomesentiero = getArguments().getString("nomesentiero");
+            idnotifica = getArguments().getInt("id");
         }
     }
 
@@ -60,13 +50,36 @@ public class AnswerReportFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view;
         view= inflater.inflate(R.layout.answer_report_fragment, container, false);
+        EditText rispostaEditText= (EditText) view.findViewById(R.id.rispostaText) ;
 
-        Button b1 = (Button) view.findViewById(R.id.reportAnswerButton);
-        Button b2 = (Button) view.findViewById(R.id.reportIgnoreButton);
-        Button b3 = (Button) view.findViewById(R.id.reportBackButton);
-        b3.setOnClickListener(view1 -> {
+        TextView nomesentieroReport = (TextView) view.findViewById(R.id.nomeSentieroReport);
+        nomesentieroReport.setText("Ecco la motivazione della segnalazione sul sentiero: "+nomesentiero);
+
+        TextView motivazioneReport = (TextView) view.findViewById(R.id.motivationeText);
+        motivazioneReport.setText(descrizione);
+
+
+        Button reportAnswerButton = (Button) view.findViewById(R.id.reportAnswerButton);
+        Button reportIgnoreButton = (Button) view.findViewById(R.id.reportIgnoreButton);
+        Button reportBackButton = (Button) view.findViewById(R.id.reportBackButton);
+        reportBackButton.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();
-           // c.cleanFragment(getActivity().findViewById());
+            c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
+        });
+
+        reportAnswerButton.setOnClickListener(view1 -> {
+            if(rispostaEditText.getText().toString().trim().equals("")||rispostaEditText.getText().toString().trim().equals("vuota")) {
+                Controller c = Controller.getInstance();
+                c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
+                c.rispondiSegnalazione(idnotifica, rispostaEditText.getText().toString().trim());
+            }
+            else Toast.makeText(getActivity(),"Inserisci una risposta valida",Toast.LENGTH_LONG).show();
+        });
+
+        reportIgnoreButton.setOnClickListener(view1 -> {
+            Controller c = Controller.getInstance();
+            c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
+            c.rispondiSegnalazione(idnotifica, "vuota");
         });
         return view;
     }

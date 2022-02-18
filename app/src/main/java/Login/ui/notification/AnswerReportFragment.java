@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class AnswerReportFragment extends Fragment {
         });
 
         reportAnswerButton.setOnClickListener(view1 -> {
-            if(rispostaEditText.getText().toString().trim().equals("")||rispostaEditText.getText().toString().trim().equals("vuota")) {
+            if(!rispostaEditText.getText().toString().trim().equals("")&&!rispostaEditText.getText().toString().trim().equals("vuota")) {
                 Controller c = Controller.getInstance();
                 c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
                 c.rispondiSegnalazione(idnotifica, rispostaEditText.getText().toString().trim());

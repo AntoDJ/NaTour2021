@@ -603,22 +603,32 @@ public class Controller {
     public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
         String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         Report report = new Report(1,motivazione, nomesentiero,segnalante,segnalato);
+        Log.i("msg",report.getDescrizione());
+        Log.i("msg",report.getNomeSentiero());
+        Log.i("msg",report.getSegnalante());
+        Log.i("msg",report.getSegnalato());
+
         Call<Report> call = reportDAO.reportPath(report);
+
+
 
         call.enqueue(new Callback<Report>() {
             @Override
             public void onResponse(Call<Report> call, Response<Report> response) {
-                Report tmpReport = response.body();
-                if(tmpReport.getNomeSentiero().equals(nomesentiero)){
-                    // il report è stato aggiunto. fare qualcosa
+                if(response.body()!=null){
+                    Toast.makeText(detailView,"segnalazione fatta",Toast.LENGTH_LONG).show();
+                    Log.i("msg","segnalazione fatta");
+
                 }else{
-                    // il report non è stato aggiunto. fare qualcosa
+                    Toast.makeText(detailView,"segnalazione fallita",Toast.LENGTH_LONG).show();
+                    Log.i("msg","segnalazione fallita");
+
                 }
             }
 
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
-
+                Log.i("msg", String.valueOf(t));
             }
         });
     }
@@ -632,7 +642,7 @@ public class Controller {
             @Override
             public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
                 AssPlaylistSentiero tmpAss = response.body();
-                if(tmpAss.getNomeSentiero().equals(nomesentiero)){
+                if(tmpAss!=null){
                     //fai qualcosa se l'inserimento è andato a buon fine
                 }else{
                     //fai qualcosa se l'inserimento non è andato a buon fine

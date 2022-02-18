@@ -9,4 +9,14 @@ public class AssPlaylistSentiero {
         this.nomePlaylist = nomePlaylist;
         this.creatorePlaylist = creatorePlaylist;
     }
+
+    public AssPlaylistSentiero(String nomePlaylist, String creatorePlaylist, String nomeSentiero){
+        this.nomePlaylist = nomePlaylist;
+        this.creatorePlaylist = creatorePlaylist;
+        this.nomeSentiero = nomeSentiero;
+    }
+
+    public String getNomeSentiero() {
+        return nomeSentiero;
+    }
 }

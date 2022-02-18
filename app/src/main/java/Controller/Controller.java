@@ -625,15 +625,25 @@ public class Controller {
 
     public void addPathToPlaylist(DetailView detailView, String nomesentiero, String nomePlaylist) {
         String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist,creatorePlaylist,nomesentiero);
 
-        //log di prova per vedere se passa roba giusta
-        Log.i("prova",nomesentiero);
-        Log.i("prova",nomePlaylist);
-        //Insert nel DB nella tabella di mezzo tra sentiero e playlist, non so come
-        //praticamente c'è la tabella dove hai sentiero playlist e creatore della playlist
-        //il creatore chiamalo "utente" che come sopra dobbiamo prenderlo dall'utenteloggato
-        //Questa deve ritornare qualcosa perchè se l'insert non va vuol dire che ci sta un problema grave
-        // te la lascio vuota perchè non so cosa scriverci, nel caso fai la call e il corpo lo metto io se serve
+        Call<AssPlaylistSentiero> call = playlistDAO.addPathToPlaylist(assPlaylistSentiero);
+        call.enqueue(new Callback<AssPlaylistSentiero>() {
+            @Override
+            public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
+                AssPlaylistSentiero tmpAss = response.body();
+                if(tmpAss.getNomeSentiero().equals(nomesentiero)){
+                    //fai qualcosa se l'inserimento è andato a buon fine
+                }else{
+                    //fai qualcosa se l'inserimento non è andato a buon fine
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
+
+            }
+        });
     }
 
     public void getNotification(NotificationFragment notificationFragment) {
@@ -643,37 +653,39 @@ public class Controller {
         ArrayList<Integer> notificheID = new ArrayList<>();
         //Prendere le notifiche che hanno come segnalato il creatore e non hanno una risposta
 
-        ArrayList<Report> notifiche = new ArrayList<>();
-        Report r1 = new Report(1, "molto brutto","sentiero Prova","utente a",creatore);
-        Report r2 = new Report(2, "veramente brutto","sentiero4","utente a",creatore);
-        Report r3 = new Report(3, "bruttissimo","sentiero2","utente a",creatore);
-        notifiche.add(r1);        notifiche.add(r2);        notifiche.add(r3);
+        Report report = new Report(0, null,null,null, creatore);
+        Call<ArrayList<Report>> call = reportDAO.getNotification(report);
+        call.enqueue(new Callback<ArrayList<Report>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Report>> call, Response<ArrayList<Report>> response) {
+                ArrayList < Report > notifiche = response.body();
+                for(Report r:notifiche){
+                    nomiSentieriNotifiche.add(r.getNomeSentiero());
+                    descrizioniNotifiche.add(r.getDescrizione());
+                    notificheID.add(r.getIdSegnalazione());
+                }
+                notificationFragment.setNotification(nomiSentieriNotifiche,descrizioniNotifiche,notificheID);
+            }
 
-        for(Report r:notifiche){
-            nomiSentieriNotifiche.add(r.getNomeSentiero());
-            descrizioniNotifiche.add(r.getDescrizione());
-            notificheID.add(r.getIdSegnalazione());
-        }
-        notificationFragment.setNotification(nomiSentieriNotifiche,descrizioniNotifiche,notificheID);
+            @Override
+            public void onFailure(Call<ArrayList<Report>> call, Throwable t) {
+            }
+        });
     }
+
 
     public void openAnswerReportOverlay(String nomesentiero, String descrizione, Integer id, HomeView homeView, NotificationFragment notificationFragment){
         FragmentManager fragmentManager = homeView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AnswerReportFragment answerReportFragment = new AnswerReportFragment();
-        this.notificationFragment=notificationFragment;
         Bundle bundle = new Bundle();
         bundle.putString("nomesentiero",nomesentiero);
         bundle.putString("descrizione",descrizione);
         bundle.putInt("id",id);
         answerReportFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.reportAnswerLayout,answerReportFragment,null);
+        fragmentTransaction.add(R.id.HomeContainer,answerReportFragment,null);
         fragmentTransaction.commit();
     }
 
 
-    public void rispondiSegnalazione(int idnotifica, String risposta) {
-        //Update nel DB sulla notifica con idnotifica con la risposta
-        notificationFragment.removeNotification(idnotifica);
-    }
 }

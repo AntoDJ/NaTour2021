@@ -40,7 +40,7 @@ public class PlaylistView extends AppCompatActivity {
 
         ArrayList<String> dettagliSentiero= new ArrayList<>();
         for(int i=0;i<nomiSentieri.size();i++)
-            dettagliSentiero.add(nomiSentieri.get(i)+" "+durdiffSentieri.get(i));
+            dettagliSentiero.add("  "+nomiSentieri.get(i)+"\n"+durdiffSentieri.get(i));
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dettagliSentiero);
         sentieriPlaylist.setAdapter(arrayAdapter);

@@ -15,6 +15,7 @@
         android:layout_marginTop="52dp"
         android:text="Attendi il caricamento delle notifiche"
         android:textAlignment="center"
+        android:fontFamily="@font/neuemontreal"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +24,10 @@
 
     <ListView
         android:id="@+id/notificationListView"
-        android:layout_width="match_parent"
-        android:enabled="false"
-        android:layout_height="wrap_content"
+        android:layout_width="352sp"
+        android:visibility="invisible"
+        android:layout_height="362sp"
+        android:fontFamily="@font/neuemontreal"
         android:layout_marginHorizontal="25sp"
         android:layout_marginTop="56dp"
         android:background="@drawable/descrizione_bg"

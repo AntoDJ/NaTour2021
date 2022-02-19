@@ -54,6 +54,9 @@ public class PlaylistDetailsView extends AppCompatActivity implements DetailInte
         if(intent.getStringExtra("descrizione")!=null){
             descrizione.setText(intent.getStringExtra("descrizione"));
         }
+        else{
+            descrizione.setText("Descrizione Vuota");
+        }
 
         Button b1 = (Button) findViewById(R.id.eliminaSentieroDallaPlaylistButton);
         b1.setOnClickListener(view -> {

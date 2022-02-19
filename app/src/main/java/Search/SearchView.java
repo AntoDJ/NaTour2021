@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.material.slider.RangeSlider;
@@ -54,8 +55,11 @@ public class SearchView extends AppCompatActivity {
         CheckBox access = (CheckBox) findViewById(R.id.accessibilitàCheckBoxSearch);
         Button cercaButton=(Button) findViewById(R.id.searchButton);
         cercaButton.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.getFilteredPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
+            if(posizione!=null){
+                Controller c = Controller.getInstance();
+                c.getFilteredPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
+            }
+            else Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();
         });
     }
 

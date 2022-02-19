@@ -425,9 +425,41 @@ public class Controller {
 
     }
 
-    public void openPersonalDetailsView(PersonalPlaylistView personalPlaylistView){
-        Intent i = new Intent(personalPlaylistView.getContext(), PersonalDetailView.class);
-        personalPlaylistView.startActivity(i);
+    public void getAllDetailsOfPersonalPath(HomeView homeView,String nomeSentiero){
+        Path tmpPath = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.getPath(tmpPath);
+
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body()!=null&&response.body().getNomeSentiero().equals(nomeSentiero)) {
+                    Controller c = Controller.getInstance();
+                    c.openPersonalDetailsView(homeView, response.body());
+                }
+                else{
+                    Controller c = Controller.getInstance();
+                    c.bigError();
+                }
+            }
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+            }
+        });
+    }
+
+
+
+    public void openPersonalDetailsView(HomeView homeview, Path p){
+        Intent i = new Intent(homeview, PersonalDetailView.class);
+        i.putExtra("nomesentiero", p.getNomeSentiero());
+        i.putExtra("coordinate", p.getCoordinateAsArray());
+        i.putExtra("puntoiniziale", p.getPuntoIniziale());
+        i.putExtra("difficolta", p.getDifficolta());
+        i.putExtra("durata", p.getDurata());
+        i.putExtra("descrizione", p.getDescrizione());
+        i.putExtra("datamodifica", p.getDataModifica());
+        i.putExtra("creatore", p.getCreatore());
+        homeview.startActivity(i);
     }
 
     public void openModificationView(PersonalDetailView personalDetailView){
@@ -609,20 +641,15 @@ public class Controller {
         Log.i("msg",report.getSegnalato());
 
         Call<Report> call = reportDAO.reportPath(report);
-
-
-
         call.enqueue(new Callback<Report>() {
             @Override
             public void onResponse(Call<Report> call, Response<Report> response) {
                 if(response.body()!=null){
                     Toast.makeText(detailView,"segnalazione fatta",Toast.LENGTH_LONG).show();
                     Log.i("msg","segnalazione fatta");
-
                 }else{
                     Toast.makeText(detailView,"segnalazione fallita",Toast.LENGTH_LONG).show();
                     Log.i("msg","segnalazione fallita");
-
                 }
             }
 
@@ -641,11 +668,10 @@ public class Controller {
         call.enqueue(new Callback<AssPlaylistSentiero>() {
             @Override
             public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
-                AssPlaylistSentiero tmpAss = response.body();
-                if(tmpAss!=null){
-                    //fai qualcosa se l'inserimento è andato a buon fine
+                if(response.body()!=null){
+                    Toast.makeText(detailView,"Sentiero aggiunto alla playlist",Toast.LENGTH_LONG).show();
                 }else{
-                    //fai qualcosa se l'inserimento non è andato a buon fine
+                    Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
                 }
             }
 

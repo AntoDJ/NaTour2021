@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
+        android:fontFamily="@font/neuemontreal"
         android:text="Attendi il caricamento dei sentieri"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -23,9 +24,10 @@
 
     <ListView
         android:id="@+id/personalPathListView"
-        android:layout_width="match_parent"
-        android:enabled="false"
-        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_width="352sp"
+        android:layout_height="362sp"
+        android:fontFamily="@font/neuemontreal"
         android:layout_marginHorizontal="25sp"
         android:layout_marginTop="56dp"
         android:background="@drawable/descrizione_bg"

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import Controller.Controller;
 import Entity.Path;
+import Login.HomeView;
 
 
 public class PersonalPlaylistView extends Fragment {
@@ -29,6 +30,7 @@ public class PersonalPlaylistView extends Fragment {
     private ActivityPersonalPlaylistViewBinding binding;
     private ListView sentieriPlaylist;
     private View root;
+    private ArrayList<String> nomisentieri;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
@@ -38,15 +40,9 @@ public class PersonalPlaylistView extends Fragment {
         sentieriPlaylist = (ListView) root.findViewById(R.id.personalPathListView);
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
-            String text = sentieriPlaylist.getItemAtPosition(i).toString();
-            int index = text.indexOf(' ');
-            String sentiero = text.substring(0, i);
-            c.openPersonalDetailsView(this);
-            //Finireeeeeeeee
+            c.getAllDetailsOfPersonalPath((HomeView) getActivity(),nomisentieri.get(i));
         });
-        Controller c = Controller.getInstance();
-        c.getPersonalPathOfPlaylist(this);
-
+        Controller.getInstance().getPersonalPathOfPlaylist(this);
 
         return root;
     }
@@ -58,12 +54,13 @@ public class PersonalPlaylistView extends Fragment {
     }
 
     public void setPersonalList(ArrayList<String> nomisentieri){
+        this.nomisentieri = nomisentieri;
         TextView testo = (TextView) root.findViewById(R.id.textPersonalPlaylist);
         if(nomisentieri.size()!=0) {
             ArrayAdapter arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, nomisentieri);
             testo.setText("Ecco i sentieri che hai creato");
             sentieriPlaylist.setAdapter(arrayAdapter);
-            sentieriPlaylist.setEnabled(true);
+            sentieriPlaylist.setVisibility(View.VISIBLE);
         }
         else{
             testo.setText("Non hai creato sentieri");

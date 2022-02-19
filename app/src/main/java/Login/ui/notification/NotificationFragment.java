@@ -70,7 +70,7 @@ public class NotificationFragment extends Fragment {
             ArrayAdapter arrayAdapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, notificaToList);
             testo.setText("Ecco le tue notifiche");
             notificheList.setAdapter(arrayAdapter);
-            notificheList.setEnabled(true);
+            notificheList.setVisibility(View.VISIBLE);
         }
         else{
             testo.setText("Non hai nuove notifiche");

@@ -18,6 +18,7 @@ import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.MainActivity;
+import com.example.natour2021.MyService;
 import com.example.natour2021.R;
 
 import DAO.*;
@@ -71,7 +72,13 @@ public class Controller {
         this.loginView=loginView;
     }
 
+    public void provaRetrofit(){
+        MyService myService = new MyService();
+        myService.getToken();
+    }
+
     public void logincheck(MainActivity mainActivity){
+      provaRetrofit();
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
         utenteDAO = retrofit.create(UtenteDAO.class);
@@ -641,6 +648,7 @@ public class Controller {
         Log.i("msg",report.getSegnalato());
 
         Call<Report> call = reportDAO.reportPath(report);
+
         call.enqueue(new Callback<Report>() {
             @Override
             public void onResponse(Call<Report> call, Response<Report> response) {
@@ -656,6 +664,7 @@ public class Controller {
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
                 Log.i("msg", String.valueOf(t));
+                Toast.makeText(detailView,"segnalazione fallita",Toast.LENGTH_LONG).show();
             }
         });
     }

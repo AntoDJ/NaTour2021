@@ -14,4 +14,7 @@ public interface ReportDAO {
 
     @POST("getnotification")
     Call<ArrayList<Report>> getNotification(@Body Report report);
+
+    @POST("rispodisegnalazione")
+    Call<Report> addReply(@Body Report report);
 }

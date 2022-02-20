@@ -75,10 +75,12 @@ public class Controller {
     public void provaRetrofit(){
         MyService myService = new MyService();
         myService.getToken();
+        myService.sendMessage("dN5pltOFQpKNZAbhwG3wGV:APA91bGjA9K1z7OVFjU6vwRYxZ1Ba_ZmvQR6f94MnuvIuQJn9rMwaLgxLc_IRzGIFltoeCHjKK4vsd9g5oWlXCXPeYidO3Bi_j1hRC-3QG_5iU0YKag1-XzY8Knnv7wSaH6UoN0K5USy");
     }
 
     public void logincheck(MainActivity mainActivity){
       provaRetrofit();
+
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
         utenteDAO = retrofit.create(UtenteDAO.class);
@@ -736,6 +738,19 @@ public class Controller {
 
     public void rispondiSegnalazione(int idnotifica, String risposta) {
         notificationFragment.removeNotification(idnotifica);
-        //update di risposta sulla notifica con idnotifica
+        Report report = new Report(idnotifica, risposta);
+        Call<Report>  call = reportDAO.addReply(report);
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                //fare qualcosa se va tutto bene
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                //fare qualcosa se fallisce
+            }
+        });
+
     }
 }

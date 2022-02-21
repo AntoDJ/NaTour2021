@@ -5,34 +5,36 @@
     android:layout_height="match_parent"
     android:background="@drawable/fragment_shape"
     android:clickable="true"
-    tools:context="Search.ReportOverlay">
+    tools:context="Search.ReportOverlay"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="39dp">
 
     <TextView
         android:id="@+id/reportTextView"
         android:layout_width="305dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/neuemontreal"
+        android:gravity="center"
         android:text="Inserisci la motivazione della tua segnalazione"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/reportMotivation"
         android:layout_width="289dp"
-        android:layout_height="141dp"
-        android:layout_marginTop="22dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/descrizione_bg"
+        android:ems="10"
         android:fontFamily="@font/neuemontreal"
         android:gravity="center"
         android:inputType="textMultiLine"
         android:padding="8sp"
         android:scrollbars="vertical"
-        android:background="@drawable/descrizione_bg"
         android:textColor="@color/black"
-        android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reportTextView" />
@@ -48,10 +50,10 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reportMotivation"
-        app:layout_constraintVertical_bias="0.1"/>
+        app:layout_constraintVertical_bias="0.391" />
 
     <Button
         android:id="@+id/confermaReportButton"
@@ -64,8 +66,8 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reportMotivation"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.391" />
 </androidx.constraintlayout.widget.ConstraintLayout>

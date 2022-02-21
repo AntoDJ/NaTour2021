@@ -15,9 +15,9 @@
         android:layout_marginTop="28sp"
         android:background="@drawable/descrizione_bg"
         android:fontFamily="@font/neuemontreal"
+        android:gravity="center"
         android:text="Nome del Sentiero"
         android:textAlignment="center"
-        android:gravity="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -29,12 +29,12 @@
         android:layout_width="320sp"
         android:layout_height="74sp"
         android:layout_marginTop="10sp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:fontFamily="@font/neuemontreal"
         android:background="@drawable/descrizione_bg"
+        android:fontFamily="@font/neuemontreal"
         android:gravity="center"
         android:text="Descrizione del Sentiero"
+        android:textAlignment="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,18 +154,17 @@
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomeTextView" />
+
     <FrameLayout
         android:id="@+id/detailOverlayContainer"
         android:layout_width="354sp"
-        android:layout_height="379sp"
+        android:layout_height="592sp"
+        android:layout_marginTop="2dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/reportButton"
+        app:layout_constraintBottom_toBottomOf="@+id/reportButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/nomeTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

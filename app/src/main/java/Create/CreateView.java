@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.gms.maps.model.Marker;
@@ -58,11 +59,15 @@ public class CreateView extends AppCompatActivity {
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
-            String puntoInziale=coordinate.get(0).getPosition().latitude+" "+coordinate.get(0).getPosition().longitude;
-            coordinate.remove(0);
-            String coor="";
-            for(Marker mar:coordinate) coor += mar.getPosition().latitude+" "+mar.getPosition().longitude+" ";
-            c.createPath(this,nomeEditText.getText().toString().trim(),descrizioneEditText.getText().toString().trim(),durataSlider.getValue(),(int)difficoltaSlider.getValue(),accessibilitaCB.isChecked(), puntoInziale, coor);
+            if(!nomeEditText.getText().toString().trim().equals("")&&coordinate.size()!=0) {
+                String puntoInziale = coordinate.get(0).getPosition().latitude + " " + coordinate.get(0).getPosition().longitude;
+                coordinate.remove(0);
+                String coor = "";
+                for (Marker mar : coordinate)
+                    coor += mar.getPosition().latitude + " " + mar.getPosition().longitude + " ";
+                c.createPath(this, nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor);
+            }
+            else Toast.makeText(this,"Inserisci il nome del sentiero e almeno un punto",Toast.LENGTH_LONG).show();
         });
     }
 

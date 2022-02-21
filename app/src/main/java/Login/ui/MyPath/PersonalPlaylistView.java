@@ -42,7 +42,7 @@ public class PersonalPlaylistView extends Fragment {
             Controller c = Controller.getInstance();
             c.getAllDetailsOfPersonalPath((HomeView) getActivity(),nomisentieri.get(i));
         });
-        Controller.getInstance().getPersonalPathOfPlaylist(this);
+        Controller.getInstance().getPersonalPaths(this);
 
         return root;
     }

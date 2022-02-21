@@ -61,13 +61,15 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         Button modificaSentieroButton = (Button) findViewById(R.id.modificaSentieroButton);
         modificaSentieroButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
-            c.openModificationView(this);
+            c.openModificationView(this, intent.getStringExtra("nomesentiero"),
+                    intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessiblità",true),
+                    intent.getFloatExtra("durata",0), intent.getIntExtra("difficolta",0));
         });
 
         Button cancellaSentieroButton= (Button) findViewById(R.id.cancellaSentieroButton);
         cancellaSentieroButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
-            c.deletePathOverlay(PersonalDetailView.this);
+            c.deletePathOverlay(PersonalDetailView.this, intent.getStringExtra("nomesentiero"));
         });
 
     }

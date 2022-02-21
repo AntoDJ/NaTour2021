@@ -19,15 +19,7 @@ import Controller.Controller;
  * create an instance of this fragment.
  */
 public class deletePathOverlay extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String nomeSentiero;
 
     public deletePathOverlay() {
         // Required empty public constructor
@@ -35,12 +27,8 @@ public class deletePathOverlay extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static deletePathOverlay newInstance(String param1, String param2) {
+    public static deletePathOverlay newInstance() {
         deletePathOverlay fragment = new deletePathOverlay();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -48,8 +36,7 @@ public class deletePathOverlay extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            nomeSentiero=getArguments().getString("nomeSentiero");
         }
     }
 
@@ -59,11 +46,19 @@ public class deletePathOverlay extends Fragment {
         View view;
         view= inflater.inflate(R.layout.fragment_delete_path_overlay, container, false);
 
-        Button b1= (Button) view.findViewById(R.id.deletePathNoButton);
-        b1.setOnClickListener(view1 -> {
+        Button deletePathNoButton= (Button) view.findViewById(R.id.deletePathNoButton);
+        deletePathNoButton.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();
             c.cleanFragment(getActivity().findViewById(R.id.deletePathContainer));
         });
+
+        Button deletePathYesButton= (Button) view.findViewById(R.id.deletePathYesButton);
+        deletePathYesButton.setOnClickListener(view1 -> {
+            Controller c = Controller.getInstance();
+            c.cleanFragment(getActivity().findViewById(R.id.deletePathContainer));
+            c.deletePath(nomeSentiero, (PersonalDetailView) getActivity());
+        });
+
         return view;
     }
 }

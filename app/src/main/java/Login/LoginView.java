@@ -89,15 +89,17 @@ public class LoginView extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(backButtonCount >= 1)
-        {
-            backButtonCount=0;
-            finish();
-        }
-        else
-        {
-            Toast.makeText(this, "Premi indietro di nuovo per chiudere l'app", Toast.LENGTH_SHORT).show();
-            backButtonCount++;
-        }
+
+            getFragmentManager().popBackStack();
+
+
+            if (backButtonCount >= 1) {
+                backButtonCount = 0;
+                finish();
+            } else {
+                Toast.makeText(this, "Premi indietro di nuovo per chiudere l'app", Toast.LENGTH_SHORT).show();
+                backButtonCount++;
+            }
+
     }
 }

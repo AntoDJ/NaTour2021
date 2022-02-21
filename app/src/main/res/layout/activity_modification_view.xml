@@ -10,15 +10,13 @@
     tools:context="Playlist.ModificationView">
 
 
-  <EditText
-      android:id="@+id/namePathModificatioView"
+  <TextView
+      android:id="@+id/editNamePathTextView"
       android:layout_width="320sp"
       android:layout_height="45sp"
       android:layout_marginTop="44dp"
-      android:background="@drawable/round_plain_text"
       android:fontFamily="@font/neuemontreal"
-      android:hint="Inserisci il nome del sentiero"
-      android:padding="8sp"
+      android:textSize="20sp"
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.5"
@@ -26,7 +24,7 @@
       app:layout_constraintTop_toTopOf="parent" />
 
   <com.google.android.material.slider.Slider
-      android:id="@+id/durataSliderModificatioView"
+      android:id="@+id/editDurataSlider"
       android:layout_width="150sp"
       android:layout_height="20sp"
       android:layout_marginTop="12sp"
@@ -37,14 +35,14 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.1"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/durataTextViewModificatioView"
+      app:layout_constraintTop_toBottomOf="@+id/editDurataTextView"
       app:thumbColor="#000000"
       app:thumbStrokeColor="#4AB261"
       app:trackColorActive="#4AB261"
       tools:ignore="SpeakableTextPresentCheck" />
 
   <com.google.android.material.slider.Slider
-      android:id="@+id/difficoltaSliderModificatioView"
+      android:id="@+id/editDifficoltaSlider"
       android:layout_width="150sp"
       android:layout_height="20sp"
       android:layout_marginTop="12sp"
@@ -55,14 +53,14 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.9"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/difficoltaTextViewModificatioView"
+      app:layout_constraintTop_toBottomOf="@+id/editDifficoltaTextView"
       app:thumbColor="#000000"
       app:thumbStrokeColor="#4AB261"
       app:trackColorActive="#4AB261"
       tools:ignore="SpeakableTextPresentCheck" />
 
   <TextView
-      android:id="@+id/durataTextViewModificatioView"
+      android:id="@+id/editDurataTextView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="24sp"
@@ -71,10 +69,10 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.19"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/namePathModificatioView" />
+      app:layout_constraintTop_toBottomOf="@+id/editNamePathTextView" />
 
   <TextView
-      android:id="@+id/difficoltaTextViewModificatioView"
+      android:id="@+id/editDifficoltaTextView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="24sp"
@@ -83,10 +81,10 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.78"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/namePathModificatioView" />
+      app:layout_constraintTop_toBottomOf="@+id/editNamePathTextView" />
 
   <EditText
-      android:id="@+id/descrizionePlainTextModificatioView"
+      android:id="@+id/editDescrizioneEditText"
       android:layout_width="321sp"
       android:layout_height="146sp"
       android:layout_marginTop="20sp"
@@ -100,10 +98,10 @@
       android:scrollbars="vertical"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/durataSliderModificatioView" />
+      app:layout_constraintTop_toBottomOf="@+id/editDurataSlider" />
 
   <CheckBox
-      android:id="@+id/checkBox"
+      android:id="@+id/editAccessibilityCheckBox"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="20sp"
@@ -113,21 +111,35 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.529"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/descrizionePlainTextModificatioView" />
+      app:layout_constraintTop_toBottomOf="@+id/editDescrizioneEditText" />
 
   <Button
-      android:id="@+id/creaaaaaa"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="36sp"
+      android:id="@+id/editPathButton"
+      android:layout_width="143dp"
+      android:layout_height="58dp"
       android:background="@drawable/base_button"
       android:fontFamily="@font/neuemontreal"
-      android:text="Crea sentiero"
+      android:text="Modifica Sentiero"
       app:backgroundTint="#4AB261"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.535"
+      app:layout_constraintHorizontal_bias="0.85"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/checkBox"
-      app:layout_constraintVertical_bias="0.058" />
+      app:layout_constraintTop_toBottomOf="@+id/editAccessibilityCheckBox"
+      app:layout_constraintVertical_bias="0.3" />
+
+  <Button
+      android:id="@+id/cancelEditButton"
+      android:layout_width="143dp"
+      android:layout_height="58dp"
+      android:background="@drawable/base_button"
+      android:fontFamily="@font/neuemontreal"
+      android:text="Annulla Modifica"
+      app:backgroundTint="#4AB261"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.15"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/editAccessibilityCheckBox"
+      app:layout_constraintVertical_bias="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

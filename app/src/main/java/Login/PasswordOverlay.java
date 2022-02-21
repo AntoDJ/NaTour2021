@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,14 @@ public class PasswordOverlay extends Fragment {
             c.cleanFragment(getActivity().findViewById(R.id.passwordOverlayContainer));
         });
 
+
         return view;
     }
+    public boolean onKey(View v, int keyCode, KeyEvent event){
+        if(keyCode== KeyEvent.KEYCODE_BACK){
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -18,7 +18,6 @@ import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.MainActivity;
-import com.example.natour2021.MyService;
 import com.example.natour2021.R;
 
 import DAO.*;
@@ -52,6 +51,9 @@ public class Controller {
     SharedPreferences sharedPref;
     LoginView loginView;
     NotificationFragment notificationFragment;
+    PersonalDetailView personalDetailView;
+    PersonalPlaylistView personalPlaylistView;
+
 
 
     //Singleton
@@ -73,9 +75,9 @@ public class Controller {
     }
 
     public void provaRetrofit(){
-        MyService myService = new MyService();
-        myService.getToken();
-        myService.sendMessage("dN5pltOFQpKNZAbhwG3wGV:APA91bGjA9K1z7OVFjU6vwRYxZ1Ba_ZmvQR6f94MnuvIuQJn9rMwaLgxLc_IRzGIFltoeCHjKK4vsd9g5oWlXCXPeYidO3Bi_j1hRC-3QG_5iU0YKag1-XzY8Knnv7wSaH6UoN0K5USy");
+        //MyService myService = new MyService();
+        //myService.getToken();
+        //myService.sendMessage("dN5pltOFQpKNZAbhwG3wGV:APA91bGjA9K1z7OVFjU6vwRYxZ1Ba_ZmvQR6f94MnuvIuQJn9rMwaLgxLc_IRzGIFltoeCHjKK4vsd9g5oWlXCXPeYidO3Bi_j1hRC-3QG_5iU0YKag1-XzY8Knnv7wSaH6UoN0K5USy");
     }
 
     public void logincheck(MainActivity mainActivity){
@@ -169,6 +171,7 @@ public class Controller {
 
     public void logintoDB(String tipo,List<AuthUserAttribute> attributes){
         String email = attributes.get(3).getValue();
+        insertUser(email);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(String.valueOf(R.string.logged_email),email);
         editor.putString(String.valueOf(R.string.tipo_login),tipo);
@@ -255,6 +258,25 @@ public class Controller {
         });
     }
 
+    public void insertUser(String email){
+        User user = new User(email, null);
+        Call<User> call = utenteDAO.insertUser(user);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.body()!=null) {
+                    Controller.getInstance().createPlaylistUser(email);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.i("errore user", "errore user");
+            }
+        });
+    }
+
     //creazione delle playlist dell'utente
     public void createPlaylistUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
         User user = new User(email, null);
@@ -266,6 +288,22 @@ public class Controller {
                 Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
                 cleanFragment(frameLayout);
                 registrationView.finish();
+            }
+
+            @Override
+            public void onFailure(Call<Playlist> call, Throwable t) {
+                Log.i("errore user", "errore user");
+            }
+        });
+    }
+
+    public void createPlaylistUser(String email){
+        User user = new User(email, null);
+        Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
+
+        call.enqueue(new Callback<Playlist>() {
+            @Override
+            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
             }
 
             @Override
@@ -301,7 +339,7 @@ public class Controller {
         FragmentManager fragmentManager = loginView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         PasswordOverlay passwordOverlay = new PasswordOverlay();
-        fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null);
+        fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null).addToBackStack("tag");
         fragmentTransaction.commit();
     }
 
@@ -407,8 +445,8 @@ public class Controller {
     }
 
 
-    public void getPersonalPathOfPlaylist(PersonalPlaylistView personalPlaylistView){
-    //SOSTITUIRE CREATORE CON SHARED
+    public void getPersonalPaths(PersonalPlaylistView personalPlaylistView){
+        this.personalPlaylistView = personalPlaylistView;
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         User tmpUser = new User(creatore, null);
         Call<ArrayList<Path>> call = pathDAO.getPersonalPathsOfPlaylist(tmpUser);
@@ -465,34 +503,11 @@ public class Controller {
         i.putExtra("puntoiniziale", p.getPuntoIniziale());
         i.putExtra("difficolta", p.getDifficolta());
         i.putExtra("durata", p.getDurata());
+        i.putExtra("accessibilità",p.isAccessibilita());
         i.putExtra("descrizione", p.getDescrizione());
         i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
         homeview.startActivity(i);
-    }
-
-    public void openModificationView(PersonalDetailView personalDetailView){
-        Intent i = new Intent(personalDetailView, ModificationView.class);
-        personalDetailView.startActivity(i);
-    }
-
-
-    public Path getAllDetailsOfPersonalPath(){
-        Path path = new Path("sentiero2");
-        Call<Path> call = pathDAO.getAllDetailsOfPersonalPath(path);
-
-        call.enqueue(new Callback<Path>() {
-            @Override
-            public void onResponse(Call<Path> call, Response<Path> response) {
-                Path resPath = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Path> call, Throwable t) {
-            }
-        });
-
-        return new Path();
     }
 
 
@@ -520,10 +535,13 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void deletePathOverlay(PersonalDetailView personaldetailview){
+    public void deletePathOverlay(PersonalDetailView personaldetailview, String nomeSentiero){
         FragmentManager fragmentManager = personaldetailview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         deletePathOverlay deletepathoverlay = new deletePathOverlay();
+        Bundle bundle = new Bundle();
+        bundle.putString("nomeSentiero",nomeSentiero);
+        deletepathoverlay.setArguments(bundle);
         fragmentTransaction.add(R.id.deletePathContainer, deletepathoverlay, null);
         fragmentTransaction.commit();
     }
@@ -752,5 +770,35 @@ public class Controller {
             }
         });
 
+    }
+
+    public void deletePath(String nomeSentiero, PersonalDetailView personalDetailView) {
+        //codice di delete
+        personalDetailView.finish();
+        getPersonalPaths(personalPlaylistView);
+        Log.i("msg",nomeSentiero);
+    }
+
+    public void openModificationView(PersonalDetailView personalDetailView, String nomesentiero, String descrizione, Boolean accessibilità, Float durata, Integer difficolta){
+        Intent i = new Intent(personalDetailView, ModificationView.class);
+        i.putExtra("nomeSentiero",nomesentiero);
+        i.putExtra("descrizione",descrizione);
+        i.putExtra("accessibilità",accessibilità);
+        i.putExtra("durata",durata);
+        i.putExtra("difficoltà",difficolta.intValue());
+        personalDetailView.startActivity(i);
+        this.personalDetailView = personalDetailView;
+
+    }
+
+    public void updatePath(ModificationView modificationView,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità) {
+        //codice dell'edit
+        Log.i("msg",nomeSentiero);
+        Log.i("msg",descrizione);
+        Log.i("msg", String.valueOf(durata));
+        Log.i("msg", String.valueOf(difficolta));
+        Log.i("msg",String.valueOf(accessibilità));
+        personalDetailView.finish();
+        modificationView.finish();
     }
 }

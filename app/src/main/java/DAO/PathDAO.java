@@ -28,6 +28,12 @@ public interface PathDAO {
     @POST("getpersonalpathofplaylist")
     Call<ArrayList<Path>> getPersonalPathsOfPlaylist(@Body User user);
 
+    @POST("updatepath")
+    Call<Path> updatePath(@Body Path path);
+
+    @POST("deletepath")
+    Call<Path> deletePath(@Body Path path);
+
 
 
 

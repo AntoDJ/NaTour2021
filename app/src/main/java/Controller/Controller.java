@@ -81,7 +81,6 @@ public class Controller {
     }
 
     public void logincheck(MainActivity mainActivity){
-      provaRetrofit();
 
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
@@ -773,9 +772,21 @@ public class Controller {
     }
 
     public void deletePath(String nomeSentiero, PersonalDetailView personalDetailView) {
-        //codice di delete
-        personalDetailView.finish();
-        getPersonalPaths(personalPlaylistView);
+        Path path = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.deletePath(path);
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                personalDetailView.finish();
+                getPersonalPaths(personalPlaylistView);
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                //fai qualcosa se va male
+            }
+        });
+
         Log.i("msg",nomeSentiero);
     }
 
@@ -792,7 +803,20 @@ public class Controller {
     }
 
     public void updatePath(ModificationView modificationView,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità) {
-        //codice dell'edit
+        Path path = new Path(nomeSentiero,  null, null, difficolta, descrizione, accessibilità, null, durata);
+        Call<Path> call = pathDAO.updatePath(path);
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                //fai qualcosa se va bene
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                //fai qualcosa se va male
+            }
+        });
+
         Log.i("msg",nomeSentiero);
         Log.i("msg",descrizione);
         Log.i("msg", String.valueOf(durata));
@@ -801,4 +825,5 @@ public class Controller {
         personalDetailView.finish();
         modificationView.finish();
     }
+
 }

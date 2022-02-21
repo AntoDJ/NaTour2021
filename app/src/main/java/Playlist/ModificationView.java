@@ -42,7 +42,7 @@ public class ModificationView extends AppCompatActivity {
         difficoltà.setText("Difficoltà: "+i.getIntExtra("difficoltà",0));
 
         CheckBox editAccessibilityCB = (CheckBox) findViewById(R.id.editAccessibilityCheckBox);
-        editAccessibilityCB.setActivated(i.getBooleanExtra("accessibilità",true));
+        editAccessibilityCB.setChecked(i.getBooleanExtra("accessibilità",true));
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
 

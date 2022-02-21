@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -19,6 +18,7 @@ import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.MainActivity;
 import com.example.natour2021.R;
+
 
 import DAO.*;
 
@@ -79,6 +79,9 @@ public class Controller {
         //myService.getToken();
         //myService.sendMessage("dN5pltOFQpKNZAbhwG3wGV:APA91bGjA9K1z7OVFjU6vwRYxZ1Ba_ZmvQR6f94MnuvIuQJn9rMwaLgxLc_IRzGIFltoeCHjKK4vsd9g5oWlXCXPeYidO3Bi_j1hRC-3QG_5iU0YKag1-XzY8Knnv7wSaH6UoN0K5USy");
     }
+
+
+
 
     public void logincheck(MainActivity mainActivity){
 

@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-inappmessaging'
+    implementation'com.github.ticofab:android-gpx-parser:2.2.0'
 
 
 

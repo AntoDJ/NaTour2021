@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CreateMapsFragment extends Fragment {
@@ -30,6 +31,7 @@ public class CreateMapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             i=1;
+
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             LatLng latLng= new LatLng(41.8,12.7);
             CameraPosition cameraPosition= new CameraPosition.Builder().target(latLng).zoom(6.0f).build();
@@ -43,6 +45,7 @@ public class CreateMapsFragment extends Fragment {
                 Marker marker =googleMap.addMarker(markerOptions);
                 MapViewFragment.addMarker(marker);
             }
+            ((CreateView)getActivity()).setTempmap(googleMap);
 
 
             googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

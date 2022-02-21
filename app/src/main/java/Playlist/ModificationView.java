@@ -32,7 +32,7 @@ public class ModificationView extends AppCompatActivity {
 
         TextView durata = (TextView) findViewById(R.id.editDurataTextView);
         if(i.getFloatExtra("durata",0)-(int)i.getFloatExtra("durata",0)==0.5)   durata.setText("Durata "+(int)i.getFloatExtra("durata",0)+":30 ore");
-        else durata.setText("Durata: "+(int)i.getIntExtra("durata",0)+" ore");
+        else durata.setText("Durata: "+(int)i.getFloatExtra("durata",0)+" ore");
 
         //Set Difficoltà
         Slider difficoltaSlider=(Slider) findViewById(R.id.editDifficoltaSlider);

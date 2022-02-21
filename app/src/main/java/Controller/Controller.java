@@ -21,9 +21,7 @@ import com.example.natour2021.R;
 
 
 import DAO.*;
-
 import Entity.*;
-
 import Login.*;
 import Login.ui.home.*;
 import Login.ui.notification.*;
@@ -73,14 +71,6 @@ public class Controller {
     public void setLoginView(LoginView loginView) {
         this.loginView=loginView;
     }
-
-    public void provaRetrofit(){
-        //MyService myService = new MyService();
-        //myService.getToken();
-        //myService.sendMessage("dN5pltOFQpKNZAbhwG3wGV:APA91bGjA9K1z7OVFjU6vwRYxZ1Ba_ZmvQR6f94MnuvIuQJn9rMwaLgxLc_IRzGIFltoeCHjKK4vsd9g5oWlXCXPeYidO3Bi_j1hRC-3QG_5iU0YKag1-XzY8Knnv7wSaH6UoN0K5USy");
-    }
-
-
 
 
     public void logincheck(MainActivity mainActivity){

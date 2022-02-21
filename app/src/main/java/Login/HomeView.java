@@ -1,8 +1,11 @@
 package Login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.natour2021.R;
@@ -29,8 +32,8 @@ private ActivityNavigationBinding binding;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-     binding = ActivityNavigationBinding.inflate(getLayoutInflater());
-     setContentView(binding.getRoot());
+        binding = ActivityNavigationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarNavigation.toolbar);
 
@@ -45,6 +48,12 @@ private ActivityNavigationBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        SharedPreferences sharedPref= this.getSharedPreferences(String.valueOf(R.string.preference_file_key),Context.MODE_PRIVATE);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.navigationEmailTextView);
+        navUsername.setText(sharedPref.getString(String.valueOf(R.string.logged_email),""));
 
     }
 

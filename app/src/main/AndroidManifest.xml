@@ -89,10 +89,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.NaTour2021.NoActionBar" />
         <activity
-            android:name="Login.prova"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="Login.LoginView"
             android:exported="false"
             android:screenOrientation="portrait" />

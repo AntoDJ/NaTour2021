@@ -117,7 +117,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modificaTextViewDetail"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/modificaTextViewDetail"
@@ -158,8 +158,8 @@
     <FrameLayout
         android:id="@+id/detailOverlayContainer"
         android:layout_width="354sp"
-        android:layout_height="592sp"
-        android:layout_marginTop="2dp"
+        android:layout_height="570sp"
+        android:layout_marginTop="16sp"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/reportButton"
         app:layout_constraintEnd_toEndOf="parent"

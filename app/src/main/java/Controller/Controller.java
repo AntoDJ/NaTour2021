@@ -338,8 +338,34 @@ public class Controller {
         FragmentManager fragmentManager = loginView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         PasswordOverlay passwordOverlay = new PasswordOverlay();
-        fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null).addToBackStack("tag");
+        fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null);
         fragmentTransaction.commit();
+    }
+
+    public void resetPassword(String email){
+        Amplify.Auth.resetPassword(
+                    email,
+                    result -> Log.i("AuthQuickstart", result.toString()),
+                    error -> Log.e("AuthQuickstart", error.toString())
+            );
+    }
+
+    public void confirmResetPassword(String password){
+        Amplify.Auth.confirmResetPassword(
+                password,
+                "831262",
+                () -> Log.i("AuthQuickstart", "New password confirmed"),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
+    }
+
+    public void changePassword(String oldPassword, String newPassword){
+        Amplify.Auth.updatePassword(
+                oldPassword,
+                newPassword,
+                () -> Log.i("AuthQuickstart", "Updated password successfully"),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
     }
 
     public void openCreatePathView(HomeFragment homeFragment){

@@ -2,8 +2,11 @@ package Login;
 
 import static com.google.android.gms.auth.api.signin.GoogleSignInOptions.*;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
@@ -35,8 +38,23 @@ public class LoginView extends AppCompatActivity {
 
         TextView passwordDimenticata = (TextView) findViewById(R.id.forgotPasswordTextView);
         passwordDimenticata.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.openForgotPasswordOverlay(LoginView.this);
+            Controller.getInstance().openForgotPasswordOverlay(this);
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Password Dimenticata");
+            builder.setMessage("Se ti sei dimenticato la password ti manderemo una mail con una password temporanea per loggare, cambiala appena entri.")
+                    .setPositiveButton("Manda Mail", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    })
+                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            //builder.setView();
+            AlertDialog dialog = builder.create();
+            dialog.show();*/
         });
 
         Button accediButton = (Button) findViewById(R.id.accediButton);
@@ -89,11 +107,7 @@ public class LoginView extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-            getFragmentManager().popBackStack();
-
-
-            if (backButtonCount >= 1) {
+        if (backButtonCount >= 1) {
                 backButtonCount = 0;
                 finish();
             } else {

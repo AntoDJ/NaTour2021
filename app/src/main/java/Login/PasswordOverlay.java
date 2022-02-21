@@ -39,20 +39,8 @@ public class PasswordOverlay extends Fragment {
                              Bundle savedInstanceState) {
         View view;
         view = inflater.inflate(R.layout.fragment_password_overlay, container, false);
-        ImageButton xImageButton = (ImageButton) view.findViewById(R.id.exitPasswordyOverlaButton);
-        xImageButton.setOnClickListener(view1 -> {
-            Controller c = Controller.getInstance();
-            c.cleanFragment(getActivity().findViewById(R.id.passwordOverlayContainer));
-        });
 
 
         return view;
     }
-    public boolean onKey(View v, int keyCode, KeyEvent event){
-        if(keyCode== KeyEvent.KEYCODE_BACK){
-            return true;
-        }
-        return false;
-    }
-
 }

@@ -881,4 +881,43 @@ public class Controller {
 
     //AMMINISTRATORI
 
+    public void checkAdmin(String email){
+        User user = new User(email);
+        Call<User> call = utenteDAO.checkAdmin(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.body()!=null && response.body().isAdmin()){
+                    //L'utente è admin
+                }else{
+                    //L'utente non è admin
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    public void updatePathAdmin(ModificationView modificationView,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità, String nuovoNome) {
+        Path path = new Path(nomeSentiero,  null, nuovoNome, difficolta, descrizione, accessibilità, null, durata);
+        Call<Path> call = pathDAO.updatePathAdmin(path);
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body()!=null) {
+                    //Modifica avvenuta con successo
+                }
+                else bigError();
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
 }

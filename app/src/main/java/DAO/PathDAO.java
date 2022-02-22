@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Entity.AssPlaylistSentiero;
 import Entity.Path;
+import Entity.Report;
 import Entity.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -33,6 +34,10 @@ public interface PathDAO {
 
     @POST("deletepath")
     Call<Path> deletePath(@Body Path path);
+
+//ADMIN
+    @POST("updatepathadmin")
+    Call<Path> updatePathAdmin(@Body Path path);
 
 
 

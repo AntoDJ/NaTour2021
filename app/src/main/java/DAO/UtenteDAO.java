@@ -8,4 +8,8 @@ import retrofit2.http.POST;
 public interface UtenteDAO {
     @POST("insertuser")
     Call<User> insertUser(@Body User user);
+
+//ADMIN
+    @POST("checkadmin")
+    Call<User> checkAdmin(@Body User user);
 }

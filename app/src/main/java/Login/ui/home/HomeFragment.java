@@ -25,6 +25,8 @@ private FragmentHomeBinding binding;
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        //LAMBDA CHE CONTROLLA L'ADMIN
         Button findpathButton = (Button) root.findViewById(R.id.findPathButton);
         findpathButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();

@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.example.natour2021.databinding.ActivityNavigationBinding;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;

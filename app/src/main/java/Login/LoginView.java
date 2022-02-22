@@ -51,11 +51,11 @@ public class LoginView extends AppCompatActivity {
             }
             mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
-            if(campomail.getText().toString().trim().length()!=0&&campopass.getText().toString().trim().length()!=0) {
+            if (campomail.getText().toString().trim().length() != 0 && campopass.getText().toString().trim().length() != 0) {
                 Controller c = Controller.getInstance();
                 c.userLogin(LoginView.this, campomail.getText().toString().trim(), campopass.getText().toString().trim());
-            }
-            else Toast.makeText(this, "Inserisci le credenziali",Toast.LENGTH_SHORT).show();
+            } else Toast.makeText(this, "Inserisci le credenziali", Toast.LENGTH_SHORT).show();
+
         });
 
         Button registratiButton = (Button) findViewById(R.id.registratiButton);

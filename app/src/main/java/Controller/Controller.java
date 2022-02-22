@@ -255,7 +255,7 @@ public class Controller {
 
 
     public void insertUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
-        User user = new User(email, null);
+        User user = new User(email);
         Call<User> call = utenteDAO.insertUser(user);
 
         call.enqueue(new Callback<User>() {
@@ -279,7 +279,7 @@ public class Controller {
     }
 
     public void insertUser(String email){
-        User user = new User(email, null);
+        User user = new User(email);
         Call<User> call = utenteDAO.insertUser(user);
 
         call.enqueue(new Callback<User>() {
@@ -299,7 +299,7 @@ public class Controller {
 
     //creazione delle playlist dell'utente
     public void createPlaylistUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
-        User user = new User(email, null);
+        User user = new User(email);
         Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
 
         call.enqueue(new Callback<Playlist>() {
@@ -318,7 +318,7 @@ public class Controller {
     }
 
     public void createPlaylistUser(String email){
-        User user = new User(email, null);
+        User user = new User(email);
         Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
 
         call.enqueue(new Callback<Playlist>() {
@@ -573,7 +573,7 @@ public class Controller {
     public void getPersonalPaths(PersonalPlaylistView personalPlaylistView){
         this.personalPlaylistView = personalPlaylistView;
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-        User tmpUser = new User(creatore, null);
+        User tmpUser = new User(creatore);
         Call<ArrayList<Path>> call = pathDAO.getPersonalPathsOfPlaylist(tmpUser);
 
         call.enqueue(new Callback<ArrayList<Path>>() {

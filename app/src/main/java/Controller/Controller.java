@@ -553,9 +553,24 @@ public class Controller {
         return removefromplaylistoverlay;
     }
 
-    public void removeFromPlaylist(String nomesentiero, String nomeplaylist, PlaylistDetailsView playlistDetailsView){
-        playlistDetailsView.finish();
-        playlistView.removePathView(nomesentiero);
+    public void removeFromPlaylist(String nomeSentiero, String nomeplaylist, PlaylistDetailsView playlistDetailsView){
+        String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomeplaylist, creatorePlaylist, nomeSentiero);
+        Call<AssPlaylistSentiero> call = playlistDAO.removeFromPlaylist(assPlaylistSentiero);
+
+        call.enqueue(new Callback<AssPlaylistSentiero>() {
+            @Override
+            public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
+                playlistDetailsView.finish();
+                playlistView.removePathView(nomeSentiero);
+            }
+
+            @Override
+            public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
+                bigError();
+            }
+        });
+
     }
 
 

@@ -14,5 +14,6 @@ public interface PlaylistDAO {
     @POST("addpathtoplaylist")
     Call<AssPlaylistSentiero> addPathToPlaylist(@Body AssPlaylistSentiero assPlaylistSentiero);
 
-
+    @POST("removefromplaylist")
+    Call<AssPlaylistSentiero> removeFromPlaylist(@Body AssPlaylistSentiero removefromplaylist);
 }

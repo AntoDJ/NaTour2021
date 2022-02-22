@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
@@ -20,8 +21,9 @@ import Entity.Path;
 import Search.DetailInterface;
 
 public class PersonalDetailView extends AppCompatActivity implements DetailInterface {
-    String puntoiniziale;
-    ArrayList<String> coordinate;
+    private deletePathOverlay deletepathOverlay;
+    private String puntoiniziale;
+    private ArrayList<String> coordinate;
 
 
     @Override
@@ -60,16 +62,15 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
 
         Button modificaSentieroButton = (Button) findViewById(R.id.modificaSentieroButton);
         modificaSentieroButton.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.openModificationView(this, intent.getStringExtra("nomesentiero"),
+            Controller.getInstance().openModificationView(this, intent.getStringExtra("nomesentiero"),
                     intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessiblità",true),
                     intent.getFloatExtra("durata",0), intent.getIntExtra("difficolta",0));
         });
 
         Button cancellaSentieroButton= (Button) findViewById(R.id.cancellaSentieroButton);
         cancellaSentieroButton.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.deletePathOverlay(PersonalDetailView.this, intent.getStringExtra("nomesentiero"));
+
+            deletepathOverlay = Controller.getInstance().deletePathOverlay(PersonalDetailView.this, intent.getStringExtra("nomesentiero"));
         });
 
     }
@@ -80,5 +81,37 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
 
     public ArrayList<String> getCoordinate(){
         return coordinate;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(deletepathOverlay!=null){
+            Controller c = Controller.getInstance();
+            c.cleanFragment(findViewById(R.id.deletePathContainer));
+            deletepathOverlay=null;
+        }
+        else super.onBackPressed();
+    }
+
+    public void updatePath(String descrizione, float durata, int difficolta) {
+        TextView descrizioneTW = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
+        if(descrizione!=null){
+            descrizioneTW.setText(descrizione);
+        }
+        else{
+            descrizioneTW.setText("Descrizione Vuota");
+        }
+        Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltaPersonalSlider);
+        difficoltàSlider.setValue(difficolta);
+
+        TextView difficoltàTW = (TextView) findViewById(R.id.difficoltaPersonalDetailsView);
+        difficoltàTW.setText("Difficoltà "+difficolta);
+
+        Slider durataSlider=(Slider) findViewById(R.id.durataPersonalSlider);
+        durataSlider.setValue(durata);
+
+        TextView durataTW = (TextView) findViewById(R.id.durataPersonalDetailsView);
+        if(durata-(int)durata==0.5)   durataTW.setText("Durata "+(int)durata+":30 ore");
+        else durataTW.setText("Durata "+(int)durata+" ore");
     }
 }

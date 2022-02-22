@@ -42,18 +42,18 @@ import retrofit2.Retrofit;
 
 
 public class Controller {
-    PathDAO pathDAO;
-    PlaylistDAO playlistDAO;
-    UtenteDAO utenteDAO;
-    ReportDAO reportDAO;
-    SharedPreferences sharedPref;
-    LoginView loginView;
-    NotificationFragment notificationFragment;
-    PersonalDetailView personalDetailView;
-    PlaylistView playlistView;
-    PersonalPlaylistView personalPlaylistView;
+    private PathDAO pathDAO;
+    private PlaylistDAO playlistDAO;
+    private UtenteDAO utenteDAO;
+    private ReportDAO reportDAO;
+    private SharedPreferences sharedPref;
+    private LoginView loginView;
+    private NotificationFragment notificationFragment;
+    private PersonalDetailView personalDetailView;
+    private PlaylistView playlistView;
+    private PersonalPlaylistView personalPlaylistView;
 
-
+    //METODI GENERALI
 
     //Singleton
     private static Controller instance;
@@ -198,12 +198,7 @@ public class Controller {
         );
     }
 
-
-
-
-
     //REGISTRAZIONE
-
 
     public void userRegistration(LoginView loginView){
         Intent i = new Intent(loginView, RegistrationView.class);
@@ -352,8 +347,6 @@ public class Controller {
     }
 
     //SETTINGS
-
-
 
 
     public LogoutFragment logoutOverlay(HomeView homeview){
@@ -561,10 +554,12 @@ public class Controller {
         call.enqueue(new Callback<AssPlaylistSentiero>() {
             @Override
             public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
-                playlistDetailsView.finish();
-                playlistView.removePathView(nomeSentiero);
+                if (response.body()!=null) {
+                    playlistDetailsView.finish();
+                    playlistView.removePathView(nomeSentiero);
+                }
+                else Toast.makeText(playlistDetailsView,"Errore nella cancellazione del sentiero dalla playlist, ricarica la playlist", Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
                 bigError();
@@ -573,56 +568,7 @@ public class Controller {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void openCreatePathView(HomeFragment homeFragment){
-        Intent i = new Intent(homeFragment.getActivity(), CreateView.class);
-        homeFragment.startActivity(i);
-    }
-
-    public void searchView(HomeFragment homeFragment){
-        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
-        homeFragment.startActivity(i);
-    }
-
-
-
-    public MapViewFragment openInsertPath(CreateView createView){
-        FragmentManager fragmentManager = createView.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapViewFragment mapViewFragment = new MapViewFragment();
-        fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
-        fragmentTransaction.commit();
-        return mapViewFragment;
-    }
-
-
-
-
-
-
-
-
-
-
-
+    //SENTIERI PERSONALI
 
     public void getPersonalPaths(PersonalPlaylistView personalPlaylistView){
         this.personalPlaylistView = personalPlaylistView;
@@ -634,7 +580,6 @@ public class Controller {
             @Override
             public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
                 ArrayList<Path> path = response.body();
-
                 ArrayList<String> Sentieri = new ArrayList<>();
                 for(Path p:path){
                     Sentieri.add(p.getNomeSentiero());
@@ -644,11 +589,9 @@ public class Controller {
 
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-
+                bigError();
             }
         });
-
-
     }
 
     public void getAllDetailsOfPersonalPath(HomeView homeView,String nomeSentiero){
@@ -658,21 +601,18 @@ public class Controller {
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
-                if(response.body()!=null&&response.body().getNomeSentiero().equals(nomeSentiero)) {
+                if(response.body()!=null) {
                     Controller c = Controller.getInstance();
                     c.openPersonalDetailsView(homeView, response.body());
                 }
-                else{
-                    Controller c = Controller.getInstance();
-                    c.bigError();
-                }
+                else bigError();
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
+                bigError();
             }
         });
     }
-
 
 
     public void openPersonalDetailsView(HomeView homeview, Path p){
@@ -689,26 +629,10 @@ public class Controller {
         homeview.startActivity(i);
     }
 
-
-    public void openReportOverlay(DetailView detailView){
-        FragmentManager fragmentManager = detailView.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        ReportOverlay reportOverlay = new ReportOverlay();
-        fragmentTransaction.add(R.id.detailOverlayContainer, reportOverlay, null);
-        fragmentTransaction.commit();
-    }
-
-    public void addToPlaylistOverlay(DetailView detailView){
-        FragmentManager fragmentManager = detailView.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        addToPlaylistOverlay addtoplaylistoverlay = new addToPlaylistOverlay();
-        fragmentTransaction.add(R.id.detailOverlayContainer, addtoplaylistoverlay, null);
-        fragmentTransaction.commit();
-    }
+    //CANCELLAZIONE SENTIERO
 
 
-
-    public void deletePathOverlay(PersonalDetailView personaldetailview, String nomeSentiero){
+    public deletePathOverlay deletePathOverlay(PersonalDetailView personaldetailview, String nomeSentiero){
         FragmentManager fragmentManager = personaldetailview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         deletePathOverlay deletepathoverlay = new deletePathOverlay();
@@ -717,167 +641,8 @@ public class Controller {
         deletepathoverlay.setArguments(bundle);
         fragmentTransaction.add(R.id.deletePathContainer, deletepathoverlay, null);
         fragmentTransaction.commit();
+        return deletepathoverlay;
     }
-
-
-
-    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
-        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-
-        Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, creatore, durata);
-        Call<Path> call = pathDAO.insertPath(tmpPath);
-
-        call.enqueue(new Callback<Path>() {
-            @Override
-            public void onResponse(Call<Path> call, Response<Path> response) {
-                if(response.body().getNomeSentiero()!=null){
-                createView.finish();
-                }
-                else createView.errore();
-            }
-
-            @Override
-            public void onFailure(Call<Path> call, Throwable t) {
-            }
-        });
-    }
-
-    private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {
-        ArrayList<String> nomisentieri = new ArrayList<>();
-        ArrayList<String> puntiiniziali = new ArrayList<>();
-        ArrayList<Integer> difficoltasentieri = new ArrayList<>();
-        float[] duratasentieri = new float[sentieritrovati.size()];
-        int i=0;
-        for (Path p: sentieritrovati){
-            nomisentieri.add(p.getNomeSentiero());
-            puntiiniziali.add(p.getPuntoIniziale());
-            difficoltasentieri.add(p.getDifficolta());
-            duratasentieri[i++]=p.getDurata();
-        }
-        this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
-    }
-
-    public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
-        String[] parts = pos.split(" ");
-        // ricorda di cambiare la lambda da 1 e 1.5 a 0.75 e 1
-        Path.PathToFilter pathToFilter = new Path.PathToFilter(mindur,maxdur,mindiff,maxdiff, parts[0], parts[1], access);
-        Call<ArrayList<Path>> call = pathDAO.getAllFilteredPath(pathToFilter);
-
-        call.enqueue(new Callback<ArrayList<Path>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
-                ArrayList<Path> paths = response.body();
-                if(paths != null&& paths.size()!=0) {
-                    searchPaths(searchView, paths);
-                }
-                else{
-                    searchView.errore();
-                }
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-            }
-        });
-
-    }
-
-    private void resultView(SearchView searchView, ArrayList<String> nomisentieri, ArrayList<String> puntiiniziali, ArrayList<Integer> difficoltasentieri, float[] duratasentieri) {
-        Intent i = new Intent(searchView, ResultView.class);
-        i.putExtra("Nomi", nomisentieri);
-        i.putExtra("PuntiIniziali", puntiiniziali);
-        i.putExtra("Difficoltà", difficoltasentieri);
-        i.putExtra("Durate", duratasentieri);
-        searchView.startActivity(i);
-    }
-
-    private void detailView(ResultView resultView, Path p) {
-        Intent i = new Intent(resultView, DetailView.class);
-        i.putExtra("nomesentiero", p.getNomeSentiero());
-        i.putExtra("coordinate", p.getCoordinateAsArray());
-        i.putExtra("puntoiniziale", p.getPuntoIniziale());
-        i.putExtra("difficolta", p.getDifficolta());
-        i.putExtra("durata", p.getDurata());
-        i.putExtra("descrizione", p.getDescrizione());
-        i.putExtra("datamodifica", p.getDataModifica());
-        i.putExtra("creatore", p.getCreatore());
-        resultView.startActivity(i);
-    }
-
-
-    public void getAllDetailsOfPath(ResultView resultview,String nomeSentiero){
-        Path tmpPath = new Path(nomeSentiero);
-        Call<Path> call = pathDAO.getPath(tmpPath);
-
-        call.enqueue(new Callback<Path>() {
-            @Override
-            public void onResponse(Call<Path> call, Response<Path> response) {
-                if(response.body()!=null&&response.body().getNomeSentiero().equals(nomeSentiero)) {
-                    Controller c = Controller.getInstance();
-                    c.detailView(resultview, response.body());
-                }
-                else{
-                    Controller c = Controller.getInstance();
-                    c.bigError();
-                }
-            }
-            @Override
-            public void onFailure(Call<Path> call, Throwable t) {
-            }
-        });
-    }
-
-    public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
-        String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-        Report report = new Report(1,motivazione, nomesentiero,segnalante,segnalato);
-        Log.i("msg",report.getDescrizione());
-        Log.i("msg",report.getNomeSentiero());
-        Log.i("msg",report.getSegnalante());
-        Log.i("msg",report.getSegnalato());
-
-        Call<Report> call = reportDAO.reportPath(report);
-
-        call.enqueue(new Callback<Report>() {
-            @Override
-            public void onResponse(Call<Report> call, Response<Report> response) {
-                if(response.body()!=null){
-                    Toast.makeText(detailView,"segnalazione fatta",Toast.LENGTH_LONG).show();
-                    Log.i("msg","segnalazione fatta");
-                }else{
-                    Toast.makeText(detailView,"segnalazione fallita",Toast.LENGTH_LONG).show();
-                    Log.i("msg","segnalazione fallita");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Report> call, Throwable t) {
-                Log.i("msg", String.valueOf(t));
-                Toast.makeText(detailView,"segnalazione fallita",Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    public void addPathToPlaylist(DetailView detailView, String nomesentiero, String nomePlaylist) {
-        String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-        AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist,creatorePlaylist,nomesentiero);
-
-        Call<AssPlaylistSentiero> call = playlistDAO.addPathToPlaylist(assPlaylistSentiero);
-        call.enqueue(new Callback<AssPlaylistSentiero>() {
-            @Override
-            public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
-                if(response.body()!=null){
-                    Toast.makeText(detailView,"Sentiero aggiunto alla playlist",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
-
-            }
-        });
-    }
-
 
     public void deletePath(String nomeSentiero, PersonalDetailView personalDetailView) {
         Path path = new Path(nomeSentiero);
@@ -891,12 +656,12 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                //fai qualcosa se va male
+                bigError();
             }
         });
-
-        Log.i("msg",nomeSentiero);
     }
+
+    //MODIFICA SENTIERO
 
     public void openModificationView(PersonalDetailView personalDetailView, String nomesentiero, String descrizione, Boolean accessibilità, Float durata, Integer difficolta){
         Intent i = new Intent(personalDetailView, ModificationView.class);
@@ -916,22 +681,204 @@ public class Controller {
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
-                //fai qualcosa se va bene
+                if(response.body()!=null) {
+                    modificationView.finish();
+                    personalDetailView.updatePath(descrizione, durata, difficolta);
+                }
+                else bigError();
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                //fai qualcosa se va male
+                bigError();
             }
         });
-
-        Log.i("msg",nomeSentiero);
-        Log.i("msg",descrizione);
-        Log.i("msg", String.valueOf(durata));
-        Log.i("msg", String.valueOf(difficolta));
-        Log.i("msg",String.valueOf(accessibilità));
-        personalDetailView.finish();
-        modificationView.finish();
     }
+
+    //CREAZIONE DEL SENTIERO
+
+    public void openCreatePathView(HomeFragment homeFragment){
+        Intent i = new Intent(homeFragment.getActivity(), CreateView.class);
+        homeFragment.startActivity(i);
+    }
+
+    public MapViewFragment openInsertPath(CreateView createView){
+        FragmentManager fragmentManager = createView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapViewFragment mapViewFragment = new MapViewFragment();
+        fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
+        fragmentTransaction.commit();
+        return mapViewFragment;
+    }
+
+    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
+        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, creatore, durata);
+        Call<Path> call = pathDAO.insertPath(tmpPath);
+
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body().getNomeSentiero()!=null){
+                    createView.finish();
+                }
+                else Toast.makeText(createView, "Esiste già un sentiero con questo nome o questo punto iniziale", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    //RICERCA SENTIERO
+
+    public void searchView(HomeFragment homeFragment){
+        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
+        homeFragment.startActivity(i);
+    }
+
+    public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
+        String[] parts = pos.split(" ");
+        Path.PathToFilter pathToFilter = new Path.PathToFilter(mindur,maxdur,mindiff,maxdiff, parts[0], parts[1], access);
+        Call<ArrayList<Path>> call = pathDAO.getAllFilteredPath(pathToFilter);
+
+        call.enqueue(new Callback<ArrayList<Path>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
+                ArrayList<Path> paths = response.body();
+                if(paths != null&& paths.size()!=0) {
+                    searchPaths(searchView, paths);
+                }
+                else Toast.makeText(searchView,"Non esistono sentieri che corrispondono a questi filtri",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    private void searchPaths(SearchView searchView, ArrayList<Path> sentieritrovati) {
+        ArrayList<String> nomisentieri = new ArrayList<>();
+        ArrayList<String> puntiiniziali = new ArrayList<>();
+        ArrayList<Integer> difficoltasentieri = new ArrayList<>();
+        float[] duratasentieri = new float[sentieritrovati.size()];
+        int i=0;
+        for (Path p: sentieritrovati){
+            nomisentieri.add(p.getNomeSentiero());
+            puntiiniziali.add(p.getPuntoIniziale());
+            difficoltasentieri.add(p.getDifficolta());
+            duratasentieri[i++]=p.getDurata();
+        }
+        this.resultView(searchView, nomisentieri, puntiiniziali, difficoltasentieri, duratasentieri);
+    }
+
+    private void resultView(SearchView searchView, ArrayList<String> nomisentieri, ArrayList<String> puntiiniziali, ArrayList<Integer> difficoltasentieri, float[] duratasentieri) {
+        Intent i = new Intent(searchView, ResultView.class);
+        i.putExtra("Nomi", nomisentieri);
+        i.putExtra("PuntiIniziali", puntiiniziali);
+        i.putExtra("Difficoltà", difficoltasentieri);
+        i.putExtra("Durate", duratasentieri);
+        searchView.startActivity(i);
+    }
+
+    public void getAllDetailsOfPath(ResultView resultview,String nomeSentiero){
+        Path tmpPath = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.getPath(tmpPath);
+
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body()!=null) {
+                    detailView(resultview, response.body());
+                }
+                else bigError();
+            }
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    private void detailView(ResultView resultView, Path p) {
+        Intent i = new Intent(resultView, DetailView.class);
+        i.putExtra("nomesentiero", p.getNomeSentiero());
+        i.putExtra("coordinate", p.getCoordinateAsArray());
+        i.putExtra("puntoiniziale", p.getPuntoIniziale());
+        i.putExtra("difficolta", p.getDifficolta());
+        i.putExtra("durata", p.getDurata());
+        i.putExtra("descrizione", p.getDescrizione());
+        i.putExtra("datamodifica", p.getDataModifica());
+        i.putExtra("creatore", p.getCreatore());
+        resultView.startActivity(i);
+    }
+
+    //SEGNALAZIONE SENTIERO
+
+    public ReportOverlay openReportOverlay(DetailView detailView){
+        FragmentManager fragmentManager = detailView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ReportOverlay reportOverlay = new ReportOverlay();
+        fragmentTransaction.add(R.id.detailOverlayContainer, reportOverlay, null);
+        fragmentTransaction.commit();
+        return reportOverlay;
+    }
+
+    public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
+        String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        Report report = new Report(1,motivazione, nomesentiero,segnalante,segnalato);
+        Call<Report> call = reportDAO.reportPath(report);
+
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                if(response.body()!=null){
+                    Toast.makeText(detailView,"Segnalazione fatta",Toast.LENGTH_LONG).show();
+                }else Toast.makeText(detailView,"Segnalazione fallita",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    // AGGIUNTA ALLA PLAYLIST
+
+    public addToPlaylistOverlay addToPlaylistOverlay(DetailView detailView){
+        FragmentManager fragmentManager = detailView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        addToPlaylistOverlay addtoplaylistoverlay = new addToPlaylistOverlay();
+        fragmentTransaction.add(R.id.detailOverlayContainer, addtoplaylistoverlay, null);
+        fragmentTransaction.commit();
+        return addtoplaylistoverlay;
+    }
+
+    public void addPathToPlaylist(DetailView detailView, String nomesentiero, String nomePlaylist) {
+        String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+        AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist,creatorePlaylist,nomesentiero);
+
+        Call<AssPlaylistSentiero> call = playlistDAO.addPathToPlaylist(assPlaylistSentiero);
+        call.enqueue(new Callback<AssPlaylistSentiero>() {
+            @Override
+            public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
+                if(response.body()!=null){
+                    Toast.makeText(detailView,"Sentiero aggiunto alla playlist",Toast.LENGTH_LONG).show();
+                }
+                else Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    //AMMINISTRATORI
 
 }

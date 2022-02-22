@@ -62,7 +62,4 @@ public class SearchView extends AppCompatActivity {
             else Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();
         });
     }
-
-    public void errore() {
-    }
 }

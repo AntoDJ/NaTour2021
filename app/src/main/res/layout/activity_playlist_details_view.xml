@@ -133,15 +133,15 @@
 
     <FrameLayout
         android:id="@+id/removeFromPlaylistContainer"
-        android:layout_width="344sp"
-        android:layout_height="265sp"
+        android:layout_width="348dp"
+        android:layout_height="495dp"
         android:elevation="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/eliminaSentieroDallaPlaylistButton"
+        app:layout_constraintBottom_toBottomOf="@+id/eliminaSentieroDallaPlaylistButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.546"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintVertical_bias="1.0">
 
 
     </FrameLayout>

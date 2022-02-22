@@ -3,10 +3,8 @@ package Create;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,16 +21,13 @@ import com.google.android.material.slider.Slider;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import Controller.Controller;
 import io.ticofab.androidgpxparser.parser.GPXParser;
-import io.ticofab.androidgpxparser.parser.domain.Extensions;
 import io.ticofab.androidgpxparser.parser.domain.Gpx;
 import io.ticofab.androidgpxparser.parser.domain.Track;
 import io.ticofab.androidgpxparser.parser.domain.TrackPoint;
@@ -173,9 +168,5 @@ public class CreateView extends AppCompatActivity {
 
     public void setTempmap(GoogleMap map){
         tempmap=map;
-    }
-
-    public void errore() {
-        Log.i("msg","errore");
     }
 }

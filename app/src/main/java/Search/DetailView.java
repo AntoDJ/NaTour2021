@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 import Controller.Controller;
 
 public class DetailView extends AppCompatActivity implements DetailInterface{
-    String puntoiniziale;
-    ArrayList<String> coordinate;
+    private ReportOverlay reportOverlay;
+    private addToPlaylistOverlay addtoPlaylistOverlay;
+    private String puntoiniziale;
+    private ArrayList<String> coordinate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,12 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         //Bottoni
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.addToPlaylistOverlay(DetailView.this);
-            c.cleanFragment(findViewById(R.id.detailOverlayContainer));
+            addtoPlaylistOverlay = Controller.getInstance().addToPlaylistOverlay(DetailView.this);
         });
 
         Button reportButton=(Button) findViewById(R.id.reportButton);
         reportButton.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.openReportOverlay(DetailView.this);
+            reportOverlay= Controller.getInstance().openReportOverlay(this);
         });
 
     }
@@ -86,5 +86,16 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         Intent i = getIntent();
         Controller c = Controller.getInstance();
         c.addPathToPlaylist(DetailView.this, i.getStringExtra("nomesentiero"),nomePlaylist);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(reportOverlay!=null||addtoPlaylistOverlay!=null){
+            Controller c = Controller.getInstance();
+            c.cleanFragment(findViewById(R.id.detailOverlayContainer));
+            reportOverlay=null;
+            addtoPlaylistOverlay=null;
+        }
+        else super.onBackPressed();
     }
  }

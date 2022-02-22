@@ -50,6 +50,7 @@ public class Controller {
     LoginView loginView;
     NotificationFragment notificationFragment;
     PersonalDetailView personalDetailView;
+    PlaylistView playlistView;
     PersonalPlaylistView personalPlaylistView;
 
 
@@ -67,6 +68,13 @@ public class Controller {
     private void bigError() {
 
     }
+
+    public void cleanFragment(FrameLayout frameLayout){
+        frameLayout.removeAllViews();
+    }
+
+    //LOGIN
+
 
     public void setLoginView(LoginView loginView) {
         this.loginView=loginView;
@@ -148,19 +156,6 @@ public class Controller {
         );
     }
 
-    public void openHomeView(LoginView loginview, String email){
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(String.valueOf(R.string.logged_email),email);
-        editor.putString(String.valueOf(R.string.tipo_login),"normale");
-        editor.apply();
-
-        Intent i = new Intent(loginView, HomeView.class);
-        loginview.startActivity(i);
-        loginview.finish();
-    }
-
-
-
     public void logintoDB(String tipo,List<AuthUserAttribute> attributes){
         String email = attributes.get(3).getValue();
         insertUser(email);
@@ -172,6 +167,43 @@ public class Controller {
         loginView.startActivity(i);
         loginView.finish();
     }
+
+
+    //CAMBIO PASSWORD
+
+
+    public PasswordOverlay openForgotPasswordOverlay(LoginView loginView){
+        FragmentManager fragmentManager = loginView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        PasswordOverlay passwordOverlay = new PasswordOverlay();
+        fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null);
+        fragmentTransaction.commit();
+        return passwordOverlay;
+    }
+
+    public void resetPassword(String email){
+        Amplify.Auth.resetPassword(
+                email,
+                result -> Log.i("AuthQuickstart", result.toString()),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
+    }
+
+    public void confirmResetPassword(String password, String codice){
+        Amplify.Auth.confirmResetPassword(
+                password,
+                codice,
+                () -> Log.i("AuthQuickstart", "New password confirmed"),
+                error -> Log.e("AuthQuickstart", error.toString())
+        );
+    }
+
+
+
+
+
+    //REGISTRAZIONE
+
 
     public void userRegistration(LoginView loginView){
         Intent i = new Intent(loginView, RegistrationView.class);
@@ -185,7 +217,6 @@ public class Controller {
         Amplify.Auth.signUp(email, password, options,
                 result -> Controller.getInstance().openRegistrationConfirmFragment(email, registrationView),
                 error -> {
-                    Log.i("Erroreee!!", error.getMessage());
                     registrationView.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(registrationView, "Errore nella registrazione: "+error.getMessage(), Toast.LENGTH_LONG).show();
@@ -225,7 +256,9 @@ public class Controller {
     }
 
 
-    //inserimento user all'interno del db
+    //INSERIMENTO DELL'UTENTE E DELLE PLAYLIST NEL DB
+
+
     public void insertUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
         User user = new User(email, null);
         Call<User> call = utenteDAO.insertUser(user);
@@ -245,7 +278,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.i("errore user", "errore user");
+                bigError();
             }
         });
     }
@@ -264,7 +297,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.i("errore user", "errore user");
+                bigError();
             }
         });
     }
@@ -284,7 +317,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-                Log.i("errore user", "errore user");
+                bigError();
             }
         });
     }
@@ -300,10 +333,38 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Playlist> call, Throwable t) {
-                Log.i("errore user", "errore user");
+                bigError();
             }
         });
     }
+
+    //HOMEVIEW
+
+    public void openHomeView(LoginView loginview, String email){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(String.valueOf(R.string.logged_email),email);
+        editor.putString(String.valueOf(R.string.tipo_login),"normale");
+        editor.apply();
+
+        Intent i = new Intent(loginView, HomeView.class);
+        loginview.startActivity(i);
+        loginview.finish();
+    }
+
+    //SETTINGS
+
+
+
+
+    public LogoutFragment logoutOverlay(HomeView homeview){
+        FragmentManager fragmentManager = homeview.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        LogoutFragment logoutoverlay = new LogoutFragment();
+        fragmentTransaction.add(R.id.HomeContainer, logoutoverlay, null);
+        fragmentTransaction.commit();
+        return logoutoverlay;
+    }
+
 
     public void logout(FrameLayout frameLayout, HomeView homeview){
         Amplify.Auth.signOut(
@@ -326,32 +387,6 @@ public class Controller {
         homeview.finish();
     }
 
-
-    public void openForgotPasswordOverlay(LoginView loginView){
-        FragmentManager fragmentManager = loginView.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        PasswordOverlay passwordOverlay = new PasswordOverlay();
-        fragmentTransaction.add(R.id.passwordOverlayContainer, passwordOverlay, null);
-        fragmentTransaction.commit();
-    }
-
-    public void resetPassword(String email){
-        Amplify.Auth.resetPassword(
-                    email,
-                    result -> Log.i("AuthQuickstart", result.toString()),
-                    error -> Log.e("AuthQuickstart", error.toString())
-            );
-    }
-
-    public void confirmResetPassword(String password){
-        Amplify.Auth.confirmResetPassword(
-                password,
-                "831262",
-                () -> Log.i("AuthQuickstart", "New password confirmed"),
-                error -> Log.e("AuthQuickstart", error.toString())
-        );
-    }
-
     public void changePassword(String oldPassword, String newPassword){
         Amplify.Auth.updatePassword(
                 oldPassword,
@@ -361,32 +396,79 @@ public class Controller {
         );
     }
 
-    public void openCreatePathView(HomeFragment homeFragment){
-        Intent i = new Intent(homeFragment.getActivity(), CreateView.class);
-        homeFragment.startActivity(i);
+    //NOTIFICHE
+
+
+    public void getNotification(NotificationFragment notificationFragment) {
+        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+
+        Report report = new Report(0, null,null,null, creatore);
+        Call<ArrayList<Report>> call = reportDAO.getNotification(report);
+        call.enqueue(new Callback<ArrayList<Report>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Report>> call, Response<ArrayList<Report>> response) {
+                ArrayList < Report > notifiche = response.body();
+                ArrayList<String> descrizioniNotifiche = new ArrayList<>();
+                ArrayList<String> nomiSentieriNotifiche = new ArrayList<>();
+                ArrayList<Integer> notificheID = new ArrayList<>();
+                for(Report r:notifiche){
+                    nomiSentieriNotifiche.add(r.getNomeSentiero());
+                    descrizioniNotifiche.add(r.getDescrizione());
+                    notificheID.add(r.getIdSegnalazione());
+                }
+                notificationFragment.setNotification(nomiSentieriNotifiche,descrizioniNotifiche,notificheID);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Report>> call, Throwable t) {
+                bigError();
+            }
+        });
     }
 
-    public void searchView(HomeFragment homeFragment){
-        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
-        homeFragment.startActivity(i);
-    }
 
-    public void cleanFragment(FrameLayout frameLayout){
-        frameLayout.removeAllViews();
-    }
-
-    public MapViewFragment openInsertPath(CreateView createView){
-        FragmentManager fragmentManager = createView.getSupportFragmentManager();
+    public AnswerReportFragment openAnswerReportOverlay(String nomesentiero, String descrizione, Integer id, HomeView homeView, NotificationFragment notificationFragment){
+        FragmentManager fragmentManager = homeView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MapViewFragment mapViewFragment = new MapViewFragment();
-        fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
+        AnswerReportFragment answerReportFragment = new AnswerReportFragment();
+        this.notificationFragment= notificationFragment;
+        Bundle bundle = new Bundle();
+        bundle.putString("nomesentiero",nomesentiero);
+        bundle.putString("descrizione",descrizione);
+        bundle.putInt("id",id);
+        answerReportFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.reportAnswerLayout,answerReportFragment,null);
         fragmentTransaction.commit();
-        return mapViewFragment;
+        return answerReportFragment;
     }
+
+
+    public void rispondiSegnalazione(int idnotifica, String risposta) {
+        Report report = new Report(idnotifica, risposta);
+        Call<Report>  call = reportDAO.addReply(report);
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                if(response.body()!=null){
+                    notificationFragment.removeNotification(idnotifica);
+                    Toast.makeText(notificationFragment.getContext(), "Risposta inviata con successo",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(notificationFragment.getContext(), "Errore nella risposta, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                bigError();
+            }
+        });
+
+    }
+
+    //PLAYLIST
 
     public void getPathOfPlaylist(PlaylistFragment playlistFragment, String nomePlaylist){
-
-    //SOSTITUIRE QUESTO CEATORE CON QUELLO NELLE SHARED
         String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
 
         AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist, creatorePlaylist);
@@ -399,13 +481,12 @@ public class Controller {
                 if(paths.size()!=0) {
                     openPlayListView(playlistFragment, paths, nomePlaylist);
                 }
-                else playlistFragment.playlistvuota(nomePlaylist);
-
+                else  Toast.makeText(playlistFragment.getContext(),"Non ci sono sentieri nella playlist "+nomePlaylist,Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-
+                bigError();
             }
         });
     }
@@ -424,8 +505,6 @@ public class Controller {
         playlistFragment.startActivity(i);
     }
 
-
-
     public void getAllDetailsOfPlaylistPath(PlaylistView playlistView,String nomePlaylist ,String nomeSentiero){
         Path tmpPath = new Path(nomeSentiero);
         Call<Path> call = pathDAO.getPath(tmpPath);
@@ -433,17 +512,15 @@ public class Controller {
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
-                if(response.body()!=null&&response.body().getNomeSentiero().equals(nomeSentiero)) {
+                if(response.body()!=null) {
                     Controller c = Controller.getInstance();
                     c.openPlaylistDetailsView(playlistView, nomePlaylist, response.body());
                 }
-                else{
-                    Controller c = Controller.getInstance();
-                    c.bigError();
-                }
+                else Toast.makeText(playlistView,"Errore nel recupero dei dettagli del sentiero, ricarica la playlist",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
+                bigError();
             }
         });
     }
@@ -459,8 +536,77 @@ public class Controller {
         i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
         i.putExtra("playlist", playlistName);
+        this.playlistView=playlistView;
         playlistView.startActivity(i);
     }
+
+    public removeFromPlaylistOverlay removeFromPlaylistOverlay(PlaylistDetailsView playlistdetailsview, String nomesentiero, String nomeplaylist){
+        FragmentManager fragmentManager = playlistdetailsview.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        removeFromPlaylistOverlay removefromplaylistoverlay = new removeFromPlaylistOverlay();
+        Bundle bundle = new Bundle();
+        bundle.putString("nomesentiero",nomesentiero);
+        bundle.putString("nomeplaylist",nomeplaylist);
+        removefromplaylistoverlay.setArguments(bundle);
+        fragmentTransaction.add(R.id.removeFromPlaylistContainer, removefromplaylistoverlay, null);
+        fragmentTransaction.commit();
+        return removefromplaylistoverlay;
+    }
+
+    public void removeFromPlaylist(String nomesentiero, String nomeplaylist, PlaylistDetailsView playlistDetailsView){
+        playlistDetailsView.finish();
+        playlistView.removePathView(nomesentiero);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void openCreatePathView(HomeFragment homeFragment){
+        Intent i = new Intent(homeFragment.getActivity(), CreateView.class);
+        homeFragment.startActivity(i);
+    }
+
+    public void searchView(HomeFragment homeFragment){
+        Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
+        homeFragment.startActivity(i);
+    }
+
+
+
+    public MapViewFragment openInsertPath(CreateView createView){
+        FragmentManager fragmentManager = createView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MapViewFragment mapViewFragment = new MapViewFragment();
+        fragmentTransaction.add(R.id.mapViewContainer, mapViewFragment, null);
+        fragmentTransaction.commit();
+        return mapViewFragment;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     public void getPersonalPaths(PersonalPlaylistView personalPlaylistView){
@@ -545,13 +691,7 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void removeFromPlaylistOverlay(PlaylistDetailsView playlistdetailsview){
-        FragmentManager fragmentManager = playlistdetailsview.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        removeFromPlaylistOverlay removefromplaylistoverlay = new removeFromPlaylistOverlay();
-        fragmentTransaction.add(R.id.removeFromPlaylistContainer, removefromplaylistoverlay, null);
-        fragmentTransaction.commit();
-    }
+
 
     public void deletePathOverlay(PersonalDetailView personaldetailview, String nomeSentiero){
         FragmentManager fragmentManager = personaldetailview.getSupportFragmentManager();
@@ -564,13 +704,7 @@ public class Controller {
         fragmentTransaction.commit();
     }
 
-    public void logoutOverlay(HomeView homeview){
-        FragmentManager fragmentManager = homeview.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        LogoutFragment logoutoverlay = new LogoutFragment();
-        fragmentTransaction.add(R.id.HomeContainer, logoutoverlay, null);
-        fragmentTransaction.commit();
-    }
+
 
     public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
@@ -729,66 +863,6 @@ public class Controller {
         });
     }
 
-    public void getNotification(NotificationFragment notificationFragment) {
-        String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-
-
-        Report report = new Report(0, null,null,null, creatore);
-        Call<ArrayList<Report>> call = reportDAO.getNotification(report);
-        call.enqueue(new Callback<ArrayList<Report>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Report>> call, Response<ArrayList<Report>> response) {
-                ArrayList < Report > notifiche = response.body();
-                ArrayList<String> descrizioniNotifiche = new ArrayList<>();
-                ArrayList<String> nomiSentieriNotifiche = new ArrayList<>();
-                ArrayList<Integer> notificheID = new ArrayList<>();
-                for(Report r:notifiche){
-                    nomiSentieriNotifiche.add(r.getNomeSentiero());
-                    descrizioniNotifiche.add(r.getDescrizione());
-                    notificheID.add(r.getIdSegnalazione());
-                }
-                notificationFragment.setNotification(nomiSentieriNotifiche,descrizioniNotifiche,notificheID);
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Report>> call, Throwable t) {
-            }
-        });
-    }
-
-
-    public void openAnswerReportOverlay(String nomesentiero, String descrizione, Integer id, HomeView homeView, NotificationFragment notificationFragment){
-        FragmentManager fragmentManager = homeView.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        AnswerReportFragment answerReportFragment = new AnswerReportFragment();
-        this.notificationFragment= notificationFragment;
-        Bundle bundle = new Bundle();
-        bundle.putString("nomesentiero",nomesentiero);
-        bundle.putString("descrizione",descrizione);
-        bundle.putInt("id",id);
-        answerReportFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.reportAnswerLayout,answerReportFragment,null);
-        fragmentTransaction.commit();
-    }
-
-
-    public void rispondiSegnalazione(int idnotifica, String risposta) {
-        notificationFragment.removeNotification(idnotifica);
-        Report report = new Report(idnotifica, risposta);
-        Call<Report>  call = reportDAO.addReply(report);
-        call.enqueue(new Callback<Report>() {
-            @Override
-            public void onResponse(Call<Report> call, Response<Report> response) {
-                //fare qualcosa se va tutto bene
-            }
-
-            @Override
-            public void onFailure(Call<Report> call, Throwable t) {
-                //fare qualcosa se fallisce
-            }
-        });
-
-    }
 
     public void deletePath(String nomeSentiero, PersonalDetailView personalDetailView) {
         Path path = new Path(nomeSentiero);

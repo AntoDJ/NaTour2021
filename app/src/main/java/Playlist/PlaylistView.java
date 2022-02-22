@@ -11,9 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Controller.Controller;
@@ -21,7 +23,9 @@ import Entity.Path;
 
 public class PlaylistView extends AppCompatActivity {
     Controller c;
-    ArrayList<Path> path;
+    ArrayList<String> nomiSentieri;
+    ArrayList<String> durdiffSentieri;
+    ListView sentieriPlaylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +33,14 @@ public class PlaylistView extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_view);
         Intent intent = getIntent();
 
-        ListView sentieriPlaylist = (ListView) findViewById(R.id.sentieriPlaylistListView);
+        sentieriPlaylist = (ListView) findViewById(R.id.sentieriPlaylistListView);
 
         c = Controller.getInstance();
         TextView nomePlaylist = (TextView) findViewById(R.id.nomePlaylistTextView);
         nomePlaylist.setText(intent.getStringExtra("nomePlaylist"));
 
-        ArrayList<String> nomiSentieri = intent.getStringArrayListExtra("nomiSentieri");
-        ArrayList<String> durdiffSentieri = intent.getStringArrayListExtra("durdiffSentieri");
+        nomiSentieri = intent.getStringArrayListExtra("nomiSentieri");
+        durdiffSentieri = intent.getStringArrayListExtra("durdiffSentieri");
 
         ArrayList<String> dettagliSentiero= new ArrayList<>();
         for(int i=0;i<nomiSentieri.size();i++)
@@ -51,9 +55,29 @@ public class PlaylistView extends AppCompatActivity {
             c.getAllDetailsOfPlaylistPath(this, intent.getStringExtra("nomePlaylist"),nomiSentieri.get(i));
         });
 
+    }
 
-
-
+    public void removePathView(String nomesentiero){
+        int posizione=-1;
+        for(String nome:nomiSentieri){
+            if(nome.equals(nomesentiero)) posizione=nomiSentieri.indexOf(nome);
+        }
+        if(posizione!=-1) {
+            nomiSentieri.remove(posizione);
+            durdiffSentieri.remove(posizione);
+            if(nomiSentieri.size()==0){
+                Toast.makeText(this,"Playlist chiusa perchè vuota",Toast.LENGTH_LONG).show();
+                this.finish();
+            }
+            else{
+                ArrayList<String> sentieroToList = new ArrayList<>();
+                for(int i=0;i<nomiSentieri.size();i++) {
+                    sentieroToList.add("  " + nomiSentieri.get(i) + "\n" + durdiffSentieri.get(i));
+                }
+                ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, sentieroToList);
+                sentieriPlaylist.setAdapter(arrayAdapter);
+            }
+        }
     }
 }
 

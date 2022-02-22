@@ -45,7 +45,8 @@ public class NotificationFragment extends Fragment {
         notificheList = (ListView) root.findViewById(R.id.notificationListView);
         notificheList.setOnItemClickListener((adapterView, view, i, l) -> {
             Controller c = Controller.getInstance();
-            c.openAnswerReportOverlay(nomiSentieri.get(i),descrizioni.get(i),ID.get(i),(HomeView) getActivity(),this);
+            AnswerReportFragment answerReportFragment=c.openAnswerReportOverlay(nomiSentieri.get(i),descrizioni.get(i),ID.get(i),(HomeView) getActivity(),this);
+            ((HomeView)getActivity()).setAnswerReportFragment(answerReportFragment);
         });
         Controller c = Controller.getInstance();
         c.getNotification(this);

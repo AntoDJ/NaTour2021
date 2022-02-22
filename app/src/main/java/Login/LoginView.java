@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -24,6 +25,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import Controller.Controller;
 
 public class LoginView extends AppCompatActivity {
+    private PasswordOverlay passwordOverlay;
+    private long mLastClickTime = 0;
     private int backButtonCount=0;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
@@ -38,27 +41,15 @@ public class LoginView extends AppCompatActivity {
 
         TextView passwordDimenticata = (TextView) findViewById(R.id.forgotPasswordTextView);
         passwordDimenticata.setOnClickListener(view -> {
-            Controller.getInstance().openForgotPasswordOverlay(this);
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Password Dimenticata");
-            builder.setMessage("Se ti sei dimenticato la password ti manderemo una mail con una password temporanea per loggare, cambiala appena entri.")
-                    .setPositiveButton("Manda Mail", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
-                        }
-                    })
-                    .setNegativeButton("Annulla", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-            //builder.setView();
-            AlertDialog dialog = builder.create();
-            dialog.show();*/
+            passwordOverlay = Controller.getInstance().openForgotPasswordOverlay(this);
         });
 
         Button accediButton = (Button) findViewById(R.id.accediButton);
         accediButton.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
             if(campomail.getText().toString().trim().length()!=0&&campopass.getText().toString().trim().length()!=0) {
                 Controller c = Controller.getInstance();
@@ -69,6 +60,10 @@ public class LoginView extends AppCompatActivity {
 
         Button registratiButton = (Button) findViewById(R.id.registratiButton);
         registratiButton.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
             Controller c = Controller.getInstance();
             c.userRegistration(LoginView.this);
@@ -76,6 +71,10 @@ public class LoginView extends AppCompatActivity {
 
         ImageButton facebookButton = (ImageButton) findViewById(R.id.facebookButton);
         facebookButton.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.facebook(), this,
                     result -> {
@@ -91,6 +90,9 @@ public class LoginView extends AppCompatActivity {
 
         ImageButton googleButton = (ImageButton) findViewById(R.id.googleButton);
         googleButton.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
             view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), this,
                     result -> {
@@ -107,13 +109,19 @@ public class LoginView extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (backButtonCount >= 1) {
+        if(passwordOverlay!=null){
+            Controller c = Controller.getInstance();
+            c.cleanFragment(findViewById(R.id.passwordOverlayContainer));
+            passwordOverlay=null;
+        }
+        else {
+            if (backButtonCount >= 1) {
                 backButtonCount = 0;
                 finish();
             } else {
                 Toast.makeText(this, "Premi indietro di nuovo per chiudere l'app", Toast.LENGTH_SHORT).show();
                 backButtonCount++;
             }
-
+        }
     }
 }

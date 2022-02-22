@@ -60,7 +60,5 @@ public class PlaylistFragment extends Fragment {
         binding = null;
     }
 
-    public void playlistvuota(String nomePlaylist) {
-        Toast.makeText(getActivity(),"Non ci sono sentieri nella playlist "+nomePlaylist,Toast.LENGTH_LONG).show();
-    }
+
 }

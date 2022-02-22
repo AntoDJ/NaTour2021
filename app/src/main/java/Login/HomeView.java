@@ -20,10 +20,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import Controller.Controller;
+import Login.ui.notification.AnswerReportFragment;
+import Login.ui.settings.LogoutFragment;
 
 
 public class HomeView extends AppCompatActivity {
     private int backButtonCount=0;
+    private LogoutFragment logoutFragment;
+    private AnswerReportFragment answerReportFragment;
 
     private AppBarConfiguration mAppBarConfiguration;
 private ActivityNavigationBinding binding;
@@ -70,17 +74,36 @@ private ActivityNavigationBinding binding;
                 || super.onSupportNavigateUp();
     }
 
+
+    public void setLogoutFragment(LogoutFragment logoutFragment) {
+        this.logoutFragment=logoutFragment;
+    }
+
     @Override
     public void onBackPressed() {
-        if(backButtonCount >= 1)
-        {
-            backButtonCount=0;
-            System.exit(0);
+        if(answerReportFragment!=null){
+            Controller c = Controller.getInstance();
+            c.cleanFragment(findViewById(R.id.reportAnswerLayout));
+            answerReportFragment = null;
         }
-        else
-        {
-            Toast.makeText(this, "Premi di nuovo indietro per chiudere l'app", Toast.LENGTH_SHORT).show();
-            backButtonCount++;
+        else {
+            if (logoutFragment != null) {
+                Controller c = Controller.getInstance();
+                c.cleanFragment(findViewById(R.id.HomeContainer));
+                logoutFragment = null;
+            } else {
+                if (backButtonCount >= 1) {
+                    backButtonCount = 0;
+                    System.exit(0);
+                } else {
+                    Toast.makeText(this, "Premi di nuovo indietro per chiudere l'app", Toast.LENGTH_SHORT).show();
+                    backButtonCount++;
+                }
+            }
         }
+    }
+
+    public void setAnswerReportFragment(AnswerReportFragment answerReportFragment) {
+        this.answerReportFragment=answerReportFragment;
     }
 }

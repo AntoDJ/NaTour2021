@@ -37,38 +37,14 @@ private FragmentSettingsBinding binding;
         Button changePassword = root.findViewById(R.id.changePassButton);
         changePassword.setOnClickListener(view -> {
 
-    //CODICE PER CAMBIARE PASSWORD MA DA METTERE NELLA FUNZIONE APPOSITA!!!!
-            /*Amplify.Auth.updatePassword(
-                    "password2",
-                    "password",
-                    () -> Log.i("AuthQuickstart", "Updated password successfully"),
-                    error -> Log.e("AuthQuickstart", error.toString())
-            );*/
-
-
-
-    // CODICE PER RESET PASSWORD
-            /*Amplify.Auth.resetPassword(
-                    "username",
-                    result -> Log.i("AuthQuickstart", result.toString()),
-                    error -> Log.e("AuthQuickstart", error.toString())
-            );
-
-            Amplify.Auth.confirmResetPassword(
-                    "password",
-                    "831262",
-                    () -> Log.i("AuthQuickstart", "New password confirmed"),
-                    error -> Log.e("AuthQuickstart", error.toString())
-            );*/
-
-
-
         });
 
         Button b1= (Button) root.findViewById(R.id.LogoutButton);
         b1.setOnClickListener(view ->{
+
              Controller c = Controller.getInstance();
-             c.logoutOverlay(((HomeView)getActivity()));
+             LogoutFragment logoutFragment = c.logoutOverlay(((HomeView)getActivity()));
+            ((HomeView)getActivity()).setLogoutFragment(logoutFragment);
         });
         return root;
     }

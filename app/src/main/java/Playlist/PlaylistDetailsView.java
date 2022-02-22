@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
@@ -21,8 +22,9 @@ import Entity.Path;
 import Search.DetailInterface;
 
 public class PlaylistDetailsView extends AppCompatActivity implements DetailInterface {
-    String puntoiniziale;
-    ArrayList<String> coordinate;
+    private String puntoiniziale;
+    private ArrayList<String> coordinate;
+    private removeFromPlaylistOverlay removefromPlaylistOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +60,10 @@ public class PlaylistDetailsView extends AppCompatActivity implements DetailInte
             descrizione.setText("Descrizione Vuota");
         }
 
-        Button b1 = (Button) findViewById(R.id.eliminaSentieroDallaPlaylistButton);
-        b1.setOnClickListener(view -> {
-            Controller c = Controller.getInstance();
-            c.removeFromPlaylistOverlay(PlaylistDetailsView.this);
+        Button removeFromPlaylistButton = (Button) findViewById(R.id.eliminaSentieroDallaPlaylistButton);
+        removeFromPlaylistButton.setOnClickListener(view -> {
+            removefromPlaylistOverlay= Controller.getInstance().removeFromPlaylistOverlay(PlaylistDetailsView.this,
+                    intent.getStringExtra("nomesentiero"), intent.getStringExtra("playlist"));
         });
     }
 
@@ -71,5 +73,15 @@ public class PlaylistDetailsView extends AppCompatActivity implements DetailInte
 
     public ArrayList<String> getCoordinate(){
         return coordinate;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(removefromPlaylistOverlay!=null){
+            Controller c = Controller.getInstance();
+            c.cleanFragment(findViewById(R.id.removeFromPlaylistContainer));
+            removefromPlaylistOverlay=null;
+        }
+        else super.onBackPressed();
     }
 }

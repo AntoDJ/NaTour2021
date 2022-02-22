@@ -57,17 +57,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/homeFrameContainer"
-        android:layout_width="344sp"
-        android:layout_height="240sp"
-        android:elevation="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31">
-
-    </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,8 +42,6 @@ public class removeFromPlaylistOverlay extends Fragment {
         View view;
         view= inflater.inflate(R.layout.fragment_remove_from_playlist, container, false);
 
-
-
         Button removeFromPlaylistNoButton = (Button) view.findViewById(R.id.removePlaylistNoButton);
         removeFromPlaylistNoButton.setOnClickListener(view1 -> {
             Controller.getInstance().cleanFragment(getActivity().findViewById(R.id.removeFromPlaylistContainer));

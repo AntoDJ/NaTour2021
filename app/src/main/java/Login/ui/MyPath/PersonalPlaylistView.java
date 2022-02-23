@@ -64,6 +64,7 @@ public class PersonalPlaylistView extends Fragment {
         }
         else{
             testo.setText("Non hai creato sentieri");
+            sentieriPlaylist.setVisibility((View.GONE));
         }
     }
 }

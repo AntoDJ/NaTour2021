@@ -82,7 +82,10 @@ public class CreateView extends AppCompatActivity {
                 String coor = "";
                 for (Marker mar : coordinate)
                     coor += mar.getPosition().latitude + " " + mar.getPosition().longitude + " ";
-                c.createPath(this, nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor);
+                if(coor.length()<5000) {
+                    c.createPath(this, nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor);
+                }
+                else Toast.makeText(this,"hai inserito un sentiero troppo lungo",Toast.LENGTH_LONG).show();
             }
             else Toast.makeText(this,"Inserisci il nome del sentiero e almeno un punto",Toast.LENGTH_LONG).show();
         });
@@ -146,11 +149,16 @@ public class CreateView extends AppCompatActivity {
                 List<TrackSegment> segments = track.getTrackSegments();
                 for (int j = 0; j < segments.size(); j++) {
                     TrackSegment segment = segments.get(j);
+                    int k=3;
                     for (TrackPoint trackPoint : segment.getTrackPoints()) {
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(new LatLng(trackPoint.getLatitude(),trackPoint.getLongitude()));
-                        Marker marker =tempmap.addMarker(markerOptions);
-                        coordinateFromGPX.add(marker);
+                        if(k==3) {
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(new LatLng(trackPoint.getLatitude(), trackPoint.getLongitude()));
+                            Marker marker = tempmap.addMarker(markerOptions);
+                            coordinateFromGPX.add(marker);
+                            k=0;
+                        }
+                        else k++;
                     }
                 }
             }

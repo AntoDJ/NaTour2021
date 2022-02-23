@@ -28,13 +28,14 @@ public class LoginView extends AppCompatActivity {
     private PasswordOverlay passwordOverlay;
     private long mLastClickTime = 0;
     private int backButtonCount=0;
-    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_view);
         Controller.getInstance().setLoginView(this);
+        buttonClick.setDuration(300);
         EditText campomail = (EditText) findViewById(R.id.emailLoginPlainText);
         EditText campopass = (EditText) findViewById(R.id.passwordLoginPlainText);
 
@@ -93,6 +94,7 @@ public class LoginView extends AppCompatActivity {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
                 return;
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), this,
                     result -> {

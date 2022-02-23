@@ -1,5 +1,7 @@
 package Controller;
 
+import static java.lang.Thread.sleep;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -67,7 +69,7 @@ public class Controller {
     }
 
     private void bigError() {
-
+        Log.i("ERROR","BIGERROR");
     }
 
     public void cleanFragment(FrameLayout frameLayout){
@@ -286,6 +288,12 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                try {
+                    sleep(15000);
+                    createPlaylistUser(email);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 createPlaylistUser(email);
             }
 
@@ -651,6 +659,7 @@ public class Controller {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 personalDetailView.finish();
+                Toast.makeText(personalPlaylistView.getContext(),"Sto ricaricando i sentieri", Toast.LENGTH_LONG).show();
                 getPersonalPaths(personalPlaylistView);
             }
 
@@ -868,7 +877,10 @@ public class Controller {
             @Override
             public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
                 if(response.body()!=null){
-                    Toast.makeText(detailView,"Sentiero aggiunto alla playlist",Toast.LENGTH_LONG).show();
+                    if(response.body().getNomeSentiero()!=null) {
+                        Toast.makeText(detailView, "Sentiero aggiunto alla playlist", Toast.LENGTH_LONG).show();
+                    }
+                    else Toast.makeText(detailView,"Errore nella playlist, contatta gli amministratori",Toast.LENGTH_LONG).show();
                 }
                 else Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
             }

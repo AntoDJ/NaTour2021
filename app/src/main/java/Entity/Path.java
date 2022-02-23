@@ -75,6 +75,10 @@ public class Path {
         return this.creatore;
     }
 
+    public void setDataModifica (Date data){
+        this.dataModifica=data;
+    }
+
     public ArrayList<String> getCoordinateAsArray(){
         ArrayList<String> array = new ArrayList<>();
         if(!this.coordinate.equals("")){

@@ -33,6 +33,7 @@ import Search.*;
 import Create.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -285,9 +286,7 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.body()!=null) {
-                    Controller.getInstance().createPlaylistUser(email);
-                }
+                createPlaylistUser(email);
             }
 
             @Override
@@ -626,6 +625,7 @@ public class Controller {
         i.putExtra("descrizione", p.getDescrizione());
         i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
+        i.putExtra("data",p.getDataModifica());
         homeview.startActivity(i);
     }
 
@@ -813,6 +813,7 @@ public class Controller {
         i.putExtra("descrizione", p.getDescrizione());
         i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
+        i.putExtra("data", p.getDataModifica());
         resultView.startActivity(i);
     }
 
@@ -903,6 +904,7 @@ public class Controller {
 
     public void updatePathAdmin(ModificationView modificationView,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità, String nuovoNome) {
         Path path = new Path(nomeSentiero,  null, nuovoNome, difficolta, descrizione, accessibilità, null, durata);
+        path.setDataModifica(Calendar.getInstance().getTime());
         Call<Path> call = pathDAO.updatePathAdmin(path);
         call.enqueue(new Callback<Path>() {
             @Override

@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Controller.Controller;
 import Entity.Path;
@@ -53,12 +55,23 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         nome.setText(intent.getStringExtra("nomesentiero"));
 
         TextView descrizione = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
-        if(intent.getStringExtra("descrizione")!=null){
+        if(intent.getStringExtra("descrizione").equals("")){
             descrizione.setText(intent.getStringExtra("descrizione"));
         }
         else{
             descrizione.setText("Descrizione Vuota");
         }
+
+        //Set Ultima Modifica
+
+        TextView ultimaModifica = (TextView) findViewById(R.id.UltimaModificaTextView);
+        if(intent.getSerializableExtra("data")!=null){
+            SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
+            String data= simpleDateFormat.format((Date)intent.getSerializableExtra("data"));
+            ultimaModifica.setText("Data ultima modifica : "+data);
+        }
+        else ultimaModifica.setVisibility(View.GONE);
+
 
         Button modificaSentieroButton = (Button) findViewById(R.id.modificaSentieroButton);
         modificaSentieroButton.setOnClickListener(view -> {

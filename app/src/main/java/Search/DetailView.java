@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,7 +12,10 @@ import android.widget.Toast;
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Controller.Controller;
 
@@ -55,6 +59,12 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         //Set Ultima Modifica
 
         TextView ultimaModifica = (TextView) findViewById(R.id.modificaTextViewDetail);
+        if(i.getSerializableExtra("data")!=null){
+            SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
+            String data= simpleDateFormat.format((Date)i.getSerializableExtra("data"));
+            ultimaModifica.setText("Data ultima modifica : "+data);
+        }
+        else ultimaModifica.setVisibility(View.GONE);
 
         //Bottoni
         Button playlistButton=(Button) findViewById(R.id.playlistButton);

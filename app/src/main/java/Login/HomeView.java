@@ -92,7 +92,7 @@ private ActivityNavigationBinding binding;
         else {
             if (logoutFragment != null) {
                 Controller c = Controller.getInstance();
-                c.cleanFragment(findViewById(R.id.HomeContainer));
+                c.cleanFragment(findViewById(R.id.SettingsContainer));
                 logoutFragment = null;
             } else {
                 if (backButtonCount >= 1) {

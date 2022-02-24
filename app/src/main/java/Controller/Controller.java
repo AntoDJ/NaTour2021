@@ -401,7 +401,7 @@ public class Controller {
         FragmentManager fragmentManager = homeview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         LogoutFragment logoutoverlay = new LogoutFragment();
-        fragmentTransaction.add(R.id.HomeContainer, logoutoverlay, null);
+        fragmentTransaction.add(R.id.SettingsContainer, logoutoverlay, null);
         fragmentTransaction.commit();
         return logoutoverlay;
     }

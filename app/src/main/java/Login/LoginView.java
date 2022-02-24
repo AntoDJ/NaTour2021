@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplifyframework.auth.AuthException;
 import com.amplifyframework.auth.AuthProvider;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.R;
@@ -48,6 +49,7 @@ public class LoginView extends AppCompatActivity {
         Button accediButton = (Button) findViewById(R.id.accediButton);
         accediButton.setOnClickListener(view -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(this,"Hai già provato ad accedere recentemente con google o facebook, aspetta 10 secondi",Toast.LENGTH_LONG).show();
                 return;
             }
             mLastClickTime = SystemClock.elapsedRealtime();
@@ -62,6 +64,7 @@ public class LoginView extends AppCompatActivity {
         Button registratiButton = (Button) findViewById(R.id.registratiButton);
         registratiButton.setOnClickListener(view -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(this,"Hai già provato ad accedere recentemente con google o facebook, aspetta 10 secondi",Toast.LENGTH_LONG).show();
                 return;
             }
             mLastClickTime = SystemClock.elapsedRealtime();
@@ -73,28 +76,34 @@ public class LoginView extends AppCompatActivity {
         ImageButton facebookButton = (ImageButton) findViewById(R.id.facebookButton);
         facebookButton.setOnClickListener(view -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(this,"Hai già provato ad accedere recentemente con google o facebook, aspetta 10 secondi",Toast.LENGTH_LONG).show();
                 return;
             }
-            mLastClickTime = SystemClock.elapsedRealtime();
+            campomail.setText("");
+            campopass.setText("");
+            mLastClickTime = SystemClock.elapsedRealtime()+10000;
             view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.facebook(), this,
                     result -> {
-                        Log.i("successo","login success");
+                        Log.i("successo", "login success");
                         Amplify.Auth.fetchUserAttributes(
-                                attributes -> Controller.getInstance().logintoDB("facebook",attributes),
+                                attributes -> Controller.getInstance().logintoDB("facebook", attributes),
                                 error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
                         );
                     },
-                    error -> Log.i("errore","errore")
+                    error -> Log.i("errore", "errore")
             );
         });
 
         ImageButton googleButton = (ImageButton) findViewById(R.id.googleButton);
         googleButton.setOnClickListener(view -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(this,"Hai già provato ad accedere recentemente con google o facebook, aspetta 10 secondi",Toast.LENGTH_LONG).show();
                 return;
             }
-            mLastClickTime = SystemClock.elapsedRealtime();
+            campomail.setText("");
+            campopass.setText("");
+            mLastClickTime = SystemClock.elapsedRealtime()+10000;
             view.startAnimation(buttonClick);
             Amplify.Auth.signInWithSocialWebUI(AuthProvider.google(), this,
                     result -> {

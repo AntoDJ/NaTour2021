@@ -34,7 +34,7 @@ public class DetailMapsFragment extends Fragment {
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             MarkerOptions markerOptions = new MarkerOptions();
             // METTO IL PUNTO INIZIALE SULLA MAPPA E CENTRO LA MAPPA
-            DetailInterface callingView =(DetailInterface)getActivity();
+            DetailInterface callingView = (DetailInterface) getActivity();
             String puntoiniziale = callingView.getPuntoIniziale();
             String part[]= puntoiniziale.split(" ", 2);
             LatLng latlng= new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));

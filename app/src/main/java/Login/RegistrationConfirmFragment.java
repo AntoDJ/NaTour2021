@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ import Controller.Controller;
 
 public class RegistrationConfirmFragment extends Fragment {
     private String email;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
 
     public RegistrationConfirmFragment() {
         // Required empty public constructor
@@ -41,10 +43,12 @@ public class RegistrationConfirmFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view;
         view = inflater.inflate(R.layout.fragment_registration_confirm, container, false);
+        buttonClick.setDuration(300);
         Button confirmRegistrationButton = (Button) view.findViewById(R.id.codeConfirmationButton);
         EditText confirmRegistrationEditText = (EditText) view.findViewById(R.id.codeConfirmationEditText);
 
         confirmRegistrationButton.setOnClickListener(view1 -> {
+            view1.startAnimation(buttonClick);
             if(confirmRegistrationEditText.getText().toString().trim().length()==6) {
                 Controller.getInstance().confermaRegistrazione(confirmRegistrationEditText.getText().toString().trim(),
                         getActivity().findViewById(R.id.registrationFrameLayout),

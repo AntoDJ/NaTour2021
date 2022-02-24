@@ -27,6 +27,7 @@ public class HomeView extends AppCompatActivity {
     private int backButtonCount=0;
     private LogoutFragment logoutFragment;
     private AnswerReportFragment answerReportFragment;
+    private boolean isAdmin = false;
 
     private AppBarConfiguration mAppBarConfiguration;
 private ActivityNavigationBinding binding;
@@ -39,6 +40,7 @@ private ActivityNavigationBinding binding;
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarNavigation.toolbar);
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -53,6 +55,8 @@ private ActivityNavigationBinding binding;
         NavigationUI.setupWithNavController(navigationView, navController);
 
         SharedPreferences sharedPref= this.getSharedPreferences(String.valueOf(R.string.preference_file_key),Context.MODE_PRIVATE);
+        Controller.getInstance().checkAdmin(this ,sharedPref.getString(String.valueOf(R.string.logged_email),""));
+
 
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.navigationEmailTextView);
@@ -104,5 +108,13 @@ private ActivityNavigationBinding binding;
 
     public void setAnswerReportFragment(AnswerReportFragment answerReportFragment) {
         this.answerReportFragment=answerReportFragment;
+    }
+
+    public void setAdmin(Boolean admin){
+        isAdmin=admin;
+    }
+
+    public Boolean isAdmin(){
+        return isAdmin;
     }
 }

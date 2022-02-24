@@ -1,12 +1,14 @@
 package Login.ui.notification;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ import Login.HomeView;
 
 public class NotificationFragment extends Fragment {
 
+    private long mLastClickTime = 0;
     private NotificationViewModel notificationViewModel;
     private FragmentNotificationBinding binding;
     private ListView notificheList;
@@ -44,6 +47,10 @@ public class NotificationFragment extends Fragment {
 
         notificheList = (ListView) root.findViewById(R.id.notificationListView);
         notificheList.setOnItemClickListener((adapterView, view, i, l) -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
             AnswerReportFragment answerReportFragment=c.openAnswerReportOverlay(nomiSentieri.get(i),descrizioni.get(i),ID.get(i),(HomeView) getActivity(),this);
             ((HomeView)getActivity()).setAnswerReportFragment(answerReportFragment);

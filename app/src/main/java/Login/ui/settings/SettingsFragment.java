@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ import Login.HomeView;
 
 
 public class SettingsFragment extends Fragment {
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
+
 
     private SettingsViewModel settingsViewModel;
 private FragmentSettingsBinding binding;
@@ -33,17 +36,17 @@ private FragmentSettingsBinding binding;
 
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
-
+        buttonClick.setDuration(300);
         Button changePassword = root.findViewById(R.id.changePassButton);
         changePassword.setOnClickListener(view -> {
-
+            view.startAnimation(buttonClick);
         });
 
-        Button b1= (Button) root.findViewById(R.id.LogoutButton);
-        b1.setOnClickListener(view ->{
-
-             Controller c = Controller.getInstance();
-             LogoutFragment logoutFragment = c.logoutOverlay(((HomeView)getActivity()));
+        Button logoutButton= (Button) root.findViewById(R.id.LogoutButton);
+        logoutButton.setOnClickListener(view ->{
+            view.startAnimation(buttonClick);
+            Controller c = Controller.getInstance();
+            LogoutFragment logoutFragment = c.logoutOverlay(((HomeView)getActivity()));
             ((HomeView)getActivity()).setLogoutFragment(logoutFragment);
         });
         return root;

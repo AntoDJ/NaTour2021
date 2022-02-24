@@ -33,6 +33,7 @@ import Login.ui.MyPath.*;
 import Playlist.*;
 import Search.*;
 import Create.*;
+import Admin.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -161,14 +162,15 @@ public class Controller {
 
     public void logintoDB(String tipo,List<AuthUserAttribute> attributes){
         String email = attributes.get(3).getValue();
-        insertUser(email);
         SharedPreferences.Editor editor = sharedPref.edit();
+        insertUser(email);
         editor.putString(String.valueOf(R.string.logged_email),email);
         editor.putString(String.valueOf(R.string.tipo_login),tipo);
         editor.apply();
         Intent i = new Intent(loginView, HomeView.class);
         loginView.startActivity(i);
         loginView.finish();
+
     }
 
 
@@ -187,8 +189,21 @@ public class Controller {
     public void resetPassword(String email){
         Amplify.Auth.resetPassword(
                 email,
-                result -> Log.i("AuthQuickstart", result.toString()),
-                error -> Log.e("AuthQuickstart", error.toString())
+                result -> Toast.makeText(loginView, "Codice per il reset della password inviato alla mail",Toast.LENGTH_LONG).show(),
+                error -> {
+                    Log.e("AuthQuickstart", error.toString());
+                    error.getClass().getSimpleName();
+                    switch(error.getClass().getSimpleName()){
+                        case "LimitExceededException":
+                            Toast.makeText(loginView, "Hai provato a fare il reset della password troppe volte, sarai bloccato per 24 ore dal riprovare",Toast.LENGTH_LONG).show();
+                            break;
+                        case "UserNotFoundException":
+                            Toast.makeText(loginView, "Utente non registrato",Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(loginView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                    }
+                }
         );
     }
 
@@ -196,8 +211,55 @@ public class Controller {
         Amplify.Auth.confirmResetPassword(
                 password,
                 codice,
-                () -> Log.i("AuthQuickstart", "New password confirmed"),
-                error -> Log.e("AuthQuickstart", error.toString())
+                () -> {
+                    Controller.getInstance().cleanFragment(loginView.findViewById(R.id.passwordOverlayContainer));
+                    loginView.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(loginView, "Password Cambiata con successo", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                },
+                error -> {
+                    Log.e("AuthQuickstart", error.toString());
+                    Log.i("errore",error.getClass().getSimpleName());
+                    switch(error.getClass().getSimpleName()){
+                        case "AuthException":
+                            loginView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(loginView, "Devi prima farti mandare il codice sopra",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "CodeMismatchException":
+                            loginView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(loginView, "Codice errato",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "InvalidPasswordException":
+                        case "InvalidParameterException":
+                            loginView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(loginView, "La password deve essere almeno di 8 caratteri",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "LimitExceededException":
+                            loginView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(loginView, "Hai provato troppe volte a cambiare la password, sarai bloccato per 24 ore dal riprovare",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        default:
+                            loginView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(loginView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    }
+                }
         );
     }
 
@@ -215,12 +277,38 @@ public class Controller {
         Amplify.Auth.signUp(email, password, options,
                 result -> Controller.getInstance().openRegistrationConfirmFragment(email, registrationView),
                 error -> {
-                    registrationView.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(registrationView, "Errore nella registrazione: "+error.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+            Log.e("AuthQuickstart", error.toString());
+                    error.getClass().getSimpleName();
+                    switch(error.getClass().getSimpleName()){
+                        case"InvalidPasswordException":
+                            registrationView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(registrationView, "La password deve essere di 8 caratteri",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "InvalidParameterException":
+                            registrationView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(registrationView, "Email o password non validi",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "UsernameExistsException":
+                            registrationView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(registrationView, "Email già registrata",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        default:
+                            registrationView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(registrationView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                                }
+                            });
                 }
+            }
         );
     }
 
@@ -264,14 +352,10 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.body()!=null) {
-                    Controller.getInstance().createPlaylistUser(email, frameLayout, registrationView);
-                }
-                else{
-                    Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
-                    cleanFragment(frameLayout);
-                    registrationView.finish();
-                }
+
+                Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
+                cleanFragment(frameLayout);
+                registrationView.finish();
             }
 
             @Override
@@ -288,53 +372,10 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                try {
-                    sleep(15000);
-                    createPlaylistUser(email);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                createPlaylistUser(email);
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                bigError();
-            }
-        });
-    }
-
-    //creazione delle playlist dell'utente
-    public void createPlaylistUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
-        User user = new User(email);
-        Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
-
-        call.enqueue(new Callback<Playlist>() {
-            @Override
-            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-                Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
-                cleanFragment(frameLayout);
-                registrationView.finish();
-            }
-
-            @Override
-            public void onFailure(Call<Playlist> call, Throwable t) {
-                bigError();
-            }
-        });
-    }
-
-    public void createPlaylistUser(String email){
-        User user = new User(email);
-        Call<Playlist> call = playlistDAO.createPlaylistOfUser(user);
-
-        call.enqueue(new Callback<Playlist>() {
-            @Override
-            public void onResponse(Call<Playlist> call, Response<Playlist> response) {
-            }
-
-            @Override
-            public void onFailure(Call<Playlist> call, Throwable t) {
                 bigError();
             }
         });
@@ -729,6 +770,7 @@ public class Controller {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body().getNomeSentiero()!=null){
+                    Toast.makeText(createView, "Sentiero creato con successo", Toast.LENGTH_LONG).show();
                     createView.finish();
                 }
                 else Toast.makeText(createView, "Esiste già un sentiero con questo nome o questo punto iniziale", Toast.LENGTH_LONG).show();
@@ -894,16 +936,14 @@ public class Controller {
 
     //AMMINISTRATORI
 
-    public void checkAdmin(String email){
+    public void checkAdmin(HomeView homeView, String email){
         User user = new User(email);
         Call<User> call = utenteDAO.checkAdmin(user);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.body()!=null && response.body().isAdmin()){
-                    //L'utente è admin
-                }else{
-                    //L'utente non è admin
+                    homeView.setAdmin(response.body().isAdmin());
                 }
             }
 
@@ -914,7 +954,7 @@ public class Controller {
         });
     }
 
-    public void updatePathAdmin(ModificationView modificationView,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità, String nuovoNome) {
+    public void updatePathAdmin(AdminModificationView adminModificationView ,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità, String nuovoNome) {
         Path path = new Path(nomeSentiero,  null, nuovoNome, difficolta, descrizione, accessibilità, null, durata);
         path.setDataModifica(Calendar.getInstance().getTime());
         Call<Path> call = pathDAO.updatePathAdmin(path);
@@ -925,6 +965,22 @@ public class Controller {
                     //Modifica avvenuta con successo
                 }
                 else bigError();
+            }
+
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                bigError();
+            }
+        });
+    }
+
+    public void deletePathAdmin(String nomeSentiero, AdminDetailView adminDetailView ) {
+        Path path = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.deletePath(path);
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                adminDetailView.finish();
             }
 
             @Override

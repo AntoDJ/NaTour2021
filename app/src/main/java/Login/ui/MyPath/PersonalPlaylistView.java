@@ -1,12 +1,14 @@
 package Login.ui.MyPath;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,7 @@ import Login.HomeView;
 
 public class PersonalPlaylistView extends Fragment {
 
+    private long mLastClickTime = 0;
     private MyPathViewModel myPathViewModel;
     private ActivityPersonalPlaylistViewBinding binding;
     private ListView sentieriPlaylist;
@@ -39,6 +42,9 @@ public class PersonalPlaylistView extends Fragment {
         root = binding.getRoot();
         sentieriPlaylist = (ListView) root.findViewById(R.id.personalPathListView);
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
             Controller c = Controller.getInstance();
             c.getAllDetailsOfPersonalPath((HomeView) getActivity(),nomisentieri.get(i));
         });
@@ -64,7 +70,7 @@ public class PersonalPlaylistView extends Fragment {
         }
         else{
             testo.setText("Non hai creato sentieri");
-            sentieriPlaylist.setVisibility((View.GONE));
+            sentieriPlaylist.setVisibility(View.GONE);
         }
     }
 }

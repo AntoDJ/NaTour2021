@@ -12,8 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-   <!-- <queries>
+    <!--
+ <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />
@@ -22,10 +22,10 @@
             <action android:name=
                 "android.support.customtabs.action.CustomTabsService" />
         </intent>
-    </queries>-->
-
-
+    </queries>
+    -->
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".AmplifyActivity"
         android:allowBackup="true"
@@ -34,18 +34,30 @@
         android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.NaTour2021">
-
+        <activity
+            android:name="Admin.AdminModificationView"
+            android:exported="false" />
+        <activity
+            android:name="Admin.AdminDetailView"
+            android:exported="false" />
+        <activity
+            android:name="Admin.AdminResultView"
+            android:exported="false" />
+        <activity
+            android:name="Admin.AdminView"
+            android:exported="false" />
         <activity
             android:name="com.amplifyframework.auth.cognito.activities.HostedUIRedirectActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="natour2021" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="Playlist.ModificationView"
             android:exported="false"
@@ -62,6 +74,7 @@
             android:name="Playlist.PlaylistView"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -106,7 +119,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

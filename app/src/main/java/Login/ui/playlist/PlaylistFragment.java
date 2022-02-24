@@ -2,6 +2,7 @@ package Login.ui.playlist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import Login.HomeView;
 public class PlaylistFragment extends Fragment {
 
     private FragmentPlaylistBinding binding;
+    private long mLastClickTime = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,9 +49,10 @@ public class PlaylistFragment extends Fragment {
         playlistListView.setAdapter(arrayAdapter);
 
         playlistListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Controller c = Controller.getInstance();
-            String nomePlaylist = playlistListView.getItemAtPosition(i).toString();
-            c.getPathOfPlaylist(this, nomePlaylist);
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            Controller.getInstance().getPathOfPlaylist(this, playlistListView.getItemAtPosition(i).toString());
         });
         return root;
     }

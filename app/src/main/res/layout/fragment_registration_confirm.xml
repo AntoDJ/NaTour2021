@@ -10,17 +10,17 @@
 
     <TextView
         android:id="@+id/confrimationTextView"
-        android:layout_width="305dp"
-        android:layout_height="40dp"
+        android:layout_width="268dp"
+        android:layout_height="63dp"
         android:layout_marginTop="64dp"
         android:fontFamily="@font/neuemontreal"
         android:gravity="center"
         android:text="Inserisci il codice che ti è arrivato all'email"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/codeConfirmationButton"
@@ -29,6 +29,7 @@
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="Conferma Codice"
+        app:backgroundTint="#FF6ACF8F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -38,9 +39,9 @@
 
     <EditText
         android:id="@+id/codeConfirmationEditText"
-        android:layout_width="147dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="147sp"
+        android:layout_height="54sp"
+        android:layout_marginTop="52sp"
         android:background="@drawable/round_plain_text"
         android:fontFamily="@font/neuemontreal"
         android:hint="Codice"

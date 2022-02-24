@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/logoutTextView"
-        android:layout_width="338sp"
-        android:layout_height="59sp"
+        android:layout_width="266dp"
+        android:layout_height="67dp"
         android:fontFamily="@font/neuemontreal"
         android:text="Sei sicuro di voler fare il Logout?"
         android:textAlignment="center"

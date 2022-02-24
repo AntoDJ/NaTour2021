@@ -33,7 +33,7 @@
         android:fontFamily="@font/neuemontreal"
         android:paddingHorizontal="5sp"
         android:hint="Inserisci email"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"

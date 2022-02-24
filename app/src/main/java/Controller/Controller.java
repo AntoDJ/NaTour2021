@@ -288,13 +288,7 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                try {
-                    sleep(15000);
-                    createPlaylistUser(email);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                createPlaylistUser(email);
+
             }
 
             @Override
@@ -360,7 +354,7 @@ public class Controller {
         FragmentManager fragmentManager = homeview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         LogoutFragment logoutoverlay = new LogoutFragment();
-        fragmentTransaction.add(R.id.HomeContainer, logoutoverlay, null);
+        fragmentTransaction.add(R.id.SettingsContainer, logoutoverlay, null);
         fragmentTransaction.commit();
         return logoutoverlay;
     }

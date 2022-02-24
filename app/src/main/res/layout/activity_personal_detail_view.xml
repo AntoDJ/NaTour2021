@@ -159,12 +159,13 @@
         android:id="@+id/deletePathContainer"
         android:layout_width="344sp"
         android:layout_height="262sp"
-        app:layout_constraintBottom_toTopOf="@+id/UltimaModificaTextView"
+        android:elevation="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cancellaSentieroButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathPersonalDetailsView"
-        app:layout_constraintVertical_bias="0.166">
+        app:layout_constraintVertical_bias="1.0">
 
     </FrameLayout>
 

@@ -10,18 +10,18 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="284sp"
-        android:layout_height="49sp"
+        android:layout_width="292dp"
+        android:layout_height="84dp"
         android:fontFamily="@font/neuemontreal"
         android:text="Sei sicuro di voler cancellare il sentiero?"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"/>
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/deletePathNoButton"
@@ -30,6 +30,7 @@
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="No"
+        app:backgroundTint="#FF6ACF8F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
@@ -43,6 +44,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
+        app:backgroundTint="#FF6ACF8F"
         android:text="Si"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

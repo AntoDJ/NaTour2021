@@ -26,6 +26,7 @@
         android:id="@+id/SettingsContainer"
         android:layout_width="308sp"
         android:layout_height="390sp"
+        android:elevation="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/LogoutButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

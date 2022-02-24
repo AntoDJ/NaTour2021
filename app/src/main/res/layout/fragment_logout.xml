@@ -14,7 +14,7 @@
         android:fontFamily="@font/neuemontreal"
         android:text="Sei sicuro di voler fare il Logout?"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -16,7 +16,7 @@
         android:background="@drawable/round_plain_text"
         android:fontFamily="@font/neuemontreal"
         android:hint="Inserisci il nome del sentiero"
-        android:padding="8sp"
+        android:padding="5sp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

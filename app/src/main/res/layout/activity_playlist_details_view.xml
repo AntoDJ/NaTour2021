@@ -14,10 +14,10 @@
         android:layout_height="45sp"
         android:layout_marginTop="48dp"
         android:background="@drawable/descrizione_bg"
-        android:padding="8sp"
+        android:padding="5sp"
         android:hint="Inserisci il nome del sentiero"
         android:fontFamily="@font/neuemontreal"
-
+        android:textSize="18sp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -42,10 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28sp"
         android:fontFamily="@font/neuemontreal"
-
         android:text="Difficoltà"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/namePathDetailsView" />
 
@@ -97,9 +96,9 @@
         android:gravity="center"
         android:hint="Inserisci una descrizione"
         android:fontFamily="@font/neuemontreal"
-
+        android:textSize="18sp"
         android:inputType="textMultiLine"
-        android:padding="8sp"
+        android:padding="5sp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"

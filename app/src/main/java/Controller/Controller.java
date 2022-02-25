@@ -1081,7 +1081,7 @@ public class Controller {
     //MODIFICA SENTIERO ADMIN
 
     public void openAdminModificationView(AdminDetailView adminDetailView, String nomesentiero, String descrizione, Boolean accessibilità, Float durata, Integer difficolta) {
-        Intent i = new Intent(adminDetailView, ModificationView.class);
+        Intent i = new Intent(adminDetailView, AdminModificationView.class);
         i.putExtra("nomeSentiero", nomesentiero);
         i.putExtra("descrizione", descrizione);
         i.putExtra("accessibilità", accessibilità);

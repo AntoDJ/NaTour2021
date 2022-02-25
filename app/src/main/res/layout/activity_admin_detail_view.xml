@@ -12,16 +12,17 @@
         android:id="@+id/namePathAdminDetailView"
         android:layout_width="320sp"
         android:layout_height="45sp"
-        android:layout_marginTop="48sp"
         android:background="@drawable/descrizione_bg"
         android:fontFamily="@font/neuemontreal"
-        android:textSize="18sp"
+        android:gravity="center"
         android:padding="8sp"
         android:textAlignment="center"
-        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.05"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

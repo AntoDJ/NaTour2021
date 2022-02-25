@@ -15,7 +15,6 @@
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="Crea un nuovo sentiero"
-        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +28,6 @@
         android:background="@drawable/base_button"
         android:fontFamily="@font/neuemontreal"
         android:text="Cerca un sentiero"
-        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/boscohome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -56,5 +54,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/AdminFunctionButton"
+        android:layout_width="280sp"
+        android:visibility="gone"
+        android:layout_height="50sp"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Funzioni Admin"
+        app:layout_constraintBottom_toBottomOf="@+id/boscohome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findPathButton"
+        app:layout_constraintVertical_bias="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

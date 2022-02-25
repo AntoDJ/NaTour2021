@@ -1,7 +1,5 @@
 package Controller;
 
-import static java.lang.Thread.sleep;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -1007,6 +1005,21 @@ public class Controller {
         });
     }
 
+    public void openAdminView(HomeView homeView) {
+        Intent i = new Intent(homeView, AdminView.class);
+        homeView.startActivity(i);
+    }
+
+    //RICERCA AMMINISTRATORI
+    public void adminSearchPath(AdminView adminView, String primiCaratteri) {
+        Path path = new Path(primiCaratteri);
+
+    }
+
+
+
+
+
     public void updatePathAdmin(AdminModificationView adminModificationView ,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità, String nuovoNome) {
         Path path = new Path(nomeSentiero,  null, nuovoNome, difficolta, descrizione, accessibilità, null, durata);
         path.setDataModifica(Calendar.getInstance().getTime());
@@ -1042,6 +1055,7 @@ public class Controller {
             }
         });
     }
+
 
 
 }

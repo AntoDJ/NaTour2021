@@ -46,6 +46,15 @@ private FragmentHomeBinding binding;
             c.openCreatePathView(HomeFragment.this);
         });
 
+        Button adminFunctionButton = (Button) root.findViewById(R.id.AdminFunctionButton);
+
+        if(((HomeView)getActivity()).isAdmin()){
+            adminFunctionButton.setVisibility(View.VISIBLE);
+            adminFunctionButton.setOnClickListener(view -> {
+                Controller.getInstance().openAdminView((HomeView)getActivity());
+            });
+        }
+
 
         ((HomeView)getActivity()).isAdmin();
 
@@ -58,9 +67,5 @@ private FragmentHomeBinding binding;
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public void adminButton() {
-
     }
 }

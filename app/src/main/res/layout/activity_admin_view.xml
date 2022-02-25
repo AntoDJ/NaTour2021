@@ -4,6 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
     tools:context="Admin.AdminView">
 
+    <TextView
+        android:id="@+id/AdminSearchTW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Caratteri iniziali del nome dei Sentieri"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdminViewTW" />
+
+    <EditText
+        android:id="@+id/AdminSearchET"
+        android:layout_width="270sp"
+        android:layout_height="45sp"
+        android:layout_marginTop="24sp"
+        android:paddingHorizontal="5sp"
+        android:background="@drawable/round_plain_text"
+        android:ems="10"
+        android:fontFamily="@font/neuemontreal"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdminSearchTW" />
+
+    <Button
+        android:id="@+id/AdminSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Cerca Sentieri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdminSearchET" />
+
+    <Button
+        android:id="@+id/AdminBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Indietro"
+        app:backgroundTint="#4AB261"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AdminSearchButton"
+        app:layout_constraintVertical_bias="0.695" />
+
+    <TextView
+        android:id="@+id/AdminViewTW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Funzioni di Amministrazione"
+        android:textAlignment="center"
+        android:fontFamily="@font/neuemontreal"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

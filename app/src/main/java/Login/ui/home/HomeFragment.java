@@ -22,6 +22,7 @@ import Login.HomeView;
 public class HomeFragment extends Fragment {
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private HomeViewModel homeViewModel;
+    private static Boolean admin=null;
 private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,17 +49,18 @@ private FragmentHomeBinding binding;
 
         Button adminFunctionButton = (Button) root.findViewById(R.id.AdminFunctionButton);
 
-        if(((HomeView)getActivity()).isAdmin()){
+        if(admin!=null&&this.admin){
             adminFunctionButton.setVisibility(View.VISIBLE);
             adminFunctionButton.setOnClickListener(view -> {
                 Controller.getInstance().openAdminView((HomeView)getActivity());
             });
         }
 
-
-        ((HomeView)getActivity()).isAdmin();
-
-
+        if(admin==null) {
+            SharedPreferences sharedPref = getActivity().getSharedPreferences(String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
+            String email = sharedPref.getString(String.valueOf(R.string.logged_email), "");
+            Controller.getInstance().checkAdmin(this, email);
+        }
         return root;
     }
 
@@ -67,5 +69,16 @@ private FragmentHomeBinding binding;
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void setAdmin(Boolean isadmin){
+        this.admin=isadmin;
+        if(this.admin){
+            Button adminFunctionButton = (Button) getView().findViewById(R.id.AdminFunctionButton);
+            adminFunctionButton.setVisibility(View.VISIBLE);
+            adminFunctionButton.setOnClickListener(view -> {
+                Controller.getInstance().openAdminView((HomeView)getActivity());
+            });
+        }
     }
 }

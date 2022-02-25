@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -985,20 +984,20 @@ public class Controller {
 
     //AMMINISTRATORI
 
-    public void checkAdmin(HomeView homeView, String email){
+    public void checkAdmin(HomeFragment homeFragment, String email){
         User user = new User(email);
         Call<User> call = utenteDAO.checkAdmin(user);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.body()!=null && response.body().isAdmin()){
-                    homeView.setAdmin(response.body().isAdmin());
+                    homeFragment.setAdmin(response.body().isAdmin());
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                bigError(homeView);
+                bigError(homeFragment.getActivity());
             }
         });
     }

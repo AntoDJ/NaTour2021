@@ -21,8 +21,8 @@ import Playlist.deletePathOverlay;
 import Search.DetailInterface;
 
 public class AdminDetailView extends AppCompatActivity implements DetailInterface {
-    private deletePathOverlay deletepathOverlay;
     private String puntoiniziale;
+    private AdminDeleteFragment adminDeleteFragment;
     private ArrayList<String> coordinate;
 
 
@@ -82,7 +82,7 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
 
         Button cancellaSentieroButton= (Button) findViewById(R.id.deletePathAdminDetailView);
         cancellaSentieroButton.setOnClickListener(view -> {
-            Controller.getInstance().adminDeleteFragment(this, intent.getStringExtra("nomesentiero"));
+            adminDeleteFragment = Controller.getInstance().adminDeleteFragment(this, intent.getStringExtra("nomesentiero"));
         });
 
     }
@@ -97,10 +97,10 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
 
     @Override
     public void onBackPressed() {
-        if(deletepathOverlay!=null){
+        if(adminDeleteFragment!=null){
             Controller c = Controller.getInstance();
-            c.cleanFragment(findViewById(R.id.deletePathContainer));
-            deletepathOverlay=null;
+            c.cleanFragment(findViewById(R.id.deletePathAdminContainer));
+            adminDeleteFragment=null;
         }
         else super.onBackPressed();
     }

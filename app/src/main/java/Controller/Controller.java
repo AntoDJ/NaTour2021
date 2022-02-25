@@ -1118,7 +1118,7 @@ public class Controller {
 
 
 
-    public void adminDeleteFragment(AdminDetailView adminDetailView, String nomesentiero) {
+    public AdminDeleteFragment adminDeleteFragment(AdminDetailView adminDetailView, String nomesentiero) {
         FragmentManager fragmentManager = adminDetailView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AdminDeleteFragment adminDeleteFragment = new AdminDeleteFragment();
@@ -1127,6 +1127,7 @@ public class Controller {
         adminDeleteFragment.setArguments(bundle);
         fragmentTransaction.add(R.id.deletePathAdminContainer,adminDeleteFragment, null);
         fragmentTransaction.commit();
+        return adminDeleteFragment;
     }
 
     public void deletePathAdmin(String nomeSentiero, AdminDetailView adminDetailView ) {

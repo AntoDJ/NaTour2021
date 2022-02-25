@@ -14,6 +14,7 @@ import com.google.android.material.slider.Slider;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import Controller.Controller;
 import Playlist.PersonalDetailView;
@@ -65,6 +66,7 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
         TextView ultimaModifica = (TextView) findViewById(R.id.ultimaModificaAdminDetailView);
         if(intent.getSerializableExtra("data")!=null){
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             String data= simpleDateFormat.format((Date)intent.getSerializableExtra("data"));
             ultimaModifica.setText(data);
         }
@@ -76,7 +78,7 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
         Button modificaSentieroButton = (Button) findViewById(R.id.editPathAdminDetailView);
         modificaSentieroButton.setOnClickListener(view -> {
             Controller.getInstance().openAdminModificationView(this, intent.getStringExtra("nomesentiero"),
-                    intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessiblità",true),
+                    intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessibilità",true),
                     intent.getFloatExtra("durata",0), intent.getIntExtra("difficolta",0));
         });
 

@@ -60,7 +60,6 @@ public class AdminModificationView extends AppCompatActivity {
             difficoltà.setText("Difficoltà: " + String.valueOf((int)difficoltaSlider.getValue()));
         });
 
-
         Button cancelEditButton = (Button) findViewById(R.id.cancelEditAdminButton);
         cancelEditButton.setOnClickListener(view -> {
             finish();
@@ -70,9 +69,11 @@ public class AdminModificationView extends AppCompatActivity {
         editPathButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
             if(!namePathTextView.getText().toString().trim().equals("")){
-                c.updatePathAdmin(this, i.getStringExtra("nomeSentiero"), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), editAccessibilityCB.isChecked(), namePathTextView.getText().toString().trim());
+                c.updatePathAdmin(this, i.getStringExtra("nomeSentiero"),
+                        descrizioneEditText.getText().toString().trim(), durataSlider.getValue(),
+                        (int) difficoltaSlider.getValue(), editAccessibilityCB.isChecked(),
+                        namePathTextView.getText().toString().trim());
             }
         });
-
     }
 }

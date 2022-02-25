@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import Controller.Controller;
 
@@ -63,6 +64,7 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         TextView ultimaModifica = (TextView) findViewById(R.id.modificaTextViewDetail);
         if(i.getSerializableExtra("data")!=null){
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             String data= simpleDateFormat.format((Date)i.getSerializableExtra("data"));
             ultimaModifica.setText("Data ultima modifica : "+data);
         }

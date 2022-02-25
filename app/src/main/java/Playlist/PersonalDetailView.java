@@ -18,6 +18,7 @@ import com.google.android.material.slider.Slider;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import Controller.Controller;
 import Entity.Path;
@@ -69,6 +70,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         TextView ultimaModifica = (TextView) findViewById(R.id.UltimaModificaTextView);
         if(intent.getSerializableExtra("data")!=null){
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             String data= simpleDateFormat.format((Date)intent.getSerializableExtra("data"));
             ultimaModifica.setText("Data ultima modifica : "+data);
         }

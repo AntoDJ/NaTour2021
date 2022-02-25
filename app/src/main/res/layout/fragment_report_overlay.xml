@@ -30,6 +30,7 @@
         android:fontFamily="@font/neuemontreal"
         android:gravity="center"
         android:inputType="textMultiLine"
+        android:maxLength="199"
         android:padding="8sp"
         android:textSize="18sp"
         android:scrollbars="vertical"

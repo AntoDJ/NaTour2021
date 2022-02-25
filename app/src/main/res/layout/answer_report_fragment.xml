@@ -59,6 +59,7 @@
         android:fontFamily="@font/neuemontreal"
         android:gravity="center"
         android:hint="Risposta Segnalazione"
+        android:maxLength="199"
         android:textSize="18sp"
         android:inputType="textMultiLine"
         android:padding="5sp"

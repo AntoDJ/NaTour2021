@@ -17,7 +17,8 @@ import Controller.Controller;
 
 
 public class AdminResultView extends AppCompatActivity {
-
+    private ArrayList<String> nomiSentieri;
+    private ArrayList<String> creatoriSentieri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +26,9 @@ public class AdminResultView extends AppCompatActivity {
         Intent intent = getIntent();
 
         ListView adminResultList = (ListView) findViewById(R.id.AdminResultList);
-        ArrayList<String> nomiSentieri = new ArrayList<>();
-        ArrayList<String> creatoriSentieri = new ArrayList<>();
+        nomiSentieri = intent.getStringArrayListExtra("nomiSentieri");
+        creatoriSentieri = intent.getStringArrayListExtra("creatoriSentieri");
+
 
         ArrayList<String> dettagliSentiero= new ArrayList<>();
         for(int i=0;i<nomiSentieri.size();i++)

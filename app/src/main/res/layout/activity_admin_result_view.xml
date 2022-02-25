@@ -10,8 +10,8 @@
 
     <ListView
         android:id="@+id/AdminResultList"
-        android:layout_width="357dp"
-        android:layout_height="567dp"
+        android:layout_width="357sp"
+        android:layout_height="567sp"
         android:layout_marginHorizontal="25sp"
         android:background="@drawable/descrizione_bg"
         android:fontFamily="@font/neuemontreal"

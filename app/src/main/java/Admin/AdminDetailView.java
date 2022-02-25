@@ -53,7 +53,7 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
         nome.setText(intent.getStringExtra("nomesentiero"));
 
         TextView descrizione = (TextView) findViewById(R.id.descrizioneAdminDetailView);
-        if(intent.getStringExtra("descrizione").equals("")){
+        if(!intent.getStringExtra("descrizione").equals("")){
             descrizione.setText(intent.getStringExtra("descrizione"));
         }
         else{
@@ -66,12 +66,12 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
         if(intent.getSerializableExtra("data")!=null){
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
             String data= simpleDateFormat.format((Date)intent.getSerializableExtra("data"));
-            ultimaModifica.setText("Data ultima modifica : "+data);
+            ultimaModifica.setText(data);
         }
         else ultimaModifica.setText("Mai modificato");
 
         TextView creatore = (TextView) findViewById(R.id.creatoreAdminDetailView);
-        creatore.setText("Creatore :"+intent.getStringExtra("creatore"));
+        creatore.setText(intent.getStringExtra("creatore"));
 
         Button modificaSentieroButton = (Button) findViewById(R.id.editPathAdminDetailView);
         modificaSentieroButton.setOnClickListener(view -> {

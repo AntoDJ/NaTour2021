@@ -175,8 +175,9 @@
 
     <FrameLayout
         android:id="@+id/deletePathAdminContainer"
-        android:layout_width="358dp"
-        android:layout_height="264dp"
+        android:layout_width="358sp"
+        android:layout_height="264sp"
+        android:elevation="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/editPathAdminDetailView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

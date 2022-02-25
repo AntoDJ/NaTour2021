@@ -22,7 +22,10 @@ public class AdminView extends AppCompatActivity {
 
         Button AdminSearchButton = (Button) findViewById(R.id.AdminSearchButton);
         AdminSearchButton.setOnClickListener(view -> {
-            Controller.getInstance().adminSearchPath(this, AdminSearchET.getText().toString().trim());
+            if(!AdminSearchET.getText().toString().trim().equals("")) {
+                Controller.getInstance().adminSearchPath(this, AdminSearchET.getText().toString().trim());
+            }
+            else Controller.getInstance().adminSearchPath(this, "");
         });
 
         Button AdminBackButton = (Button) findViewById(R.id.AdminBackButton);

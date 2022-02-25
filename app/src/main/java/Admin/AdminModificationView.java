@@ -26,22 +26,22 @@ public class AdminModificationView extends AppCompatActivity {
         EditText namePathTextView = (EditText) findViewById(R.id.editNamePathAdminET);
         namePathTextView.setText(i.getStringExtra("nomeSentiero"));
 
-        EditText descrizioneEditText = (EditText) findViewById(R.id.editDescrizioneEditText);
+        EditText descrizioneEditText = (EditText) findViewById(R.id.editDescrizioneAdminET);
         descrizioneEditText.setText(i.getStringExtra("descrizione"));
 
         //Set Durata
-        Slider durataSlider=(Slider) findViewById(R.id.editDurataSlider);
+        Slider durataSlider=(Slider) findViewById(R.id.editDurataAdminSlider);
         durataSlider.setValue(i.getFloatExtra("durata",0));
 
-        TextView durata = (TextView) findViewById(R.id.editDurataTextView);
+        TextView durata = (TextView) findViewById(R.id.editDurataAdminTW);
         if(i.getFloatExtra("durata",0)-(int)i.getFloatExtra("durata",0)==0.5)   durata.setText("Durata "+(int)i.getFloatExtra("durata",0)+":30 ore");
         else durata.setText("Durata: "+(int)i.getFloatExtra("durata",0)+" ore");
 
         //Set Difficoltà
-        Slider difficoltaSlider=(Slider) findViewById(R.id.editDifficoltaSlider);
+        Slider difficoltaSlider=(Slider) findViewById(R.id.editDifficoltaAdminSlider);
         difficoltaSlider.setValue(i.getIntExtra("difficoltà",0));
 
-        TextView difficoltà = (TextView) findViewById(R.id.editDifficoltaTextView);
+        TextView difficoltà = (TextView) findViewById(R.id.editDifficoltaAdminTW);
         difficoltà.setText("Difficoltà: "+i.getIntExtra("difficoltà",0));
 
         CheckBox editAccessibilityCB = (CheckBox) findViewById(R.id.editAccessibilityAdminCB);

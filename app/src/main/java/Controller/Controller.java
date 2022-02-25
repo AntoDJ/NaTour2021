@@ -1013,6 +1013,19 @@ public class Controller {
     //RICERCA AMMINISTRATORI
     public void adminSearchPath(AdminView adminView, String primiCaratteri) {
         Path path = new Path(primiCaratteri);
+        Call<ArrayList<Path>> call = pathDAO.adminSearchPath(path);
+
+        call.enqueue(new Callback<ArrayList<Path>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
+                //restituiti i sentieri che iniziano per "primicaratteri"
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
+                bigError(adminView);
+            }
+        });
 
     }
 

@@ -39,6 +39,9 @@ public interface PathDAO {
     @POST("updatepathadmin")
     Call<Path> updatePathAdmin(@Body Path path);
 
+    @POST("adminsearchpath")
+    Call<ArrayList<Path>> adminSearchPath(@Body Path path);
+
 
 
 

@@ -74,6 +74,7 @@ public class Controller {
     private void bigError(Activity activity) {
         Log.i("ERROR","BIGERROR");
         if(activity!=null){
+            Log.i("msg", activity.toString());
             Toast.makeText(activity,"Errore gravissimo, contatta gli amministratori",Toast.LENGTH_LONG).show();
         }
     }

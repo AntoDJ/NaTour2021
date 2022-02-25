@@ -30,6 +30,7 @@
         android:fontFamily="@font/neuemontreal"
         android:text="Conferma Codice"
         app:backgroundTint="#FF6ACF8F"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

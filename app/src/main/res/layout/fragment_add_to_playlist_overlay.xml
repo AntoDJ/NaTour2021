@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="52sp"
         android:text="Torna Indietro"
+        android:textColor="@color/black"
         app:backgroundTint="#FF6ACF8F"
         android:background="@drawable/base_button"
         app:layout_constraintBottom_toBottomOf="parent"

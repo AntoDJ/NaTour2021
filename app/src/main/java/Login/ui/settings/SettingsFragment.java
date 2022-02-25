@@ -40,13 +40,15 @@ private FragmentSettingsBinding binding;
         Button changePassword = root.findViewById(R.id.changePassButton);
         changePassword.setOnClickListener(view -> {
             view.startAnimation(buttonClick);
+            ChangePasswordFragment changePasswordFragment = Controller.getInstance().changePasswordOverlay((HomeView)getActivity());
+            ((HomeView)getActivity()).setChangePasswordFragment(changePasswordFragment);
         });
 
         Button logoutButton= (Button) root.findViewById(R.id.LogoutButton);
         logoutButton.setOnClickListener(view ->{
             view.startAnimation(buttonClick);
             Controller c = Controller.getInstance();
-            LogoutFragment logoutFragment = c.logoutOverlay(((HomeView)getActivity()));
+            LogoutFragment logoutFragment = c.logoutOverlay((HomeView)getActivity());
             ((HomeView)getActivity()).setLogoutFragment(logoutFragment);
         });
         return root;

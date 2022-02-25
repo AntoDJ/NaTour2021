@@ -124,6 +124,7 @@ public class LoginView extends AppCompatActivity {
             Controller c = Controller.getInstance();
             c.cleanFragment(findViewById(R.id.passwordOverlayContainer));
             passwordOverlay=null;
+            backButtonCount=0;
         }
         else {
             if (backButtonCount >= 1) {

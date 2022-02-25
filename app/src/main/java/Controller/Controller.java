@@ -434,6 +434,15 @@ public class Controller {
         homeView.finish();
     }
 
+    public ChangePasswordFragment changePasswordOverlay(HomeView homeView) {
+        FragmentManager fragmentManager = homeView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+        fragmentTransaction.add(R.id.SettingsContainer, changePasswordFragment, null);
+        fragmentTransaction.commit();
+        return changePasswordFragment;
+    }
+
     public void changePassword(FrameLayout frameLayout ,HomeView homeView, String oldPassword, String newPassword){
         Amplify.Auth.updatePassword(
                 oldPassword,
@@ -446,7 +455,39 @@ public class Controller {
                         }
                     });
                 },
-                error -> Log.e("AuthQuickstart", error.toString())
+                error -> {
+                    Log.e("AuthQuickstart", error.toString());
+                    error.getClass().getSimpleName();
+                    switch(error.getClass().getSimpleName()){
+                        case"InvalidPasswordException":
+                            homeView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(homeView, "La password deve essere di 8 caratteri",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "InvalidParameterException":
+                            homeView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(homeView, "Email o password non validi",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        case "UsernameExistsException":
+                            homeView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(homeView, "Email già registrata",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            break;
+                        default:
+                            homeView.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(homeView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    }
+                }
         );
     }
 
@@ -1002,5 +1043,6 @@ public class Controller {
             }
         });
     }
+
 
 }

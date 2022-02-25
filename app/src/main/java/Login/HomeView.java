@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import Controller.Controller;
 import Login.ui.notification.AnswerReportFragment;
+import Login.ui.settings.ChangePasswordFragment;
 import Login.ui.settings.LogoutFragment;
 
 
@@ -27,6 +28,7 @@ public class HomeView extends AppCompatActivity {
     private int backButtonCount=0;
     private LogoutFragment logoutFragment;
     private AnswerReportFragment answerReportFragment;
+    private ChangePasswordFragment changePasswordFragment;
     private boolean isAdmin = false;
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -90,14 +92,16 @@ private ActivityNavigationBinding binding;
             answerReportFragment = null;
         }
         else {
-            if (logoutFragment != null) {
+            if (logoutFragment != null||changePasswordFragment != null) {
                 Controller c = Controller.getInstance();
                 c.cleanFragment(findViewById(R.id.SettingsContainer));
                 logoutFragment = null;
+                changePasswordFragment = null;
+                backButtonCount=0;
             } else {
                 if (backButtonCount >= 1) {
                     backButtonCount = 0;
-                    System.exit(0);
+                    finish();
                 } else {
                     Toast.makeText(this, "Premi di nuovo indietro per chiudere l'app", Toast.LENGTH_SHORT).show();
                     backButtonCount++;
@@ -116,5 +120,9 @@ private ActivityNavigationBinding binding;
 
     public Boolean isAdmin(){
         return isAdmin;
+    }
+
+    public void setChangePasswordFragment(ChangePasswordFragment changePasswordFragment) {
+        this.changePasswordFragment=changePasswordFragment;
     }
 }

@@ -175,7 +175,6 @@ public class Controller {
         Intent i = new Intent(loginView, HomeView.class);
         loginView.startActivity(i);
         loginView.finish();
-
     }
 
 
@@ -459,23 +458,24 @@ public class Controller {
                     error.getClass().getSimpleName();
                     switch(error.getClass().getSimpleName()){
                         case"InvalidPasswordException":
+                        case"InvalidParameterException":
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(homeView, "La password deve essere di 8 caratteri",Toast.LENGTH_LONG).show();
                                 }
                             });
                             break;
-                        case "InvalidParameterException":
+                        case "LimitExceededExcepion":
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
-                                    Toast.makeText(homeView, "Email o password non validi",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(homeView, "Hai provato a cambiare troppe volte la password senza successo, sarai bloccato per 24 ore",Toast.LENGTH_LONG).show();
                                 }
                             });
                             break;
-                        case "UsernameExistsException":
+                        case "NotAuthorizedException":
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
-                                    Toast.makeText(homeView, "Email già registrata",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(homeView, "Password vecchia vbagliata",Toast.LENGTH_LONG).show();
                                 }
                             });
                             break;

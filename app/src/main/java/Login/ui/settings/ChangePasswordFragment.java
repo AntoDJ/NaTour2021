@@ -67,6 +67,7 @@ public class ChangePasswordFragment extends Fragment {
                         (HomeView)getActivity() ,
                         vecchiaPass.getText().toString().trim(),nuovaPass.getText().toString().trim());
             }
+            else Toast.makeText(getActivity(),"Le due password nuove devono corrispondere",Toast.LENGTH_LONG).show();
         });
 
 

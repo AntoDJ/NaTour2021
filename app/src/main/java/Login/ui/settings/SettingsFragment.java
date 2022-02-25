@@ -1,5 +1,7 @@
 package Login.ui.settings;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,13 +39,19 @@ private FragmentSettingsBinding binding;
 
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
+
+        SharedPreferences sharedPref = getContext().getSharedPreferences(String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String tipo = sharedPref.getString(String.valueOf(R.string.tipo_login),"");
         buttonClick.setDuration(300);
 
         Button changePassword = root.findViewById(R.id.changePassButton);
         changePassword.setOnClickListener(view -> {
-            view.startAnimation(buttonClick);
-            ChangePasswordFragment changePasswordFragment = Controller.getInstance().changePasswordOverlay((HomeView)getActivity());
-            ((HomeView)getActivity()).setChangePasswordFragment(changePasswordFragment);
+            if(tipo.equals("normale")) {
+                view.startAnimation(buttonClick);
+                ChangePasswordFragment changePasswordFragment = Controller.getInstance().changePasswordOverlay((HomeView) getActivity());
+                ((HomeView) getActivity()).setChangePasswordFragment(changePasswordFragment);
+            }
+            else Toast.makeText(getContext(),"Non puoi cambiare Password con l'accesso con google o facebook",Toast.LENGTH_LONG).show();
         });
 
         Button logoutButton= (Button) root.findViewById(R.id.LogoutButton);

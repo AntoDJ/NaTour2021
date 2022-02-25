@@ -51,7 +51,7 @@ public class PlaylistView extends AppCompatActivity {
 
 
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
-            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000){
                 Toast.makeText(this,"Sto caricando i dettagli del sentiero",Toast.LENGTH_LONG).show();
                 return;
             }

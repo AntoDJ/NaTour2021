@@ -4,6 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
     tools:context="Admin.AdminResultView">
 
+    <ListView
+        android:id="@+id/AdminResultList"
+        android:layout_width="357dp"
+        android:layout_height="567dp"
+        android:layout_marginHorizontal="25sp"
+        android:background="@drawable/descrizione_bg"
+        android:fontFamily="@font/neuemontreal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EE8C4D"
+    android:backgroundTint="#73EE8C4D"
     tools:context="Admin.AdminModificationView">
 
+    <EditText
+        android:id="@+id/editNamePathAdminET"
+        android:layout_width="320sp"
+        android:layout_height="45sp"
+        android:layout_marginTop="44sp"
+        android:background="@drawable/descrizione_bg"
+        android:fontFamily="@font/neuemontreal"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/editDurataAdminSlider"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="12sp"
+        android:stepSize="0.5"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDurataAdminTW"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/editDifficoltaAdminSlider"
+        android:layout_width="150sp"
+        android:layout_height="20sp"
+        android:layout_marginTop="12sp"
+        android:stepSize="1"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDifficoltaAdminTW"
+        app:thumbColor="#000000"
+        app:thumbStrokeColor="#4AB261"
+        app:trackColorActive="#4AB261"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/editDurataAdminTW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Durata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNamePathAdminET" />
+
+    <TextView
+        android:id="@+id/editDifficoltaAdminTW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Difficoltà"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNamePathAdminET" />
+
+    <EditText
+        android:id="@+id/editDescrizioneAdminET"
+        android:layout_width="321sp"
+        android:layout_height="146sp"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/descrizione_bg"
+        android:ems="10"
+        android:fontFamily="@font/neuemontreal"
+        android:gravity="center"
+        android:maxLength="199"
+        android:inputType="textMultiLine"
+        android:textSize="18sp"
+        android:padding="5sp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDurataAdminSlider" />
+
+    <CheckBox
+        android:id="@+id/editAccessibilityAdminCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:buttonTint="@color/black"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Accessibilità per disabili"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDescrizioneAdminET" />
+
+    <Button
+        android:id="@+id/confirmEditAdminButton"
+        android:layout_width="143dp"
+        android:layout_height="58dp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Modifica Sentiero"
+        app:backgroundTint="#4AB261"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAccessibilityAdminCB"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/cancelEditAdminButton"
+        android:layout_width="143dp"
+        android:layout_height="58dp"
+        android:background="@drawable/base_button"
+        android:fontFamily="@font/neuemontreal"
+        android:text="Annulla Modifica"
+        app:backgroundTint="#4AB261"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAccessibilityAdminCB"
+        app:layout_constraintVertical_bias="0.3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

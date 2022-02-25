@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -625,7 +626,6 @@ public class Controller {
         i.putExtra("difficolta", p.getDifficolta());
         i.putExtra("durata", p.getDurata());
         i.putExtra("descrizione", p.getDescrizione());
-        i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
         i.putExtra("playlist", playlistName);
         this.playlistView=playlistView;
@@ -723,7 +723,6 @@ public class Controller {
         i.putExtra("durata", p.getDurata());
         i.putExtra("accessibilità",p.isAccessibilita());
         i.putExtra("descrizione", p.getDescrizione());
-        i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
         i.putExtra("data",p.getDataModifica());
         homeview.startActivity(i);
@@ -913,7 +912,6 @@ public class Controller {
         i.putExtra("difficolta", p.getDifficolta());
         i.putExtra("durata", p.getDurata());
         i.putExtra("descrizione", p.getDescrizione());
-        i.putExtra("datamodifica", p.getDataModifica());
         i.putExtra("creatore", p.getCreatore());
         i.putExtra("data", p.getDataModifica());
         resultView.startActivity(i);
@@ -1018,7 +1016,7 @@ public class Controller {
         call.enqueue(new Callback<ArrayList<Path>>() {
             @Override
             public void onResponse(Call<ArrayList<Path>> call, Response<ArrayList<Path>> response) {
-                //restituiti i sentieri che iniziano per "primicaratteri"
+                openAdminResultView(adminView, response.body());
             }
 
             @Override
@@ -1027,8 +1025,71 @@ public class Controller {
             }
         });
 
+
     }
 
+    public void openAdminResultView(AdminView adminView, ArrayList<Path> sentieriTrovati ){
+        ArrayList<String> nomiSentieri = new ArrayList<>();
+        ArrayList<String> creatoriSentieri = new ArrayList<>();
+        if(sentieriTrovati.size()!=0) {
+            for (Path p : sentieriTrovati) {
+                nomiSentieri.add(p.getNomeSentiero());
+                creatoriSentieri.add(p.getCreatore());
+            }
+            Intent i = new Intent(adminView, AdminResultView.class);
+            i.putExtra("nomiSentieri",nomiSentieri);
+            i.putExtra("creatoriSentieri", creatoriSentieri);
+            adminView.startActivity(i);
+        }
+        else Toast.makeText(adminView,"Non esistono sentieri che cominciano con questi caratteri",Toast.LENGTH_LONG).show();
+    }
+
+    //DETTAGLI AMMINISTRATORI
+
+    public void openAdminDetails(AdminResultView adminResultView, String nomeSentiero) {
+        Path tmpPath = new Path(nomeSentiero);
+        Call<Path> call = pathDAO.getPath(tmpPath);
+
+        call.enqueue(new Callback<Path>() {
+            @Override
+            public void onResponse(Call<Path> call, Response<Path> response) {
+                if(response.body()!=null) {
+                    adminDetailView(adminResultView, response.body());
+                }
+                else bigError(adminResultView);
+            }
+            @Override
+            public void onFailure(Call<Path> call, Throwable t) {
+                bigError(adminResultView);
+            }
+        });
+    }
+
+    private void adminDetailView(AdminResultView adminResultView, Path p) {
+        Intent i = new Intent(adminResultView, AdminDetailView.class);
+        i.putExtra("nomesentiero", p.getNomeSentiero());
+        i.putExtra("coordinate", p.getCoordinateAsArray());
+        i.putExtra("puntoiniziale", p.getPuntoIniziale());
+        i.putExtra("difficolta", p.getDifficolta());
+        i.putExtra("durata", p.getDurata());
+        i.putExtra("descrizione", p.getDescrizione());
+        i.putExtra("creatore", p.getCreatore());
+        i.putExtra("data", p.getDataModifica());
+        adminResultView.startActivity(i);
+    }
+
+
+    //MODIFICA SENTIERO ADMIN
+
+    public void openAdminModificationView(AdminDetailView adminDetailView, String nomesentiero, String descrizione, Boolean accessibilità, Float durata, Integer difficolta) {
+        Intent i = new Intent(adminDetailView, ModificationView.class);
+        i.putExtra("nomeSentiero", nomesentiero);
+        i.putExtra("descrizione", descrizione);
+        i.putExtra("accessibilità", accessibilità);
+        i.putExtra("durata", durata);
+        i.putExtra("difficoltà", difficolta.intValue());
+        adminDetailView.startActivity(i);
+    }
 
 
 
@@ -1041,7 +1102,7 @@ public class Controller {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body()!=null) {
-                    //Modifica avvenuta con successo
+                    adminModificationView.finish();
                 }
                 else bigError(adminModificationView);
             }
@@ -1051,6 +1112,22 @@ public class Controller {
                 bigError(adminModificationView);
             }
         });
+    }
+
+    //CANCELLAZIONE SENTIERO ADMIN
+
+
+
+
+    public void adminDeleteFragment(AdminDetailView adminDetailView, String nomesentiero) {
+        FragmentManager fragmentManager = adminDetailView.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AdminDeleteFragment adminDeleteFragment = new AdminDeleteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("nomeSentiero",nomesentiero);
+        adminDeleteFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.deletePathAdminContainer,adminDeleteFragment, null);
+        fragmentTransaction.commit();
     }
 
     public void deletePathAdmin(String nomeSentiero, AdminDetailView adminDetailView ) {
@@ -1068,7 +1145,4 @@ public class Controller {
             }
         });
     }
-
-
-
 }

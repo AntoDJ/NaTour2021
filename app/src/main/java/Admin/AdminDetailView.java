@@ -34,25 +34,25 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
         puntoiniziale = intent.getStringExtra("puntoiniziale");
         coordinate = intent.getStringArrayListExtra("coordinate");
 
-        /*Slider durataSlider=(Slider) findViewById();
+        Slider durataSlider=(Slider) findViewById(R.id.durataSliderAdminDetail);
         durataSlider.setValue(intent.getFloatExtra("durata",0));
 
-        TextView durata = (TextView) findViewById();
+        TextView durata = (TextView) findViewById(R.id.durataAdminDetailView);
         if(intent.getFloatExtra("durata",0)-(int)intent.getFloatExtra("durata",0)==0.5)   durata.setText("Durata "+(int)intent.getFloatExtra("durata",0)+":30 ore");
         else durata.setText("Durata "+(int)intent.getFloatExtra("durata",0)+" ore");
 
         //Set Difficoltà
-        Slider difficoltàSlider=(Slider) findViewById();
+        Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltaSliderAdminDetail);
         difficoltàSlider.setValue(intent.getIntExtra("difficolta",0));
 
-        TextView difficoltà = (TextView) findViewById();
+        TextView difficoltà = (TextView) findViewById(R.id.difficoltaAdminDetailView);
         difficoltà.setText("Difficoltà "+intent.getIntExtra("difficolta",0));
 
         //Set Nome e Descrizione
-        TextView nome = (TextView) findViewById();
+        TextView nome = (TextView) findViewById(R.id.namePathAdminDetailView);
         nome.setText(intent.getStringExtra("nomesentiero"));
 
-        TextView descrizione = (TextView) findViewById();
+        TextView descrizione = (TextView) findViewById(R.id.descrizioneAdminDetailView);
         if(intent.getStringExtra("descrizione").equals("")){
             descrizione.setText(intent.getStringExtra("descrizione"));
         }
@@ -62,22 +62,28 @@ public class AdminDetailView extends AppCompatActivity implements DetailInterfac
 
         //Set Ultima Modifica
 
-        TextView ultimaModifica = (TextView) findViewById();
+        TextView ultimaModifica = (TextView) findViewById(R.id.ultimaModificaAdminDetailView);
         if(intent.getSerializableExtra("data")!=null){
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
             String data= simpleDateFormat.format((Date)intent.getSerializableExtra("data"));
             ultimaModifica.setText("Data ultima modifica : "+data);
         }
-        else ultimaModifica.setVisibility(View.GONE);
+        else ultimaModifica.setText("Mai modificato");
 
+        TextView creatore = (TextView) findViewById(R.id.creatoreAdminDetailView);
+        creatore.setText("Creatore :"+intent.getStringExtra("creatore"));
 
-        Button modificaSentieroButton = (Button) findViewById();
+        Button modificaSentieroButton = (Button) findViewById(R.id.editPathAdminDetailView);
         modificaSentieroButton.setOnClickListener(view -> {
+            Controller.getInstance().openAdminModificationView(this, intent.getStringExtra("nomesentiero"),
+                    intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessiblità",true),
+                    intent.getFloatExtra("durata",0), intent.getIntExtra("difficolta",0));
         });
 
-        Button cancellaSentieroButton= (Button) findViewById();
+        Button cancellaSentieroButton= (Button) findViewById(R.id.deletePathAdminDetailView);
         cancellaSentieroButton.setOnClickListener(view -> {
-        });*/
+            Controller.getInstance().adminDeleteFragment(this, intent.getStringExtra("nomesentiero"));
+        });
 
     }
 

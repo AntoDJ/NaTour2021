@@ -49,7 +49,7 @@ public class PlaylistFragment extends Fragment {
         playlistListView.setAdapter(arrayAdapter);
 
         playlistListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 5000){
                 Toast.makeText(getContext(),"Sto caricando i sentieri della playlist",Toast.LENGTH_LONG).show();
                 return;
             }

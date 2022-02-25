@@ -41,18 +41,18 @@ public class AdminDeleteFragment extends Fragment {
         View view;
         view= inflater.inflate(R.layout.fragment_admin_delete, container, false);
 
-        /*Button deletePathNoButton= (Button) view.findViewById();
+        Button deletePathNoButton= (Button) view.findViewById(R.id.deletePathNoAdminButton);
         deletePathNoButton.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();
-            c.cleanFragment(getActivity().findViewById());
+            c.cleanFragment(getActivity().findViewById(R.id.deletePathAdminContainer));
         });
 
-        Button deletePathYesButton= (Button) view.findViewById();
+        Button deletePathYesButton= (Button) view.findViewById(R.id.deletePathYesAdminButton);
         deletePathYesButton.setOnClickListener(view1 -> {
             Controller c = Controller.getInstance();
-            c.cleanFragment(getActivity().findViewById());
+            c.cleanFragment(getActivity().findViewById(R.id.deletePathAdminContainer));
             c.deletePathAdmin(nomeSentiero, (AdminDetailView) getActivity());
-        });*/
+        });
 
         return view;
     }

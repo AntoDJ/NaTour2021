@@ -22,28 +22,29 @@ public class AdminModificationView extends AppCompatActivity {
         setContentView(R.layout.activity_admin_modification_view);
         Intent i = getIntent();
 
-        /*
-        EditText namePathTextView = (EditText) findViewById();
-        namePathTextView.setText("Stai modificando il sentiero "+i.getStringExtra("nomeSentiero"));
-        EditText descrizioneEditText = (EditText) findViewById();
+
+        EditText namePathTextView = (EditText) findViewById(R.id.editNamePathAdminET);
+        namePathTextView.setText(i.getStringExtra("nomeSentiero"));
+
+        EditText descrizioneEditText = (EditText) findViewById(R.id.editDescrizioneEditText);
         descrizioneEditText.setText(i.getStringExtra("descrizione"));
 
         //Set Durata
-        Slider durataSlider=(Slider) findViewById();
+        Slider durataSlider=(Slider) findViewById(R.id.editDurataSlider);
         durataSlider.setValue(i.getFloatExtra("durata",0));
 
-        TextView durata = (TextView) findViewById();
+        TextView durata = (TextView) findViewById(R.id.editDurataTextView);
         if(i.getFloatExtra("durata",0)-(int)i.getFloatExtra("durata",0)==0.5)   durata.setText("Durata "+(int)i.getFloatExtra("durata",0)+":30 ore");
         else durata.setText("Durata: "+(int)i.getFloatExtra("durata",0)+" ore");
 
         //Set Difficoltà
-        Slider difficoltaSlider=(Slider) findViewById();
+        Slider difficoltaSlider=(Slider) findViewById(R.id.editDifficoltaSlider);
         difficoltaSlider.setValue(i.getIntExtra("difficoltà",0));
 
-        TextView difficoltà = (TextView) findViewById();
+        TextView difficoltà = (TextView) findViewById(R.id.editDifficoltaTextView);
         difficoltà.setText("Difficoltà: "+i.getIntExtra("difficoltà",0));
 
-        CheckBox editAccessibilityCB = (CheckBox) findViewById();
+        CheckBox editAccessibilityCB = (CheckBox) findViewById(R.id.editAccessibilityAdminCB);
         editAccessibilityCB.setChecked(i.getBooleanExtra("accessibilità",true));
 
         durataSlider.addOnChangeListener((slider, value, fromUser) -> {
@@ -60,18 +61,18 @@ public class AdminModificationView extends AppCompatActivity {
         });
 
 
-        Button cancelEditButton = (Button) findViewById();
+        Button cancelEditButton = (Button) findViewById(R.id.cancelEditAdminButton);
         cancelEditButton.setOnClickListener(view -> {
             finish();
         });
 
-        Button editPathButton = (Button) findViewById();
+        Button editPathButton = (Button) findViewById(R.id.confirmEditAdminButton);
         editPathButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
             if(namePathTextView.getText().toString().trim().equals("")){
                 c.updatePathAdmin(this, i.getStringExtra("nomeSentiero"), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), editAccessibilityCB.isChecked(), namePathTextView.getText().toString().trim());
             }
         });
-*/
+
     }
 }

@@ -4,6 +4,8 @@ package Search;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import Controller.Controller;
 
 public class SearchView extends AppCompatActivity {
     private String posizione;
+    private long mLastClickTime = 0;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
 
     public void setPosizione(String pos) {
         posizione= pos;
@@ -55,6 +59,12 @@ public class SearchView extends AppCompatActivity {
         CheckBox access = (CheckBox) findViewById(R.id.accessibilitàCheckBoxSearch);
         Button cercaButton=(Button) findViewById(R.id.searchButton);
         cercaButton.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 4000){
+                Toast.makeText(this,"Sto cercando i sentieri",Toast.LENGTH_LONG).show();
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
+            view.startAnimation(buttonClick);
             if(posizione!=null){
                 Controller c = Controller.getInstance();
                 c.getFilteredPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());

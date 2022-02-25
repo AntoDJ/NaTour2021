@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,15 +38,17 @@ import io.ticofab.androidgpxparser.parser.domain.TrackSegment;
 public class CreateView extends AppCompatActivity {
     private ArrayList<Marker> coordinate;
     private MapViewFragment mapViewFragment;
+    private long mLastClickTime = 0;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private GoogleMap tempmap;
-    int requestcode=1;
+    private int requestcode=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_view);
         Controller c = Controller.getInstance();
-
+        buttonClick.setDuration(300);
         coordinate=new ArrayList<>();
 
         Slider durataSlider = (Slider) findViewById(R.id.durataPlaylistSlider);
@@ -71,11 +75,17 @@ public class CreateView extends AppCompatActivity {
 
         Button inserisciTracciatoButton = (Button) findViewById(R.id.inserisciTracciatoButton);
         inserisciTracciatoButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             mapViewFragment = c.openInsertPath(CreateView.this);
         });
 
         Button creaSentiero = (Button) findViewById(R.id.creaSentieroButton);
         creaSentiero.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
+            view.startAnimation(buttonClick);
             if(!nomeEditText.getText().toString().trim().equals("")&&coordinate.size()!=0) {
                 String puntoInziale = coordinate.get(0).getPosition().latitude + " " + coordinate.get(0).getPosition().longitude;
                 coordinate.remove(0);

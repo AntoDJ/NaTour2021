@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
     private ReportOverlay reportOverlay;
     private addToPlaylistOverlay addtoPlaylistOverlay;
     private String puntoiniziale;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private ArrayList<String> coordinate;
 
     @Override
@@ -69,11 +71,13 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         //Bottoni
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             addtoPlaylistOverlay = Controller.getInstance().addToPlaylistOverlay(DetailView.this);
         });
 
         Button reportButton=(Button) findViewById(R.id.reportButton);
         reportButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             reportOverlay= Controller.getInstance().openReportOverlay(this);
         });
 

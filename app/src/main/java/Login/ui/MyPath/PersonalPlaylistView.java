@@ -43,6 +43,8 @@ public class PersonalPlaylistView extends Fragment {
         sentieriPlaylist = (ListView) root.findViewById(R.id.personalPathListView);
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(getContext(),"Sto caricando i dettagli del sentiero",Toast.LENGTH_LONG).show();
+
                 return;
             }
             Controller c = Controller.getInstance();

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import com.google.android.material.slider.Slider;
 import Controller.Controller;
 
 public class ModificationView extends AppCompatActivity {
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +63,13 @@ public class ModificationView extends AppCompatActivity {
 
         Button cancelEditButton = (Button) findViewById(R.id.cancelEditButton);
         cancelEditButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             finish();
         });
 
         Button editPathButton = (Button) findViewById(R.id.editPathButton);
         editPathButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             Controller c = Controller.getInstance();
             c.updatePath(this, i.getStringExtra("nomeSentiero") ,descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), editAccessibilityCB.isChecked());
         });

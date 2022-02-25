@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import Controller.Controller;
 
 public class MapViewFragment extends Fragment {
     private static ArrayList<Marker> coordinate = new ArrayList<Marker>();
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
 
     public MapViewFragment() {
     }
@@ -46,9 +48,11 @@ public class MapViewFragment extends Fragment {
         coordinate.clear();
         Controller c = Controller.getInstance();
         view = inflater.inflate(R.layout.fragment_map_view, container, false);
+        buttonClick.setDuration(300);
 
         Button annullaPuntoButton = (Button) view.findViewById(R.id.annullaUltimoPuntoButton);
         annullaPuntoButton.setOnClickListener(view1 -> {
+            view1.startAnimation(buttonClick);
             if(coordinate.size()!=0) {
                 CreateMapsFragment.removeCoordinata(coordinate.get(coordinate.size() - 1));
                 coordinate.remove(coordinate.size() - 1);
@@ -57,6 +61,7 @@ public class MapViewFragment extends Fragment {
 
         Button insertPathButton = (Button) view.findViewById(R.id.confermaTracciatoButton);
         insertPathButton.setOnClickListener(view1 -> {
+            view1.startAnimation(buttonClick);
             for(Marker m:coordinate)  Log.i("prova",m.getPosition().toString());
             ((CreateView) getActivity()).setCoordinate(coordinate);
             c.cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
@@ -64,6 +69,7 @@ public class MapViewFragment extends Fragment {
 
         Button selectGPXButton = (Button) view.findViewById(R.id.insertFileGPXButton);
         selectGPXButton.setOnClickListener(view1 -> {
+            view1.startAnimation(buttonClick);
             ((CreateView)getActivity()).GPX();
         });
 

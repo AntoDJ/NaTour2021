@@ -50,6 +50,7 @@ public class PlaylistFragment extends Fragment {
 
         playlistListView.setOnItemClickListener((adapterView, view, i, l) -> {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(getContext(),"Sto caricando i sentieri della playlist",Toast.LENGTH_LONG).show();
                 return;
             }
             Controller.getInstance().getPathOfPlaylist(this, playlistListView.getItemAtPosition(i).toString());

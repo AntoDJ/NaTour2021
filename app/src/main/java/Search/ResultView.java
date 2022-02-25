@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.widget.Toast;
 
 import com.example.natour2021.R;
 
@@ -15,6 +17,7 @@ public class ResultView extends AppCompatActivity {
     private ArrayList<String> Nomi;
     private ArrayList<String> Posizioni;
     private ArrayList<Integer> difficolta;
+    private long mLastClickTime = 0;
     private float[] durate;
 
     @Override
@@ -41,6 +44,11 @@ public class ResultView extends AppCompatActivity {
     public float[] getDurate() { return durate; }
 
     public void markerclicked(String title) {
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 4000){
+            Toast.makeText(this,"Sto caricando i dettagli del sentiero",Toast.LENGTH_LONG).show();
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
         Controller c = Controller.getInstance();
         c.getAllDetailsOfPath(this,title);
     }

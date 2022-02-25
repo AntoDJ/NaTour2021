@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import Search.DetailInterface;
 public class PersonalDetailView extends AppCompatActivity implements DetailInterface {
     private deletePathOverlay deletepathOverlay;
     private String puntoiniziale;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private ArrayList<String> coordinate;
 
 
@@ -75,6 +77,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
 
         Button modificaSentieroButton = (Button) findViewById(R.id.modificaSentieroButton);
         modificaSentieroButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             Controller.getInstance().openModificationView(this, intent.getStringExtra("nomesentiero"),
                     intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessiblità",true),
                     intent.getFloatExtra("durata",0), intent.getIntExtra("difficolta",0));
@@ -82,7 +85,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
 
         Button cancellaSentieroButton= (Button) findViewById(R.id.cancellaSentieroButton);
         cancellaSentieroButton.setOnClickListener(view -> {
-
+            view.startAnimation(buttonClick);
             deletepathOverlay = Controller.getInstance().deletePathOverlay(PersonalDetailView.this, intent.getStringExtra("nomesentiero"));
         });
 

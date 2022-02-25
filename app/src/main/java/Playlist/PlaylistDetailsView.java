@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import Search.DetailInterface;
 public class PlaylistDetailsView extends AppCompatActivity implements DetailInterface {
     private String puntoiniziale;
     private ArrayList<String> coordinate;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private removeFromPlaylistOverlay removefromPlaylistOverlay;
 
     @Override
@@ -62,6 +64,7 @@ public class PlaylistDetailsView extends AppCompatActivity implements DetailInte
 
         Button removeFromPlaylistButton = (Button) findViewById(R.id.eliminaSentieroDallaPlaylistButton);
         removeFromPlaylistButton.setOnClickListener(view -> {
+            view.startAnimation(buttonClick);
             removefromPlaylistOverlay= Controller.getInstance().removeFromPlaylistOverlay(PlaylistDetailsView.this,
                     intent.getStringExtra("nomesentiero"), intent.getStringExtra("playlist"));
         });

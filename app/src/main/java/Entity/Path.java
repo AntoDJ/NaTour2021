@@ -90,21 +90,6 @@ public class Path {
         return array;
     }
 
-    @Override
-    public String toString() {
-        return "Path{" +
-                "nomeSentiero='" + nomeSentiero + '\'' +
-                ", coordinate=" + coordinate +
-                ", puntoIniziale='" + puntoIniziale + '\'' +
-                ", difficolta=" + difficolta +
-                ", durata=" + durata +
-                ", descrizione='" + descrizione + '\'' +
-                ", accessibilitaDisabili=" + accessibilita +
-                ", dataModifica=" + dataModifica +
-                ", creatore='" + creatore + '\'' +
-                '}';
-    }
-
     public static class PathToFilter{
 
         float durataMin;

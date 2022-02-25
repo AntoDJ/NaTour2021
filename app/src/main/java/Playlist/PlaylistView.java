@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -22,10 +23,10 @@ import Controller.Controller;
 import Entity.Path;
 
 public class PlaylistView extends AppCompatActivity {
-    Controller c;
-    ArrayList<String> nomiSentieri;
-    ArrayList<String> durdiffSentieri;
-    ListView sentieriPlaylist;
+    private long mLastClickTime = 0;
+    private ArrayList<String> nomiSentieri;
+    private ArrayList<String> durdiffSentieri;
+    private ListView sentieriPlaylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class PlaylistView extends AppCompatActivity {
 
         sentieriPlaylist = (ListView) findViewById(R.id.sentieriPlaylistListView);
 
-        c = Controller.getInstance();
         TextView nomePlaylist = (TextView) findViewById(R.id.nomePlaylistTextView);
         nomePlaylist.setText(intent.getStringExtra("nomePlaylist"));
 
@@ -51,6 +51,11 @@ public class PlaylistView extends AppCompatActivity {
 
 
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                Toast.makeText(this,"Sto caricando i dettagli del sentiero",Toast.LENGTH_LONG).show();
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
             c.getAllDetailsOfPlaylistPath(this, intent.getStringExtra("nomePlaylist"),nomiSentieri.get(i));
         });

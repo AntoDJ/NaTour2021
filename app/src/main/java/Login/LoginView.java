@@ -28,8 +28,8 @@ import Controller.Controller;
 public class LoginView extends AppCompatActivity {
     private PasswordOverlay passwordOverlay;
     private long mLastClickTime = 0;
-    private int backButtonCount=0;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
+    private int backButtonCount=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +24,8 @@ import Controller.Controller;
 import Login.ui.playlist.PlaylistViewModel;
 
 public class addToPlaylistOverlay extends Fragment {
+    private long mLastClickTime = 0;
+    private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
 
     private PlaylistViewModel playlistViewModel;
     private FragmentPlaylistBinding binding;
@@ -58,12 +62,17 @@ public class addToPlaylistOverlay extends Fragment {
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, playlist);
         PlaylistList.setAdapter(arrayAdapter);
         PlaylistList.setOnItemClickListener((adapterView, view1, i, l) -> {
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
             ((DetailView)getActivity()).addToPlaylist(PlaylistList.getItemAtPosition(i).toString());
             c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
         });
         Button backButton= (Button) view.findViewById(R.id.backButton);
         backButton.setOnClickListener(view1 -> {
+            view.startAnimation(buttonClick);
             Controller c = Controller.getInstance();
             c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
 

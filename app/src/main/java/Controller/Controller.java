@@ -345,7 +345,7 @@ public class Controller {
     //INSERIMENTO DELL'UTENTE E DELLE PLAYLIST NEL DB
 
 
-    public void insertUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
+    private void insertUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
         User user = new User(email);
         Call<User> call = utenteDAO.insertUser(user);
 
@@ -365,7 +365,7 @@ public class Controller {
         });
     }
 
-    public void insertUser(String email){
+    private void insertUser(String email){
         User user = new User(email);
         Call<User> call = utenteDAO.insertUser(user);
 
@@ -532,7 +532,7 @@ public class Controller {
         });
     }
 
-    public void openPlayListView(PlaylistFragment playlistFragment, ArrayList<Path> pathOfPlaylist, String nomePlaylist){
+    private void openPlayListView(PlaylistFragment playlistFragment, ArrayList<Path> pathOfPlaylist, String nomePlaylist){
         ArrayList<String> nomiSentieri = new ArrayList<>();
         ArrayList<String> durdiffSentieri= new ArrayList<>();
         for(Path p:pathOfPlaylist) {
@@ -566,7 +566,7 @@ public class Controller {
         });
     }
 
-    public void openPlaylistDetailsView(PlaylistView playlistView, String playlistName, Path p){
+    private void openPlaylistDetailsView(PlaylistView playlistView, String playlistName, Path p){
         Intent i = new Intent(playlistView, PlaylistDetailsView.class);
         i.putExtra("nomesentiero", p.getNomeSentiero());
         i.putExtra("coordinate", p.getCoordinateAsArray());
@@ -663,7 +663,7 @@ public class Controller {
     }
 
 
-    public void openPersonalDetailsView(HomeView homeview, Path p){
+    private void openPersonalDetailsView(HomeView homeview, Path p){
         Intent i = new Intent(homeview, PersonalDetailView.class);
         i.putExtra("nomesentiero", p.getNomeSentiero());
         i.putExtra("coordinate", p.getCoordinateAsArray());
@@ -726,13 +726,13 @@ public class Controller {
     }
 
     public void updatePath(ModificationView modificationView,String nomeSentiero, String descrizione, float durata, int difficolta, boolean accessibilità) {
+        modificationView.finish();
         Path path = new Path(nomeSentiero,  null, null, difficolta, descrizione, accessibilità, null, durata);
         Call<Path> call = pathDAO.updatePath(path);
         call.enqueue(new Callback<Path>() {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body()!=null) {
-                    modificationView.finish();
                     personalDetailView.updatePath(descrizione, durata, difficolta);
                 }
                 else bigError();

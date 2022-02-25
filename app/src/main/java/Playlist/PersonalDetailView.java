@@ -57,7 +57,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         nome.setText(intent.getStringExtra("nomesentiero"));
 
         TextView descrizione = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
-        if(intent.getStringExtra("descrizione").equals("")){
+        if(!intent.getStringExtra("descrizione").equals("")){
             descrizione.setText(intent.getStringExtra("descrizione"));
         }
         else{

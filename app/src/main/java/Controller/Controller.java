@@ -2,6 +2,8 @@ package Controller;
 
 import static java.lang.Thread.sleep;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -69,8 +71,11 @@ public class Controller {
         return(instance);
     }
 
-    private void bigError() {
+    private void bigError(Activity activity) {
         Log.i("ERROR","BIGERROR");
+        if(activity!=null){
+            Toast.makeText(activity,"Errore gravissimo, contatta gli amministratori",Toast.LENGTH_LONG).show();
+        }
     }
 
     public void cleanFragment(FrameLayout frameLayout){
@@ -360,7 +365,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                bigError();
+                bigError(registrationView);
             }
         });
     }
@@ -376,7 +381,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                bigError();
+                bigError(loginView);
             }
         });
     }
@@ -407,12 +412,12 @@ public class Controller {
     }
 
 
-    public void logout(FrameLayout frameLayout, HomeView homeview){
+    public void logout(FrameLayout frameLayout, HomeView homeView){
         Amplify.Auth.signOut(
                 () -> {
-                    homeview.runOnUiThread(new Runnable() {
+                    homeView.runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(homeview, "Logout effettuato con successo", Toast.LENGTH_LONG).show();
+                            Toast.makeText(homeView, "Logout effettuato con successo", Toast.LENGTH_LONG).show();
                         }
                     });
                 },
@@ -423,16 +428,23 @@ public class Controller {
         editor.putString(String.valueOf(R.string.tipo_login),"");
         editor.apply();
         cleanFragment(frameLayout);
-        Intent intent = new Intent(homeview,LoginView.class);
-        homeview.startActivity(intent);
-        homeview.finish();
+        Intent intent = new Intent(homeView,LoginView.class);
+        homeView.startActivity(intent);
+        homeView.finish();
     }
 
-    public void changePassword(String oldPassword, String newPassword){
+    public void changePassword(FrameLayout frameLayout ,HomeView homeView, String oldPassword, String newPassword){
         Amplify.Auth.updatePassword(
                 oldPassword,
                 newPassword,
-                () -> Log.i("AuthQuickstart", "Updated password successfully"),
+                () -> {
+                    homeView.runOnUiThread(new Runnable() {
+                        public void run() {
+                            cleanFragment(frameLayout);
+                            Toast.makeText(homeView, "Password cambiata con successo", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                },
                 error -> Log.e("AuthQuickstart", error.toString())
         );
     }
@@ -462,7 +474,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<ArrayList<Report>> call, Throwable t) {
-                bigError();
+                bigError(notificationFragment.getActivity());
             }
         });
     }
@@ -501,7 +513,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
-                bigError();
+                bigError(notificationFragment.getActivity());
             }
         });
 
@@ -527,7 +539,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-                bigError();
+                bigError(playlistFragment.getActivity());
             }
         });
     }
@@ -561,7 +573,7 @@ public class Controller {
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(playlistView);
             }
         });
     }
@@ -610,7 +622,7 @@ public class Controller {
             }
             @Override
             public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
-                bigError();
+                bigError(playlistDetailsView);
             }
         });
 
@@ -637,7 +649,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-                bigError();
+                bigError(personalPlaylistView.getActivity());
             }
         });
     }
@@ -653,11 +665,11 @@ public class Controller {
                     Controller c = Controller.getInstance();
                     c.openPersonalDetailsView(homeView, response.body());
                 }
-                else bigError();
+                else bigError(homeView);
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(homeView);
             }
         });
     }
@@ -706,7 +718,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(personalDetailView);
             }
         });
     }
@@ -735,12 +747,12 @@ public class Controller {
                 if(response.body()!=null) {
                     personalDetailView.updatePath(descrizione, durata, difficolta);
                 }
-                else bigError();
+                else bigError(modificationView);
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(modificationView);
             }
         });
     }
@@ -778,7 +790,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(createView);
             }
         });
     }
@@ -806,7 +818,7 @@ public class Controller {
             }
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-                bigError();
+                bigError(searchView);
             }
         });
     }
@@ -845,11 +857,11 @@ public class Controller {
                 if(response.body()!=null) {
                     detailView(resultview, response.body());
                 }
-                else bigError();
+                else bigError(resultview);
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(resultview);
             }
         });
     }
@@ -894,7 +906,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
-                bigError();
+                bigError(detailView);
             }
         });
     }
@@ -929,7 +941,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
-                bigError();
+                bigError(detailView);
             }
         });
     }
@@ -949,7 +961,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                bigError();
+                bigError(homeView);
             }
         });
     }
@@ -964,12 +976,12 @@ public class Controller {
                 if(response.body()!=null) {
                     //Modifica avvenuta con successo
                 }
-                else bigError();
+                else bigError(adminModificationView);
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(adminModificationView);
             }
         });
     }
@@ -985,7 +997,7 @@ public class Controller {
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
-                bigError();
+                bigError(adminDetailView);
             }
         });
     }

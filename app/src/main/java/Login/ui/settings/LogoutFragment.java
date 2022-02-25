@@ -24,7 +24,6 @@ public class LogoutFragment extends Fragment {
 
     public static LogoutFragment newInstance() {
         LogoutFragment fragment = new LogoutFragment();
-
         return fragment;
     }
 

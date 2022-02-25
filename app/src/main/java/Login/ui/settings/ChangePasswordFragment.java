@@ -62,6 +62,7 @@ public class ChangePasswordFragment extends Fragment {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
                 return;
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
             if(nuovaPass.getText().toString().trim().equals(confermaPass.getText().toString().trim())){
                 Controller.getInstance().changePassword(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()),
                         (HomeView)getActivity() ,

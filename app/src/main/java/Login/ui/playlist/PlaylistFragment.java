@@ -53,6 +53,7 @@ public class PlaylistFragment extends Fragment {
                 Toast.makeText(getContext(),"Sto caricando i sentieri della playlist",Toast.LENGTH_LONG).show();
                 return;
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
             Controller.getInstance().getPathOfPlaylist(this, playlistListView.getItemAtPosition(i).toString());
         });
         return root;

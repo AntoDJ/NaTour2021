@@ -47,6 +47,7 @@ public class PersonalPlaylistView extends Fragment {
 
                 return;
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
             c.getAllDetailsOfPersonalPath((HomeView) getActivity(),nomisentieri.get(i));
         });

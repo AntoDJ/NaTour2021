@@ -1071,6 +1071,7 @@ public class Controller {
         i.putExtra("puntoiniziale", p.getPuntoIniziale());
         i.putExtra("difficolta", p.getDifficolta());
         i.putExtra("durata", p.getDurata());
+        i.putExtra("accessibilità",p.isAccessibilita());
         i.putExtra("descrizione", p.getDescrizione());
         i.putExtra("creatore", p.getCreatore());
         i.putExtra("data", p.getDataModifica());

@@ -69,7 +69,7 @@ public class AdminModificationView extends AppCompatActivity {
         Button editPathButton = (Button) findViewById(R.id.confirmEditAdminButton);
         editPathButton.setOnClickListener(view -> {
             Controller c = Controller.getInstance();
-            if(namePathTextView.getText().toString().trim().equals("")){
+            if(!namePathTextView.getText().toString().trim().equals("")){
                 c.updatePathAdmin(this, i.getStringExtra("nomeSentiero"), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), editAccessibilityCB.isChecked(), namePathTextView.getText().toString().trim());
             }
         });

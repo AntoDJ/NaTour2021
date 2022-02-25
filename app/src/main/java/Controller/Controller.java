@@ -3,7 +3,6 @@ package Controller;
 import static java.lang.Thread.sleep;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -407,7 +406,7 @@ public class Controller {
         FragmentManager fragmentManager = homeview.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         LogoutFragment logoutoverlay = new LogoutFragment();
-        fragmentTransaction.add(R.id.SettingsContainer, logoutoverlay, null);
+        fragmentTransaction.add(R.id.LogoutContainer, logoutoverlay, null);
         fragmentTransaction.commit();
         return logoutoverlay;
     }
@@ -438,7 +437,7 @@ public class Controller {
         FragmentManager fragmentManager = homeView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
-        fragmentTransaction.add(R.id.SettingsContainer, changePasswordFragment, null);
+        fragmentTransaction.add(R.id.PasswordContainer, changePasswordFragment, null);
         fragmentTransaction.commit();
         return changePasswordFragment;
     }

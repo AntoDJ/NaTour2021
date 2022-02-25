@@ -94,7 +94,8 @@ private ActivityNavigationBinding binding;
         else {
             if (logoutFragment != null||changePasswordFragment != null) {
                 Controller c = Controller.getInstance();
-                c.cleanFragment(findViewById(R.id.SettingsContainer));
+                c.cleanFragment(findViewById(R.id.LogoutContainer));
+                c.cleanFragment(findViewById(R.id.PasswordContainer));
                 logoutFragment = null;
                 changePasswordFragment = null;
                 backButtonCount=0;

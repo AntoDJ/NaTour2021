@@ -23,7 +23,7 @@
 
 
     <FrameLayout
-        android:id="@+id/SettingsContainer"
+        android:id="@+id/LogoutContainer"
         android:layout_width="308sp"
         android:layout_height="390sp"
         android:elevation="10sp"
@@ -66,5 +66,19 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/PasswordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="25sp"
+        android:elevation="10sp"
+        android:layout_marginVertical="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

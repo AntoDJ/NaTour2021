@@ -37,6 +37,7 @@ private FragmentSettingsBinding binding;
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
         buttonClick.setDuration(300);
+
         Button changePassword = root.findViewById(R.id.changePassButton);
         changePassword.setOnClickListener(view -> {
             view.startAnimation(buttonClick);

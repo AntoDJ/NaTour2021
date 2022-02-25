@@ -43,15 +43,15 @@ public class ChangePasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
-        view=  inflater.inflate(R.layout.fragment_logout, container, false);
+        view=  inflater.inflate(R.layout.fragment_change_password, container, false);
         buttonClick.setDuration(300);
 
         EditText vecchiaPass = (EditText) view.findViewById(R.id.vecchiaPassET);
         EditText nuovaPass = (EditText) view.findViewById(R.id.nuovaPassET);
         EditText confermaPass = (EditText) view.findViewById(R.id.confermaPassET);
 
-        Button backButton = (Button) view.findViewById(R.id.changePassCancelButton);
-        backButton.setOnClickListener(view1 -> {
+        Button cancelButton = (Button) view.findViewById(R.id.changePassCancelButton);
+        cancelButton.setOnClickListener(view1 -> {
             view1.startAnimation(buttonClick);
             Controller.getInstance().cleanFragment(getActivity().findViewById(((ViewGroup)getView().getParent()).getId()));
         });

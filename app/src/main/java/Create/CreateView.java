@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Controller.Controller;
+import Exception.*;
 import io.ticofab.androidgpxparser.parser.GPXParser;
 import io.ticofab.androidgpxparser.parser.domain.Gpx;
 import io.ticofab.androidgpxparser.parser.domain.Track;
@@ -86,18 +87,23 @@ public class CreateView extends AppCompatActivity {
             }
             mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
-            if(!nomeEditText.getText().toString().trim().equals("")&&coordinate.size()!=0) {
-                String puntoInziale = coordinate.get(0).getPosition().latitude + " " + coordinate.get(0).getPosition().longitude;
+            String puntoInziale="";
+            String coor="";
+            if(coordinate.size()!=0) {
+                puntoInziale = coordinate.get(0).getPosition().latitude + " " + coordinate.get(0).getPosition().longitude;
                 coordinate.remove(0);
-                String coor = "";
+                coor = "";
                 for (Marker mar : coordinate)
                     coor += mar.getPosition().latitude + " " + mar.getPosition().longitude + " ";
-                if(coor.length()<5000) {
-                    c.createPath(this, nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor);
-                }
-                else Toast.makeText(this,"hai inserito un sentiero troppo lungo",Toast.LENGTH_LONG).show();
             }
-            else Toast.makeText(this,"Inserisci il nome del sentiero e almeno un punto",Toast.LENGTH_LONG).show();
+            try {
+                c.checkPath(this, nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor);
+            }
+            catch(NameWrongSizeException e1) {Toast.makeText(this, "Il nome non può essere nullo e deve essere massimo 100 caratteri",Toast.LENGTH_LONG).show();}
+            catch(PathWrongSizeException e2) {Toast.makeText(this, "Il sentiero non deve essere vuoto o troppo lungo ",Toast.LENGTH_LONG).show();}
+            catch(DescriptionWrongSizeException e3) {Toast.makeText(this, "La descrizione deve essere di massimo 200 caratteri",Toast.LENGTH_LONG).show();}
+            catch(DifficultyOutOfBoundException e4) {Toast.makeText(this, "Difficoltà deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}
+            catch(DurationOutOfBoundException e5) {Toast.makeText(this, "Durata deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}
         });
     }
 

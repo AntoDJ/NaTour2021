@@ -34,6 +34,8 @@ import Search.*;
 import Create.*;
 import Admin.*;
 
+import Exception.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -81,7 +83,6 @@ public class Controller {
     }
 
     //LOGIN
-
 
     public void setLoginView(LoginView loginView) {
         this.loginView=loginView;
@@ -810,6 +811,25 @@ public class Controller {
         return mapViewFragment;
     }
 
+    public void checkPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) throws NameWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfBoundException, DifficultyOutOfBoundException {
+        if(nome.length()!=0&&nome.length()<100){
+            if(!puntoiniziale.equals("")&&coordinate.length()<5000){
+                if(descrizione.length()<200){
+                    if(durata>=0&&durata<=10){
+                        if(difficolta>=0&&difficolta<=10){
+                            createPath(createView, nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
+                        }
+                        else throw new DifficultyOutOfBoundException();
+                    }
+                    else throw new DurationOutOfBoundException();
+                }
+                else throw new DescriptionWrongSizeException();
+            }
+            else throw new PathWrongSizeException();
+        }
+        else throw new NameWrongSizeException();
+    }
+
     public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, creatore, durata);
@@ -1115,9 +1135,6 @@ public class Controller {
     }
 
     //CANCELLAZIONE SENTIERO ADMIN
-
-
-
 
     public AdminDeleteFragment adminDeleteFragment(AdminDetailView adminDetailView, String nomesentiero) {
         FragmentManager fragmentManager = adminDetailView.getSupportFragmentManager();

@@ -63,7 +63,7 @@ public class Controller {
 
     //Singleton
     private static Controller instance;
-    private Controller() {}
+    public Controller() {}
     public static Controller getInstance() {
         if (instance == null) {
             instance = new Controller();
@@ -816,13 +816,13 @@ public class Controller {
         return mapViewFragment;
     }
 
-    public void checkPath(String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) throws NameWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfBoundException, DifficultyOutOfBoundException {
+    public void checkPath(String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate, Controller controller) throws NameWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfBoundException, DifficultyOutOfBoundException {
         if(nome.length()!=0&&nome.length()<100){
             if(!puntoiniziale.equals("")&&coordinate.length()<5000){
                 if(descrizione.length()<200){
                     if(durata>=0&&durata<=10){
                         if(difficolta>=0&&difficolta<=10){
-                            createPath(nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
+                            controller.createPath(nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
                         }
                         else throw new DifficultyOutOfBoundException();
                     }

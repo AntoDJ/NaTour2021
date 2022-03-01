@@ -99,7 +99,7 @@ public class CreateView extends AppCompatActivity {
                     coor += mar.getPosition().latitude + " " + mar.getPosition().longitude + " ";
             }
             try {
-                c.checkPath(nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor);
+                c.checkPath(nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor, Controller.getInstance());
             }
             catch(NameWrongSizeException e1) {Toast.makeText(this, "Il nome non può essere nullo e deve essere massimo 100 caratteri",Toast.LENGTH_LONG).show();}
             catch(PathWrongSizeException e2) {Toast.makeText(this, "Il sentiero non deve essere vuoto o troppo lungo ",Toast.LENGTH_LONG).show();}

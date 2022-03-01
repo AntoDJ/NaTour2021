@@ -954,22 +954,26 @@ public class Controller {
 
     public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
         String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-        Report report = new Report(1,motivazione, nomesentiero,segnalante,segnalato);
-        Call<Report> call = reportDAO.reportPath(report);
+        if(segnalante.equals(segnalato)) {
+            Report report = new Report(1, motivazione, nomesentiero, segnalante, segnalato);
+            Call<Report> call = reportDAO.reportPath(report);
 
-        call.enqueue(new Callback<Report>() {
-            @Override
-            public void onResponse(Call<Report> call, Response<Report> response) {
-                if(response.body()!=null){
-                    Toast.makeText(detailView,"Segnalazione fatta",Toast.LENGTH_LONG).show();
-                }else Toast.makeText(detailView,"Segnalazione fallita",Toast.LENGTH_LONG).show();
-            }
+            call.enqueue(new Callback<Report>() {
+                @Override
+                public void onResponse(Call<Report> call, Response<Report> response) {
+                    if (response.body() != null) {
+                        Toast.makeText(detailView, "Segnalazione fatta", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(detailView, "Segnalazione fallita", Toast.LENGTH_LONG).show();
+                }
 
-            @Override
-            public void onFailure(Call<Report> call, Throwable t) {
-                bigError(detailView);
-            }
-        });
+                @Override
+                public void onFailure(Call<Report> call, Throwable t) {
+                    bigError(detailView);
+                }
+            });
+        }
+        else Toast.makeText(detailView, "Non puoi segnalarti da solo", Toast.LENGTH_LONG).show();
     }
 
     // AGGIUNTA ALLA PLAYLIST

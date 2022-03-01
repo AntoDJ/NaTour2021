@@ -53,6 +53,7 @@ public class Controller {
     private ReportDAO reportDAO;
     private SharedPreferences sharedPref;
     private LoginView loginView;
+    private CreateView createView;
     private NotificationFragment notificationFragment;
     private PersonalDetailView personalDetailView;
     private PlaylistView playlistView;
@@ -802,6 +803,10 @@ public class Controller {
         homeFragment.startActivity(i);
     }
 
+    public void setCreateView(CreateView createView){
+        this.createView = createView;
+    }
+
     public MapViewFragment openInsertPath(CreateView createView){
         FragmentManager fragmentManager = createView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -811,13 +816,13 @@ public class Controller {
         return mapViewFragment;
     }
 
-    public void checkPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) throws NameWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfBoundException, DifficultyOutOfBoundException {
+    public void checkPath(String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) throws NameWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfBoundException, DifficultyOutOfBoundException {
         if(nome.length()!=0&&nome.length()<100){
             if(!puntoiniziale.equals("")&&coordinate.length()<5000){
                 if(descrizione.length()<200){
                     if(durata>=0&&durata<=10){
                         if(difficolta>=0&&difficolta<=10){
-                            createPath(createView, nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
+                            createPath(nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
                         }
                         else throw new DifficultyOutOfBoundException();
                     }
@@ -830,7 +835,7 @@ public class Controller {
         else throw new NameWrongSizeException();
     }
 
-    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
+    public void createPath(String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, creatore, durata);
         Call<Path> call = pathDAO.insertPath(tmpPath);

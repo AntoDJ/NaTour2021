@@ -43,6 +43,10 @@ public class Path {
         return this.nomeSentiero;
     }
 
+    public void setNomeSentiero(String nomeSentiero) {
+        this.nomeSentiero = nomeSentiero;
+    }
+
     public String getCoordinate() {
         return this.coordinate;
     }

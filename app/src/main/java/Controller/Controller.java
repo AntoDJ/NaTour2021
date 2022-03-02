@@ -972,8 +972,7 @@ public class Controller {
         return reportOverlay;
     }
 
-    public void checkReport(DetailView detailView, String nomesentiero, String risposta, String motivazione, String segnalato, Controller controller) throws NamePathWrongSizeException, CreatorWrongSizeException, AnswerNotEmptyException, ReporterWrongSizeException, MotivationWrongSizeException, CreatorEqualsReporterException {
-        String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+    public void checkReport(DetailView detailView, String nomesentiero, String risposta, String motivazione,String segnalante, String segnalato, Controller controller) throws NamePathWrongSizeException, CreatorWrongSizeException, AnswerNotEmptyException, ReporterWrongSizeException, MotivationWrongSizeException, CreatorEqualsReporterException {
         if(!segnalante.equals("")&&segnalante.length()<50){
             if(!segnalato.equals("")&&segnalato.length()<50){
                 if(!nomesentiero.equals("")&&nomesentiero.length()<100){

@@ -1,5 +1,7 @@
 package Search;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -65,8 +67,11 @@ public class ReportOverlay extends Fragment {
             view.startAnimation(buttonClick);
             mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
+            SharedPreferences sharedPref = getActivity().getSharedPreferences(String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
+            String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
+
             try {
-                c.checkReport((DetailView) getActivity(), nomesentiero,"", reportMotivation.getText().toString().trim() ,creatoresentiero, Controller.getInstance());
+                c.checkReport((DetailView) getActivity(), nomesentiero,"", reportMotivation.getText().toString().trim() ,segnalante ,creatoresentiero, Controller.getInstance());
                 c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
             }
             catch(AnswerNotEmptyException e1){Toast.makeText(getContext(),"Non deve esserci una risposta",Toast.LENGTH_LONG).show();}

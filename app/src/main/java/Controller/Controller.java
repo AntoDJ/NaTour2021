@@ -859,13 +859,13 @@ public class Controller {
         homeFragment.startActivity(i);
     }
 
-    public void checkFilters(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) throws DifficultyOutOfRangeException, DurationOutOfRangeException, PositionNullException, DurationMinMoreThanMaxException, DifficultyMinMoreThanMaxException {
+    public void checkFilters(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access, Controller controller) throws DifficultyOutOfRangeException, DurationOutOfRangeException, PositionNullException, DurationMinMoreThanMaxException, DifficultyMinMoreThanMaxException {
         if(!pos.equals("")){
             if(maxdiff>0&&maxdiff<10&&mindiff>0&&mindiff<10){
                 if(mindur>0&&mindur<10&&maxdur>0&&maxdur<10){
                     if(maxdur>mindur){
                         if(maxdiff>mindiff){
-                            getFilteredPaths(searchView, mindur, maxdur,  mindiff,  maxdiff,  pos,  access);
+                            controller.getFilteredPaths(searchView, mindur, maxdur,  mindiff,  maxdiff,  pos,  access);
                         }
                         else throw new DifficultyMinMoreThanMaxException();
                     }
@@ -972,7 +972,7 @@ public class Controller {
         return reportOverlay;
     }
 
-    public void checkReport(DetailView detailView, String nomesentiero, String risposta, String motivazione, String segnalato) throws NamePathWrongSizeException, CreatorWrongSizeException, AnswerNotEmptyException, ReporterWrongSizeException, MotivationWrongSizeException, CreatorEqualsReporterException {
+    public void checkReport(DetailView detailView, String nomesentiero, String risposta, String motivazione, String segnalato, Controller controller) throws NamePathWrongSizeException, CreatorWrongSizeException, AnswerNotEmptyException, ReporterWrongSizeException, MotivationWrongSizeException, CreatorEqualsReporterException {
         String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         if(!segnalante.equals("")&&segnalante.length()<50){
             if(!segnalato.equals("")&&segnalato.length()<50){
@@ -980,7 +980,7 @@ public class Controller {
                     if(!segnalante.equals(segnalato)){
                         if(!motivazione.equals("")&&motivazione.length()<200){
                             if(risposta.equals("")){
-                                reportPath(detailView, nomesentiero, risposta, motivazione, segnalato, segnalante);
+                                controller.reportPath(detailView, nomesentiero, risposta, motivazione, segnalato, segnalante);
                             }
                             else throw new AnswerNotEmptyException();
                         }

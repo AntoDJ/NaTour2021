@@ -67,7 +67,7 @@ public class SearchView extends AppCompatActivity {
             mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
             try {
-                Controller.getInstance().checkFilters(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
+                Controller.getInstance().checkFilters(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked(), Controller.getInstance());
             }
             catch(PositionNullException e1){Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();}
             catch(DifficultyOutOfRangeException e2){Toast.makeText(this,"Difficoltà deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}

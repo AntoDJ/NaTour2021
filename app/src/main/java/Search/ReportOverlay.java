@@ -66,7 +66,7 @@ public class ReportOverlay extends Fragment {
             mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
             try {
-                c.checkReport((DetailView) getActivity(), nomesentiero,"", reportMotivation.getText().toString().trim() ,creatoresentiero);
+                c.checkReport((DetailView) getActivity(), nomesentiero,"", reportMotivation.getText().toString().trim() ,creatoresentiero, Controller.getInstance());
                 c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
             }
             catch(AnswerNotEmptyException e1){Toast.makeText(getContext(),"Non deve esserci una risposta",Toast.LENGTH_LONG).show();}

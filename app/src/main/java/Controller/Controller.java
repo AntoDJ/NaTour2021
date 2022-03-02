@@ -861,10 +861,10 @@ public class Controller {
 
     public void checkFilters(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access, Controller controller) throws DifficultyOutOfRangeException, DurationOutOfRangeException, PositionNullException, DurationMinMoreThanMaxException, DifficultyMinMoreThanMaxException {
         if(!pos.equals("")){
-            if(maxdiff>0&&maxdiff<10&&mindiff>0&&mindiff<10){
-                if(mindur>0&&mindur<10&&maxdur>0&&maxdur<10){
-                    if(maxdur>mindur){
-                        if(maxdiff>mindiff){
+            if(maxdiff>=0&&maxdiff<=10&&mindiff>=0&&mindiff<=10){
+                if(mindur>=0&&mindur<=10&&maxdur>=0&&maxdur<=10){
+                    if(maxdur>=mindur){
+                        if(maxdiff>=mindiff){
                             controller.getFilteredPaths(searchView, mindur, maxdur,  mindiff,  maxdiff,  pos,  access);
                         }
                         else throw new DifficultyMinMoreThanMaxException();

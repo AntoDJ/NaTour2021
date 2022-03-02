@@ -15,6 +15,7 @@ import com.example.natour2021.R;
 import com.google.android.material.slider.RangeSlider;
 
 import Controller.Controller;
+import Exception.*;
 
 
 public class SearchView extends AppCompatActivity {
@@ -65,11 +66,14 @@ public class SearchView extends AppCompatActivity {
             }
             mLastClickTime = SystemClock.elapsedRealtime();
             view.startAnimation(buttonClick);
-            if(posizione!=null){
-                Controller c = Controller.getInstance();
-                c.getFilteredPaths(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
+            try {
+                Controller.getInstance().checkFilters(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked());
             }
-            else Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();
+            catch(PositionNullException e1){Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();}
+            catch(DifficultyOutOfRangeException e2){Toast.makeText(this,"Difficoltà deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}
+            catch(DurationOutOfRangeException e3){Toast.makeText(this,"Durata deve essere tra 0 e 10 ore",Toast.LENGTH_LONG).show();}
+            catch(DifficultyMinMoreThanMaxException e4){Toast.makeText(this,"La difficoltà minima deve essere minore della massima",Toast.LENGTH_LONG).show();}
+            catch(DurationMinMoreThanMaxException e5){Toast.makeText(this,"La durata minima deve essere minore della massima",Toast.LENGTH_LONG).show();}
         });
     }
 }

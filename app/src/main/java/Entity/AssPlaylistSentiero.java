@@ -1,9 +1,9 @@
 package Entity;
 
 public class AssPlaylistSentiero {
-    String nomePlaylist;
-    String creatorePlaylist;
-    String nomeSentiero;
+    private String nomePlaylist;
+    private String creatorePlaylist;
+    private String nomeSentiero;
 
     public AssPlaylistSentiero(String nomePlaylist, String creatorePlaylist) {
         this.nomePlaylist = nomePlaylist;

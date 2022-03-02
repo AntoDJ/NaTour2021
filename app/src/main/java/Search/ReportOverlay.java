@@ -16,10 +16,13 @@ import android.widget.Toast;
 import com.example.natour2021.R;
 
 import Controller.Controller;
+import Exception.*;
 
 public class ReportOverlay extends Fragment {
     private long mLastClickTime = 0;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
+    private String nomesentiero;
+    private String creatoresentiero;
 
     public ReportOverlay() {
         // Required empty public constructor
@@ -34,6 +37,8 @@ public class ReportOverlay extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            nomesentiero=getArguments().getString("nomesentiero");
+            creatoresentiero=getArguments().getString("creatore");
         }
     }
 
@@ -60,8 +65,21 @@ public class ReportOverlay extends Fragment {
             view.startAnimation(buttonClick);
             mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
-            ((DetailView)getActivity()).ReportPath(reportMotivation.getText().toString().trim());
-            c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+            try {
+                c.checkReport((DetailView) getActivity(), nomesentiero,"", reportMotivation.getText().toString().trim() ,creatoresentiero);
+                c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+            }
+            catch(AnswerNotEmptyException e1){Toast.makeText(getContext(),"Non deve esserci una risposta",Toast.LENGTH_LONG).show();}
+            catch(MotivationWrongSizeException e2){Toast.makeText(getContext(),"La motivazione non deve essere vuota e deve essere massimo di 200 caratteri",Toast.LENGTH_LONG).show();}
+            catch(CreatorWrongSizeException e3){Toast.makeText(getContext(),"Il creatore non deve essere vuoto e deve essere massimo di 50 caratteri",Toast.LENGTH_LONG).show();}
+            catch(ReporterWrongSizeException e4){Toast.makeText(getContext(),"Il segnalante non deve essere vuoto e deve essere massimo di 50 caratteri",Toast.LENGTH_LONG).show();}
+            catch(CreatorEqualsReporterException e5){
+                Toast.makeText(getContext(),"Non puoi segnalare un tuo sentiero",Toast.LENGTH_LONG).show();
+                c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+            }
+            catch(NamePathWrongSizeException e6){Toast.makeText(getContext(),"Il nome del sentiero non deve essere vuoto e deve essere massimo di 100 caratteri",Toast.LENGTH_LONG).show();}
+
+
         });
         return view;
 

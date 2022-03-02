@@ -53,7 +53,6 @@ public class Controller {
     private ReportDAO reportDAO;
     private SharedPreferences sharedPref;
     private LoginView loginView;
-    private CreateView createView;
     private NotificationFragment notificationFragment;
     private PersonalDetailView personalDetailView;
     private PlaylistView playlistView;
@@ -496,7 +495,7 @@ public class Controller {
     public void getNotification(NotificationFragment notificationFragment) {
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
 
-        Report report = new Report(0, null,null,null, creatore);
+        Report report = new Report(0, null,null,null,null, creatore);
         Call<ArrayList<Report>> call = reportDAO.getNotification(report);
         call.enqueue(new Callback<ArrayList<Report>>() {
             @Override
@@ -803,10 +802,6 @@ public class Controller {
         homeFragment.startActivity(i);
     }
 
-    public void setCreateView(CreateView createView){
-        this.createView = createView;
-    }
-
     public MapViewFragment openInsertPath(CreateView createView){
         FragmentManager fragmentManager = createView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -816,26 +811,26 @@ public class Controller {
         return mapViewFragment;
     }
 
-    public void checkPath(String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate, Controller controller) throws NameWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfBoundException, DifficultyOutOfBoundException {
+    public void checkPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate, Controller controller) throws NamePathWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfRangeException, DifficultyOutOfRangeException {
         if(nome.length()!=0&&nome.length()<100){
             if(!puntoiniziale.equals("")&&coordinate.length()<5000){
                 if(descrizione.length()<200){
                     if(durata>=0&&durata<=10){
                         if(difficolta>=0&&difficolta<=10){
-                            controller.createPath(nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
+                            controller.createPath(createView, nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
                         }
-                        else throw new DifficultyOutOfBoundException();
+                        else throw new DifficultyOutOfRangeException();
                     }
-                    else throw new DurationOutOfBoundException();
+                    else throw new DurationOutOfRangeException();
                 }
                 else throw new DescriptionWrongSizeException();
             }
             else throw new PathWrongSizeException();
         }
-        else throw new NameWrongSizeException();
+        else throw new NamePathWrongSizeException();
     }
 
-    public void createPath(String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
+    public void createPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate) {
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         Path tmpPath = new Path( nome, coordinate, puntoiniziale, difficolta, descrizione, access, creatore, durata);
         Call<Path> call = pathDAO.insertPath(tmpPath);
@@ -863,6 +858,27 @@ public class Controller {
         Intent i= new Intent(homeFragment.getActivity(), SearchView.class);
         homeFragment.startActivity(i);
     }
+
+    public void checkFilters(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) throws DifficultyOutOfRangeException, DurationOutOfRangeException, PositionNullException, DurationMinMoreThanMaxException, DifficultyMinMoreThanMaxException {
+        if(!pos.equals("")){
+            if(maxdiff>0&&maxdiff<10&&mindiff>0&&mindiff<10){
+                if(mindur>0&&mindur<10&&maxdur>0&&maxdur<10){
+                    if(maxdur>mindur){
+                        if(maxdiff>mindiff){
+                            getFilteredPaths(searchView, mindur, maxdur,  mindiff,  maxdiff,  pos,  access);
+                        }
+                        else throw new DifficultyMinMoreThanMaxException();
+                    }
+                    else throw new DurationMinMoreThanMaxException();
+                }
+                else throw new DurationOutOfRangeException();
+            }
+            else throw new DifficultyOutOfRangeException();
+        }
+        else throw new PositionNullException();
+    }
+
+
 
     public void getFilteredPaths(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access) {
         String[] parts = pos.split(" ");
@@ -943,22 +959,48 @@ public class Controller {
 
     //SEGNALAZIONE SENTIERO
 
-    public ReportOverlay openReportOverlay(DetailView detailView){
+    public ReportOverlay openReportOverlay(DetailView detailView, String nomesentiero, String creatore){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ReportOverlay reportOverlay = new ReportOverlay();
+        Bundle bundle = new Bundle();
+        bundle.putString("nomesentiero",nomesentiero);
+        bundle.putString("creatore",creatore);
+        reportOverlay.setArguments(bundle);
         fragmentTransaction.add(R.id.detailOverlayContainer, reportOverlay, null);
         fragmentTransaction.commit();
         return reportOverlay;
     }
 
-    public void reportPath(DetailView detailView, String nomesentiero, String motivazione, String segnalato) {
+    public void checkReport(DetailView detailView, String nomesentiero, String risposta, String motivazione, String segnalato) throws NamePathWrongSizeException, CreatorWrongSizeException, AnswerNotEmptyException, ReporterWrongSizeException, MotivationWrongSizeException, CreatorEqualsReporterException {
         String segnalante = sharedPref.getString(String.valueOf(R.string.logged_email),"");
-        if(segnalante.equals(segnalato)) {
-            Report report = new Report(1, motivazione, nomesentiero, segnalante, segnalato);
-            Call<Report> call = reportDAO.reportPath(report);
+        if(!segnalante.equals("")&&segnalante.length()<50){
+            if(!segnalato.equals("")&&segnalato.length()<50){
+                if(!nomesentiero.equals("")&&nomesentiero.length()<100){
+                    if(!segnalante.equals(segnalato)){
+                        if(!motivazione.equals("")&&motivazione.length()<200){
+                            if(risposta.equals("")){
+                                reportPath(detailView, nomesentiero, risposta, motivazione, segnalato, segnalante);
+                            }
+                            else throw new AnswerNotEmptyException();
+                        }
+                        else throw new MotivationWrongSizeException();
+                    }
+                    else throw new CreatorEqualsReporterException();
+                }
+                else throw new NamePathWrongSizeException();
+            }
+            else throw new CreatorWrongSizeException();
+        }
+        else throw new ReporterWrongSizeException();
+    }
 
-            call.enqueue(new Callback<Report>() {
+    public void reportPath(DetailView detailView, String nomesentiero, String risposta, String motivazione, String segnalato, String segnalante) {
+
+        Report report = new Report(1, motivazione,risposta, nomesentiero, segnalante, segnalato);
+        Call<Report> call = reportDAO.reportPath(report);
+
+        call.enqueue(new Callback<Report>() {
                 @Override
                 public void onResponse(Call<Report> call, Response<Report> response) {
                     if (response.body() != null) {
@@ -971,14 +1013,12 @@ public class Controller {
                 public void onFailure(Call<Report> call, Throwable t) {
                     bigError(detailView);
                 }
-            });
-        }
-        else Toast.makeText(detailView, "Non puoi segnalarti da solo", Toast.LENGTH_LONG).show();
+        });
     }
 
     // AGGIUNTA ALLA PLAYLIST
 
-    public addToPlaylistOverlay addToPlaylistOverlay(DetailView detailView){
+    public addToPlaylistOverlay addToPlaylistOverlay(DetailView detailView, String nomesentiero){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         addToPlaylistOverlay addtoplaylistoverlay = new addToPlaylistOverlay();
@@ -999,7 +1039,7 @@ public class Controller {
                     if(response.body().getNomeSentiero()!=null) {
                         Toast.makeText(detailView, "Sentiero aggiunto alla playlist", Toast.LENGTH_LONG).show();
                     }
-                    else Toast.makeText(detailView,"Errore nella playlist, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                    else Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
                 }
                 else Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
             }

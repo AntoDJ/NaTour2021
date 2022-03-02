@@ -74,13 +74,16 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
             view.startAnimation(buttonClick);
-            addtoPlaylistOverlay = Controller.getInstance().addToPlaylistOverlay(DetailView.this);
+            addtoPlaylistOverlay = Controller.getInstance().addToPlaylistOverlay(DetailView.this,
+                    i.getStringExtra("nomesentiero"));
         });
 
         Button reportButton=(Button) findViewById(R.id.reportButton);
         reportButton.setOnClickListener(view -> {
             view.startAnimation(buttonClick);
-            reportOverlay= Controller.getInstance().openReportOverlay(this);
+            reportOverlay= Controller.getInstance().openReportOverlay(this,
+                    i.getStringExtra("nomesentiero"),
+                    i.getStringExtra("creatore"));
         });
 
     }
@@ -90,12 +93,6 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
 
     public ArrayList<String> getCoordinate(){
         return coordinate;
-    }
-
-    public void ReportPath(String Motivazione){
-        Intent i = getIntent();
-        Controller c = Controller.getInstance();
-        c.reportPath(DetailView.this, i.getStringExtra("nomesentiero"), Motivazione, i.getStringExtra("creatore"));
     }
 
     public void addToPlaylist(String nomePlaylist){

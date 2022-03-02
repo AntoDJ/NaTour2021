@@ -96,13 +96,13 @@ public class Path {
 
     public static class PathToFilter{
 
-        float durataMin;
-        float durataMax;
-        float difficoltaMin;
-        float difficoltaMax;
-        String latitudine;
-        String longitudine;
-        String accessibilita;
+        private float durataMin;
+        private float durataMax;
+        private float difficoltaMin;
+        private float difficoltaMax;
+        private String latitudine;
+        private String longitudine;
+        private String accessibilita;
 
         public PathToFilter(float durataMin, float durataMax, float difficoltaMin, float difficoltaMax, String latitudine, String longitudine, boolean accessibilita) {
             this.durataMin = durataMin;
@@ -112,12 +112,6 @@ public class Path {
             this.latitudine = latitudine;
             this.longitudine = longitudine;
             this.accessibilita = String.valueOf(accessibilita);
-        }
-
-
-
-        public String isAccessibilita() {
-            return String.valueOf(accessibilita);
         }
     }
 

@@ -3,9 +3,9 @@ package Entity;
 import java.util.ArrayList;
 
 public class Playlist {
-    String nome;
-    String creatore;
-    ArrayList<String> arrayPath;
+    private String nome;
+    private String creatore;
+    private ArrayList<String> arrayPath;
 
     public Playlist(String nome, String creatore) {
         this.nome = nome;

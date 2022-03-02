@@ -1,16 +1,9 @@
 package com.example.natour2021;
 
-import org.junit.Before;
 import org.junit.Test;
-
 import Exception.*;
-
 import static org.junit.Assert.*;
-
-import android.widget.Toast;
-
 import Controller.*;
-import Search.DetailView;
 
 public class NaTourTest {
 
@@ -308,9 +301,9 @@ public class NaTourTest {
 // CHECK REPORT
 
     @Test
-    public void checkReportSuccess(){
+    public void checkReportTestSuccess(){
         try {
-            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" ,"io", Controller_Stub.getInstance());
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tu","io", Controller_Stub.getInstance());
             assertTrue(true);
         }
         catch(AnswerNotEmptyException e1){fail();}
@@ -321,5 +314,155 @@ public class NaTourTest {
         catch(NamePathWrongSizeException e6){fail();}
 
     }
+
+    @Test
+    public void checkReportTestReporterNull(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){assertTrue(true);}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestReporterTooBig(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tutututututututututututututututuututututututututututututututututututu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){assertTrue(true);}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestCreatorNull(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tu","", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){assertTrue(true);}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestCreatorTooBig(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tu","ioioioioioioioioioioioioioioioioioioioioioioioioioioioioioio", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){assertTrue(true);}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestNamePathNull(){
+        try {
+            Controller.getInstance().checkReport(null, "","", "Brutto" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){assertTrue(true);}
+
+    }
+
+    @Test
+    public void checkReportTestNamePathTooBig(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero1111111111111111111111111111111111111111111111111111111Sentiero1111111111111111111111111111111111111111111111111111111","", "Brutto" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){assertTrue(true);}
+
+    }
+    @Test
+    public void checkReportTestMotivationNull(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){assertTrue(true);}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestMotivationTooBig(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Sentiero11111111111111111111111111111111111111111111Sentiero1111111111111111111111111111111111111111111111111111111Sentiero111111111111111111111111111111111111111111111111111111111111111111Sentiero1111111111111111111111111111111111111111111111111111111" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){assertTrue(true);}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestCreatorEqualsReporter(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "io","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){assertTrue(true);}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestAnswerNotEmpty(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","io tu", "Brutto" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){assertTrue(true);}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
 
 }

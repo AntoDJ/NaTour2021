@@ -3,14 +3,12 @@ package Search;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -23,19 +21,20 @@ import java.util.ArrayList;
 import Controller.Controller;
 import Login.ui.playlist.PlaylistViewModel;
 
-public class addToPlaylistOverlay extends Fragment {
+public class addToPlaylistFragment extends Fragment {
     private long mLastClickTime = 0;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
+    private String namePath;
 
     private PlaylistViewModel playlistViewModel;
     private FragmentPlaylistBinding binding;
 
-    public addToPlaylistOverlay() {
+    public addToPlaylistFragment() {
         // Required empty public constructor
     }
 
-    public static addToPlaylistOverlay newInstance() {
-        addToPlaylistOverlay fragment = new addToPlaylistOverlay();
+    public static addToPlaylistFragment newInstance() {
+        addToPlaylistFragment fragment = new addToPlaylistFragment();
         Bundle args = new Bundle();;
         fragment.setArguments(args);
         return fragment;
@@ -45,6 +44,7 @@ public class addToPlaylistOverlay extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            namePath=getArguments().getString("nomeSentiero");
         }
     }
 
@@ -52,7 +52,7 @@ public class addToPlaylistOverlay extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
-        view=inflater.inflate(R.layout.fragment_add_to_playlist_overlay, container, false);
+        view=inflater.inflate(R.layout.fragment_add_to_playlist, container, false);
 
         ListView PlaylistList = (ListView) view.findViewById(R.id.overlayPlaylistView);
         ArrayList<String> playlist = new ArrayList<String>();
@@ -67,8 +67,7 @@ public class addToPlaylistOverlay extends Fragment {
             }
             mLastClickTime = SystemClock.elapsedRealtime();
             Controller c = Controller.getInstance();
-            ((DetailView)getActivity()).addToPlaylist(PlaylistList.getItemAtPosition(i).toString());
-            c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
+            c.addPathToPlaylist((DetailView)getActivity(), namePath,PlaylistList.getItemAtPosition(i).toString());
         });
         Button backButton= (Button) view.findViewById(R.id.backButton);
         backButton.setOnClickListener(view1 -> {

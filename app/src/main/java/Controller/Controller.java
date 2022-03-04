@@ -1091,10 +1091,13 @@ public class Controller {
 
     // AGGIUNTA ALLA PLAYLIST
 
-    public addToPlaylistOverlay addToPlaylistOverlay(DetailView detailView, String nomesentiero){
+    public addToPlaylistFragment addToPlaylistFragment(DetailView detailView, String nomesentiero){
         FragmentManager fragmentManager = detailView.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        addToPlaylistOverlay addtoplaylistoverlay = new addToPlaylistOverlay();
+        addToPlaylistFragment addtoplaylistoverlay = new addToPlaylistFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("nomeSentiero",nomesentiero);
+        addtoplaylistoverlay.setArguments(bundle);
         fragmentTransaction.add(R.id.detailOverlayContainer, addtoplaylistoverlay, null);
         fragmentTransaction.commit();
         return addtoplaylistoverlay;
@@ -1112,6 +1115,7 @@ public class Controller {
                     if(response.body().getNomeSentiero()!=null) {
                         Toast.makeText(detailView, "Sentiero aggiunto alla playlist", Toast.LENGTH_LONG).show();
                         Log.i("Error","Sentiero aggiunto alla playlist ");
+                        cleanFragment(detailView.findViewById(R.id.detailOverlayContainer));
                     }
                     else{
                         Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();

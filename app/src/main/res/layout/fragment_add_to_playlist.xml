@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fragment_shape"
     android:clickable="true"
-    tools:context="Search.addToPlaylistOverlay">
+    tools:context="Search.addToPlaylistFragment">
 
     <TextView
         android:id="@+id/playlistTextView"

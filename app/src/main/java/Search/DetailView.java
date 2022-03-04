@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.material.slider.Slider;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +21,7 @@ import Controller.Controller;
 
 public class DetailView extends AppCompatActivity implements DetailInterface{
     private ReportOverlay reportOverlay;
-    private addToPlaylistOverlay addtoPlaylistOverlay;
+    private addToPlaylistFragment addtoPlaylistFragment;
     private String puntoiniziale;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private ArrayList<String> coordinate;
@@ -74,7 +72,7 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         Button playlistButton=(Button) findViewById(R.id.playlistButton);
         playlistButton.setOnClickListener(view -> {
             view.startAnimation(buttonClick);
-            addtoPlaylistOverlay = Controller.getInstance().addToPlaylistOverlay(DetailView.this,
+            addtoPlaylistFragment = Controller.getInstance().addToPlaylistFragment(DetailView.this,
                     i.getStringExtra("nomesentiero"));
         });
 
@@ -95,19 +93,13 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
         return coordinate;
     }
 
-    public void addToPlaylist(String nomePlaylist){
-        Intent i = getIntent();
-        Controller c = Controller.getInstance();
-        c.addPathToPlaylist(DetailView.this, i.getStringExtra("nomesentiero"),nomePlaylist);
-    }
-
     @Override
     public void onBackPressed() {
-        if(reportOverlay!=null||addtoPlaylistOverlay!=null){
+        if(reportOverlay!=null|| addtoPlaylistFragment !=null){
             Controller c = Controller.getInstance();
             c.cleanFragment(findViewById(R.id.detailOverlayContainer));
             reportOverlay=null;
-            addtoPlaylistOverlay=null;
+            addtoPlaylistFragment =null;
         }
         else super.onBackPressed();
     }

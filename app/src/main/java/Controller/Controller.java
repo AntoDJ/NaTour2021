@@ -101,6 +101,8 @@ public class Controller {
         String email = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         String tipo = sharedPref.getString(String.valueOf(R.string.tipo_login),"");
 
+        Log.i("Tipo login", tipo);
+
         switch(tipo){
             case "normale":
                 Amplify.Auth.signIn(
@@ -158,6 +160,7 @@ public class Controller {
                     loginView.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(loginView, "Credenziali Errate", Toast.LENGTH_SHORT).show();
+                            Log.e("Error: ", " Credenziali Errate");
                         }
                     });
                 }
@@ -199,12 +202,15 @@ public class Controller {
                     switch(error.getClass().getSimpleName()){
                         case "LimitExceededException":
                             Toast.makeText(loginView, "Hai provato a fare il reset della password troppe volte, sarai bloccato per 24 ore dal riprovare",Toast.LENGTH_LONG).show();
+                            Log.e("Error: ", " reset troppe volte");
                             break;
                         case "UserNotFoundException":
                             Toast.makeText(loginView, "Utente non registrato",Toast.LENGTH_LONG).show();
+                            Log.e("Error: ", "Utente non registrato");
                             break;
                         default:
                             Toast.makeText(loginView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                            Log.e("Error: ", "Errore grave, contatta gli amministratori");
                     }
                 }
         );
@@ -219,6 +225,7 @@ public class Controller {
                     loginView.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(loginView, "Password Cambiata con successo", Toast.LENGTH_SHORT).show();
+                            Log.i("Success: ", "Password cambiata con successo");
                         }
                     });
                 },
@@ -230,6 +237,7 @@ public class Controller {
                             loginView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(loginView, "Devi prima farti mandare il codice sopra",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Mandare prima codice");
                                 }
                             });
                             break;
@@ -237,6 +245,7 @@ public class Controller {
                             loginView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(loginView, "Codice errato",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Codice errato");
                                 }
                             });
                             break;
@@ -245,6 +254,7 @@ public class Controller {
                             loginView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(loginView, "La password deve essere almeno di 8 caratteri",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Password almeno 8 caratteri");
                                 }
                             });
                             break;
@@ -252,6 +262,7 @@ public class Controller {
                             loginView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(loginView, "Hai provato troppe volte a cambiare la password, sarai bloccato per 24 ore dal riprovare",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Provato troppe volte");
                                 }
                             });
                             break;
@@ -259,6 +270,7 @@ public class Controller {
                             loginView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(loginView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Errore grave, contatta gli amministratori");
                                 }
                             });
                     }
@@ -287,6 +299,7 @@ public class Controller {
                             registrationView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(registrationView, "La password deve essere di 8 caratteri",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Password almeno 8 caratteri");
                                 }
                             });
                             break;
@@ -294,6 +307,7 @@ public class Controller {
                             registrationView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(registrationView, "Email o password non validi",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Email o password non validi");
                                 }
                             });
                             break;
@@ -301,6 +315,7 @@ public class Controller {
                             registrationView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(registrationView, "Email già registrata",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Email già registrata");
                                 }
                             });
                             break;
@@ -308,6 +323,7 @@ public class Controller {
                             registrationView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(registrationView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Errore grave, contatta gli amministratori");
                                 }
                             });
                 }
@@ -338,6 +354,7 @@ public class Controller {
                     registrationView.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(registrationView, "Codice sbagliato", Toast.LENGTH_LONG).show();
+                            Log.e("Error: ", "Codice sbagliato");
                         }
                     });
                 }
@@ -357,6 +374,7 @@ public class Controller {
             public void onResponse(Call<User> call, Response<User> response) {
 
                 Toast.makeText(registrationView, "Registrazione eseguita con successo", Toast.LENGTH_LONG).show();
+                Log.i("Success: ", "Registrazione eseguita con successo");
                 cleanFragment(frameLayout);
                 registrationView.finish();
             }
@@ -364,6 +382,7 @@ public class Controller {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 bigError(registrationView);
+                Log.e("BigError: ", "Errore inserimento utente nel db");
             }
         });
     }
@@ -375,11 +394,13 @@ public class Controller {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                Log.i("Success: ", "Registrazione avvenuta con successo");
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 bigError(loginView);
+                Log.e("BigError: ", "Errore inserimento utente nel db");
             }
         });
     }
@@ -416,6 +437,7 @@ public class Controller {
                     homeView.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(homeView, "Logout effettuato con successo", Toast.LENGTH_LONG).show();
+                            Log.i("Success: ", "Logout effettuato con successo");
                         }
                     });
                 },
@@ -449,6 +471,7 @@ public class Controller {
                         public void run() {
                             cleanFragment(frameLayout);
                             Toast.makeText(homeView, "Password cambiata con successo", Toast.LENGTH_LONG).show();
+                            Log.i("Success: ", "Password cambiata con successo");
                         }
                     });
                 },
@@ -461,6 +484,7 @@ public class Controller {
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(homeView, "La password deve essere di 8 caratteri",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Password almeno di 8 caratteri");
                                 }
                             });
                             break;
@@ -468,13 +492,15 @@ public class Controller {
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(homeView, "Hai provato a cambiare troppe volte la password senza successo, sarai bloccato per 24 ore",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Provato a cambiare password troppe volte");
                                 }
                             });
                             break;
                         case "NotAuthorizedException":
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
-                                    Toast.makeText(homeView, "Password vecchia vbagliata",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(homeView, "Password vecchia sbagliata",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Password vecchia sbagliata");
                                 }
                             });
                             break;
@@ -482,6 +508,7 @@ public class Controller {
                             homeView.runOnUiThread(new Runnable() {
                                 public void run() {
                                     Toast.makeText(homeView, "Errore grave, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                                    Log.e("Error: ", "Errore grave, contatta gli amministratori");
                                 }
                             });
                     }
@@ -515,6 +542,7 @@ public class Controller {
             @Override
             public void onFailure(Call<ArrayList<Report>> call, Throwable t) {
                 bigError(notificationFragment.getActivity());
+                Log.e("BigError: ", "errore recupero notifiche");
             }
         });
     }
@@ -545,15 +573,18 @@ public class Controller {
                 if(response.body()!=null){
                     notificationFragment.removeNotification(idnotifica);
                     Toast.makeText(notificationFragment.getContext(), "Risposta inviata con successo",Toast.LENGTH_LONG).show();
+                    Log.e("Error: ", "Risposta inviata con successo");
                 }
                 else{
                     Toast.makeText(notificationFragment.getContext(), "Errore nella risposta, contatta gli amministratori",Toast.LENGTH_LONG).show();
+                    Log.e("Error: ", "Errore nella risposta, contatta gli amministratori");
                 }
             }
 
             @Override
             public void onFailure(Call<Report> call, Throwable t) {
                 bigError(notificationFragment.getActivity());
+                Log.e("BigError: ", "errore aggiunta playlist");
             }
         });
 
@@ -574,12 +605,17 @@ public class Controller {
                 if(paths.size()!=0) {
                     openPlayListView(playlistFragment, paths, nomePlaylist);
                 }
-                else  Toast.makeText(playlistFragment.getContext(),"Non ci sono sentieri nella playlist "+nomePlaylist,Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(playlistFragment.getContext(), "Non ci sono sentieri nella playlist " + nomePlaylist, Toast.LENGTH_LONG).show();
+                    Log.i("Error: ", "Playlist vuota");
+                }
+
             }
 
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
                 bigError(playlistFragment.getActivity());
+                Log.e("BigError: ", "errore aggiunta playlist");
             }
         });
     }
@@ -609,11 +645,15 @@ public class Controller {
                     Controller c = Controller.getInstance();
                     c.openPlaylistDetailsView(playlistView, nomePlaylist, response.body());
                 }
-                else Toast.makeText(playlistView,"Errore nel recupero dei dettagli del sentiero, ricarica la playlist",Toast.LENGTH_LONG).show();
+                else{
+                    Toast.makeText(playlistView,"Errore nel recupero dei dettagli del sentiero, ricarica la playlist",Toast.LENGTH_LONG).show();
+                    Log.e("Error","Errore nel recupero dei dettagli del sentiero");
+                }
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(playlistView);
+                Log.e("BigError","Errore nel recupero dei dettagli");
             }
         });
     }
@@ -656,12 +696,17 @@ public class Controller {
                 if (response.body()!=null) {
                     playlistDetailsView.finish();
                     playlistView.removePathView(nomeSentiero);
+                    Log.i("Success","Rimosso sentiero dalla playlist");
                 }
-                else Toast.makeText(playlistDetailsView,"Errore nella cancellazione del sentiero dalla playlist, ricarica la playlist", Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(playlistDetailsView, "Errore nella cancellazione del sentiero dalla playlist, ricarica la playlist", Toast.LENGTH_LONG).show();
+                    Log.e("Success", "Errore nella cancellazione del sentiero dalla playlist");
+                }
             }
             @Override
             public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
                 bigError(playlistDetailsView);
+                Log.e("BigError","Errore nella cancellazione del sentiero dalla playlist");
             }
         });
 
@@ -689,6 +734,7 @@ public class Controller {
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
                 bigError(personalPlaylistView.getActivity());
+                Log.e("BigError","Errore recupero sentieri");
             }
         });
     }
@@ -704,11 +750,16 @@ public class Controller {
                     Controller c = Controller.getInstance();
                     c.openPersonalDetailsView(homeView, response.body());
                 }
-                else bigError(homeView);
+                else {
+                    bigError(homeView);
+                    Log.e("Error", "Errore recupero dettagli sentiero");
+                }
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(homeView);
+                Log.e("BigError","Errore recupero dettagli sentiero");
+
             }
         });
     }
@@ -752,11 +803,13 @@ public class Controller {
                 personalDetailView.finish();
                 Toast.makeText(personalPlaylistView.getContext(),"Sto ricaricando i sentieri", Toast.LENGTH_LONG).show();
                 getPersonalPaths(personalPlaylistView);
+                Log.i("Success","Sentiero eliminato");
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(personalDetailView);
+                Log.e("BigError","Errore eliminazione sentiero");
             }
         });
     }
@@ -784,13 +837,18 @@ public class Controller {
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body()!=null) {
                     personalDetailView.updatePath(descrizione, durata, difficolta);
+                    Log.e("Success","Path modificato");
                 }
-                else bigError(modificationView);
+                else {
+                    bigError(modificationView);
+                    Log.e("Error", "Errore modifica sentiero");
+                }
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(modificationView);
+                Log.e("BigError","Errore modifica sentiero");
             }
         });
     }
@@ -840,14 +898,19 @@ public class Controller {
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body().getNomeSentiero()!=null){
                     Toast.makeText(createView, "Sentiero creato con successo", Toast.LENGTH_LONG).show();
+                    Log.i("Success","Sentiero creato con successo");
                     createView.finish();
                 }
-                else Toast.makeText(createView, "Esiste già un sentiero con questo nome o questo punto iniziale", Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(createView, "Esiste già un sentiero con questo nome o questo punto iniziale", Toast.LENGTH_LONG).show();
+                    Log.e("Error", "Esiste già un sentiero con questo nome o questo punto iniziale");
+                }
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(createView);
+                Log.e("BigError","Impossibile creare sentiero");
             }
         });
     }
@@ -892,11 +955,15 @@ public class Controller {
                 if(paths != null&& paths.size()!=0) {
                     searchPaths(searchView, paths);
                 }
-                else Toast.makeText(searchView,"Non esistono sentieri che corrispondono a questi filtri",Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(searchView,"Non esistono sentieri che corrispondono a questi filtri",Toast.LENGTH_LONG).show();
+                    Log.e("Error","Impossibile creare sentiero");
+                }
             }
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
                 bigError(searchView);
+                Log.e("BigError","Errore recupero sentiero filtrati");
             }
         });
     }
@@ -935,11 +1002,15 @@ public class Controller {
                 if(response.body()!=null) {
                     detailView(resultview, response.body());
                 }
-                else bigError(resultview);
+                else {
+                    bigError(resultview);
+                    Log.e("Error","Impossibile recuperare dettagli sentiero");
+                }
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(resultview);
+                Log.e("BigError","Impossibile recuperare dettagli sentiero ");
             }
         });
     }
@@ -1004,13 +1075,16 @@ public class Controller {
                 public void onResponse(Call<Report> call, Response<Report> response) {
                     if (response.body() != null) {
                         Toast.makeText(detailView, "Segnalazione fatta", Toast.LENGTH_LONG).show();
+                        Log.i("Success","Sentiero reportato");
                     } else
                         Toast.makeText(detailView, "Segnalazione fallita", Toast.LENGTH_LONG).show();
+                    Log.e("Error","Impossibile segnalare sentiero ");
                 }
 
                 @Override
                 public void onFailure(Call<Report> call, Throwable t) {
                     bigError(detailView);
+                    Log.e("BigError","Impossibile segnalare sentiero ");
                 }
         });
     }
@@ -1037,15 +1111,23 @@ public class Controller {
                 if(response.body()!=null){
                     if(response.body().getNomeSentiero()!=null) {
                         Toast.makeText(detailView, "Sentiero aggiunto alla playlist", Toast.LENGTH_LONG).show();
+                        Log.i("Error","Sentiero aggiunto alla playlist ");
                     }
-                    else Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
+                    else{
+                        Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
+                        Log.e("Error","Hai già il sentiero nella playlist");
+                    }
                 }
-                else Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(detailView,"Hai già il sentiero nella playlist",Toast.LENGTH_LONG).show();
+                    Log.e("Error","Hai già il sentiero nella playlist");
+                }
             }
 
             @Override
             public void onFailure(Call<AssPlaylistSentiero> call, Throwable t) {
                 bigError(detailView);
+                Log.e("BigError","Errore inserimento sentiero nella playlist");
             }
         });
     }
@@ -1060,12 +1142,14 @@ public class Controller {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.body()!=null && response.body().isAdmin()){
                     homeFragment.setAdmin(response.body().isAdmin());
+                    Log.i("Success","E' admin");
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 bigError(homeFragment.getActivity());
+                Log.e("BigError","Errore controllo admin");
             }
         });
     }
@@ -1089,6 +1173,7 @@ public class Controller {
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
                 bigError(adminView);
+                Log.e("BigError","Errore ricerca Path Admin");
             }
         });
 
@@ -1108,7 +1193,10 @@ public class Controller {
             i.putExtra("creatoriSentieri", creatoriSentieri);
             adminView.startActivity(i);
         }
-        else Toast.makeText(adminView,"Non esistono sentieri che cominciano con questi caratteri",Toast.LENGTH_LONG).show();
+        else {
+            Toast.makeText(adminView,"Non esistono sentieri che cominciano con questi caratteri",Toast.LENGTH_LONG).show();
+            Log.e("Error","Non esistono sentieri che cominciano con questi caratteri");
+        }
     }
 
     //DETTAGLI AMMINISTRATORI
@@ -1123,11 +1211,15 @@ public class Controller {
                 if(response.body()!=null) {
                     adminDetailView(adminResultView, response.body());
                 }
-                else bigError(adminResultView);
+                else{
+                    bigError(adminResultView);
+                    Log.e("BigError","Errore nel recupero dei dettagli del sentiero");
+                }
             }
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(adminResultView);
+                Log.e("BigError","Errore nel recupero dei dettagli del sentiero");
             }
         });
     }
@@ -1171,13 +1263,16 @@ public class Controller {
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body()!=null) {
                     adminModificationView.finish();
+                    Log.i("Success","Sentiero modificato da admin");
                 }
                 else bigError(adminModificationView);
+                Log.e("BigError","Errore nella modifica del sentiero");
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(adminModificationView);
+                Log.e("BigError","Errore nella modifica del sentiero");
             }
         });
     }
@@ -1203,11 +1298,13 @@ public class Controller {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 adminDetailView.finish();
+                Log.i("Success","Errore nella modifica del sentiero");
             }
 
             @Override
             public void onFailure(Call<Path> call, Throwable t) {
                 bigError(adminDetailView);
+                Log.e("BigError","Errore cancellazione sentiero");
             }
         });
     }

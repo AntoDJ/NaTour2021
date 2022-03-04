@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,11 +76,15 @@ public class ReportOverlay extends Fragment {
                 c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
             }
             catch(AnswerNotEmptyException e1){Toast.makeText(getContext(),"Non deve esserci una risposta",Toast.LENGTH_LONG).show();}
-            catch(MotivationWrongSizeException e2){Toast.makeText(getContext(),"La motivazione non deve essere vuota e deve essere massimo di 200 caratteri",Toast.LENGTH_LONG).show();}
+            catch(MotivationWrongSizeException e2){
+                Toast.makeText(getContext(),"La motivazione non deve essere vuota e deve essere massimo di 200 caratteri",Toast.LENGTH_LONG).show();
+                Log.e("Error","La motivazione non deve essere vuota e deve essere massimo di 200 caratteri");
+            }
             catch(CreatorWrongSizeException e3){Toast.makeText(getContext(),"Il creatore non deve essere vuoto e deve essere massimo di 50 caratteri",Toast.LENGTH_LONG).show();}
             catch(ReporterWrongSizeException e4){Toast.makeText(getContext(),"Il segnalante non deve essere vuoto e deve essere massimo di 50 caratteri",Toast.LENGTH_LONG).show();}
             catch(CreatorEqualsReporterException e5){
                 Toast.makeText(getContext(),"Non puoi segnalare un tuo sentiero",Toast.LENGTH_LONG).show();
+                Log.e("Error","Segnalazione proprio sentiero");
                 c.cleanFragment(getActivity().findViewById(R.id.detailOverlayContainer));
             }
             catch(NamePathWrongSizeException e6){Toast.makeText(getContext(),"Il nome del sentiero non deve essere vuoto e deve essere massimo di 100 caratteri",Toast.LENGTH_LONG).show();}

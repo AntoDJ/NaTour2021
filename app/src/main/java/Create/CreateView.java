@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -98,9 +99,18 @@ public class CreateView extends AppCompatActivity {
             try {
                 c.checkPath(this, nomeEditText.getText().toString().trim(), descrizioneEditText.getText().toString().trim(), durataSlider.getValue(), (int) difficoltaSlider.getValue(), accessibilitaCB.isChecked(), puntoInziale, coor, Controller.getInstance());
             }
-            catch(NamePathWrongSizeException e1) {Toast.makeText(this, "Il nome non può essere nullo e deve essere massimo 100 caratteri",Toast.LENGTH_LONG).show();}
-            catch(PathWrongSizeException e2) {Toast.makeText(this, "Il sentiero non deve essere vuoto o troppo lungo ",Toast.LENGTH_LONG).show();}
-            catch(DescriptionWrongSizeException e3) {Toast.makeText(this, "La descrizione deve essere di massimo 200 caratteri",Toast.LENGTH_LONG).show();}
+            catch(NamePathWrongSizeException e1) {
+                Toast.makeText(this, "Il nome non può essere nullo e deve essere massimo 100 caratteri",Toast.LENGTH_LONG).show();
+                Log.e("Error","Il nome non può essere nullo e deve essere massimo 100 caratteri");
+            }
+            catch(PathWrongSizeException e2) {
+                Toast.makeText(this, "Il sentiero non deve essere vuoto o troppo lungo ",Toast.LENGTH_LONG).show();
+                Log.e("Error","Il sentiero non deve essere vuoto o troppo lungo");
+            }
+            catch(DescriptionWrongSizeException e3) {
+                Toast.makeText(this, "La descrizione deve essere di massimo 200 caratteri",Toast.LENGTH_LONG).show();
+                Log.e("Error","Il sentiero non deve essere vuoto o troppo lungo");
+            }
             catch(DifficultyOutOfRangeException e4) {Toast.makeText(this, "Difficoltà deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}
             catch(DurationOutOfRangeException e5) {Toast.makeText(this, "Durata deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}
         });
@@ -179,6 +189,7 @@ public class CreateView extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this,"Il file che hai scelto non è un file valido",Toast.LENGTH_LONG).show();
+            Log.e("Error","Il file che hai scelto non è un file valido");
         }
 
         if(coordinateFromGPX!=null){

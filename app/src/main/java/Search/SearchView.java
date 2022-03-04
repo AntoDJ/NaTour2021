@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -69,7 +70,10 @@ public class SearchView extends AppCompatActivity {
             try {
                 Controller.getInstance().checkFilters(this, durataSlider.getValues().get(0), durataSlider.getValues().get(1), difficoltaSlider.getValues().get(0), difficoltaSlider.getValues().get(1), posizione, access.isChecked(), Controller.getInstance());
             }
-            catch(PositionNullException e1){Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();}
+            catch(PositionNullException e1){
+                Toast.makeText(this,"Seleziona un punto sulla mappa",Toast.LENGTH_LONG).show();
+                Log.e("Error","Selezionare almeno un punto sulla mappa");
+            }
             catch(DifficultyOutOfRangeException e2){Toast.makeText(this,"Difficoltà deve essere tra 0 e 10",Toast.LENGTH_LONG).show();}
             catch(DurationOutOfRangeException e3){Toast.makeText(this,"Durata deve essere tra 0 e 10 ore",Toast.LENGTH_LONG).show();}
             catch(DifficultyMinMoreThanMaxException e4){Toast.makeText(this,"La difficoltà minima deve essere minore della massima",Toast.LENGTH_LONG).show();}

@@ -18,25 +18,6 @@ public class AmplifyActivity extends Application {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
             Amplify.configure(getApplicationContext());
 
-/*            //registrazione utente
-            AuthSignUpOptions options = AuthSignUpOptions.builder()
-                    .userAttribute(AuthUserAttributeKey.email(), "antoniodig2017@gmail.com")
-                    .build();
-            Amplify.Auth.signUp("antoniodig2017@gmail.com", "Password123", options,
-                    result -> Log.i("AuthQuickStart", "Result: " + result.toString()),
-                    error -> Log.e("AuthQuickStart", "Sign up failed", error)
-            );
-
-
-            //controllo schermata di verifica codice mandato per email
-            Amplify.Auth.confirmSignUp(
-                    "antoniodig2017@gmail.com",
-                    "250886",
-                    result -> Log.i("AuthQuickstart", result.isSignUpComplete() ? "Confirm signUp succeeded" : "Confirm sign up not complete"),
-                    error -> Log.e("AuthQuickstart", error.toString())
-            );*/
-
-
             Log.i("MyAmplifyApp", "Initialized Amplify");
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);

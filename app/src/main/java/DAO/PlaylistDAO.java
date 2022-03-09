@@ -8,9 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface PlaylistDAO {
-    @POST("createplaylistofuser")
-    Call<Playlist> createPlaylistOfUser(@Body User user);
-
     @POST("addpathtoplaylist")
     Call<AssPlaylistSentiero> addPathToPlaylist(@Body AssPlaylistSentiero assPlaylistSentiero);
 

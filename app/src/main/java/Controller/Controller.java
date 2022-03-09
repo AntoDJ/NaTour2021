@@ -870,9 +870,9 @@ public class Controller {
     }
 
     public void checkPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate, Controller controller) throws NamePathWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfRangeException, DifficultyOutOfRangeException {
-        if(nome.length()!=0&&nome.length()<100){
-            if(!puntoiniziale.equals("")&&coordinate.length()<5000){
-                if(descrizione.length()<200){
+        if(nome!=null&&nome.length()!=0&&nome.length()<100){
+            if(puntoiniziale!=null&&!puntoiniziale.equals("")&&coordinate!=null&&coordinate.length()<5000){
+                if(descrizione!=null&&descrizione.length()<200){
                     if(durata>=0&&durata<=10){
                         if(difficolta>=0&&difficolta<=10){
                             controller.createPath(createView, nome, descrizione, durata, difficolta, access, puntoiniziale, coordinate);
@@ -923,7 +923,7 @@ public class Controller {
     }
 
     public void checkFilters(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access, Controller controller) throws DifficultyOutOfRangeException, DurationOutOfRangeException, PositionNullException, DurationMinMoreThanMaxException, DifficultyMinMoreThanMaxException {
-        if(!pos.equals("")){
+        if(pos!=null&&!pos.equals("")){
             if(maxdiff>=0&&maxdiff<=10&&mindiff>=0&&mindiff<=10){
                 if(mindur>=0&&mindur<=10&&maxdur>=0&&maxdur<=10){
                     if(maxdur>=mindur){
@@ -1044,12 +1044,12 @@ public class Controller {
     }
 
     public void checkReport(DetailView detailView, String nomesentiero, String risposta, String motivazione,String segnalante, String segnalato, Controller controller) throws NamePathWrongSizeException, CreatorWrongSizeException, AnswerNotEmptyException, ReporterWrongSizeException, MotivationWrongSizeException, CreatorEqualsReporterException {
-        if(!segnalante.equals("")&&segnalante.length()<50){
-            if(!segnalato.equals("")&&segnalato.length()<50){
-                if(!nomesentiero.equals("")&&nomesentiero.length()<100){
+        if(segnalante!=null&&!segnalante.equals("")&&segnalante.length()<50){
+            if(segnalato!=null&&!segnalato.equals("")&&segnalato.length()<50){
+                if(nomesentiero!=null&&!nomesentiero.equals("")&&nomesentiero.length()<100){
                     if(!segnalante.equals(segnalato)){
-                        if(!motivazione.equals("")&&motivazione.length()<200){
-                            if(risposta.equals("")){
+                        if(motivazione!=null&&!motivazione.equals("")&&motivazione.length()<200){
+                            if(risposta!=null&&risposta.equals("")){
                                 controller.reportPath(detailView, nomesentiero, risposta, motivazione, segnalato, segnalante);
                             }
                             else throw new AnswerNotEmptyException();

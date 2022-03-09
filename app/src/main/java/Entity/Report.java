@@ -1,12 +1,12 @@
 package Entity;
 
 public class Report {
-    int idSegnalazione;
-    String descrizione;
-    String risposta;
-    String nomeSentiero;
-    String segnalante;
-    String segnalato;
+    private int idSegnalazione;
+    private String descrizione;
+    private String risposta;
+    private String nomeSentiero;
+    private String segnalante;
+    private String segnalato;
 
     public Report(int idSegnalazione, String descrizione,String risposta, String nomeSentiero, String segnalante, String segnalato) {
         this.idSegnalazione = idSegnalazione;

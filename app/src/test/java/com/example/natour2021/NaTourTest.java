@@ -34,6 +34,20 @@ public class NaTourTest {
         catch(DifficultyOutOfRangeException e4) {fail();}
         catch(DurationOutOfRangeException e5) {fail();}
     }
+
+    @Test
+    public void checkPathTestNullName(){
+        try{
+            Controller.getInstance().checkPath(null, null,"Bello",5,5,true,"42.126194082552324 13.366356790065765", "37.82564356422479 9.068414904177189", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(NamePathWrongSizeException e1) {assertTrue(true);}
+        catch(PathWrongSizeException e2) {fail();}
+        catch(DescriptionWrongSizeException e3) {fail();}
+        catch(DifficultyOutOfRangeException e4) {fail();}
+        catch(DurationOutOfRangeException e5) {fail();}
+    }
+
     @Test
     public void checkPathTestTooLongName(){
         try{
@@ -61,6 +75,19 @@ public class NaTourTest {
     }
 
     @Test
+    public void checkPathTestNullStartPoint(){
+        try{
+            Controller.getInstance().checkPath(null,"Sentiero1","Bello",5,5,true,null, "37.82564356422479 9.068414904177189", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(NamePathWrongSizeException e1) {fail();}
+        catch(PathWrongSizeException e2) {assertTrue(true);}
+        catch(DescriptionWrongSizeException e3) {fail();}
+        catch(DifficultyOutOfRangeException e4) {fail();}
+        catch(DurationOutOfRangeException e5) {fail();}
+    }
+
+    @Test
     public void checkPathTestTooLongPath(){
         try{
             Controller.getInstance().checkPath(null,"Sentiero1","Bello",5,5,true,"42.126194082552324 13.366356790065765", "37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189 37.82564356422479 9.068414904177189", Controller_Stub.getInstance());
@@ -77,6 +104,19 @@ public class NaTourTest {
     public void checkPathTestTooLongDescription(){
         try{
             Controller.getInstance().checkPath(null,"Sentiero1","Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello Bello ",5,5,true,"42.126194082552324 13.366356790065765", "37.82564356422479 9.068414904177189", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(NamePathWrongSizeException e1) {fail();}
+        catch(PathWrongSizeException e2) {fail();}
+        catch(DescriptionWrongSizeException e3) {assertTrue(true);}
+        catch(DifficultyOutOfRangeException e4) {fail();}
+        catch(DurationOutOfRangeException e5) {fail();}
+    }
+
+    @Test
+    public void checkPathTestNullDescription(){
+        try{
+            Controller.getInstance().checkPath(null,"Sentiero1",null,5,5,true,"42.126194082552324 13.366356790065765", "37.82564356422479 9.068414904177189", Controller_Stub.getInstance());
             fail();
         }
         catch(NamePathWrongSizeException e1) {fail();}
@@ -155,9 +195,22 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkFiltersTestNullPosition(){
+    public void checkFiltersTestEmptyPosition(){
         try{
             Controller.getInstance().checkFilters(null, 0, 10, 0,10, "", true, Controller_Stub.getInstance());
+            fail();
+        }
+        catch(PositionNullException e1){assertTrue(true);}
+        catch(DifficultyOutOfRangeException e2){fail();}
+        catch(DurationOutOfRangeException e3){fail();}
+        catch(DifficultyMinMoreThanMaxException e4){fail();}
+        catch(DurationMinMoreThanMaxException e5){fail();}
+    }
+
+    @Test
+    public void checkFiltersTestNullPosition(){
+        try{
+            Controller.getInstance().checkFilters(null, 0, 10, 0,10, null, true, Controller_Stub.getInstance());
             fail();
         }
         catch(PositionNullException e1){assertTrue(true);}
@@ -316,7 +369,7 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkReportTestReporterNull(){
+    public void checkReportTestEmptyReporter(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "","io", Controller_Stub.getInstance());
             fail();
@@ -331,7 +384,22 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkReportTestReporterTooBig(){
+    public void checkReportTestNullReporter(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , null,"io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){assertTrue(true);}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+
+    }
+
+    @Test
+    public void checkReportTestTooBigReporter(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tutututututututututututututututuututututututututututututututututututu","io", Controller_Stub.getInstance());
             fail();
@@ -346,7 +414,7 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkReportTestCreatorNull(){
+    public void checkReportTestEmptyCreator(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tu","", Controller_Stub.getInstance());
             fail();
@@ -361,7 +429,21 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkReportTestCreatorTooBig(){
+    public void checkReportTestNullCreator(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tu",null, Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){assertTrue(true);}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+    }
+
+    @Test
+    public void checkReportTestTooBigCreator(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","", "Brutto" , "tu","ioioioioioioioioioioioioioioioioioioioioioioioioioioioioioio", Controller_Stub.getInstance());
             fail();
@@ -376,7 +458,7 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkReportTestNamePathNull(){
+    public void checkReportTestEmptyNamePath(){
         try {
             Controller.getInstance().checkReport(null, "","", "Brutto" , "tu","io", Controller_Stub.getInstance());
             fail();
@@ -387,11 +469,24 @@ public class NaTourTest {
         catch(ReporterWrongSizeException e4){fail();}
         catch(CreatorEqualsReporterException e5){fail();}
         catch(NamePathWrongSizeException e6){assertTrue(true);}
-
     }
 
     @Test
-    public void checkReportTestNamePathTooBig(){
+    public void checkReportTestNullNamePath(){
+        try {
+            Controller.getInstance().checkReport(null, null,"", "Brutto" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){assertTrue(true);}
+    }
+
+    @Test
+    public void checkReportTestTooBigNamePath(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero1111111111111111111111111111111111111111111111111111111Sentiero1111111111111111111111111111111111111111111111111111111","", "Brutto" , "tu","io", Controller_Stub.getInstance());
             fail();
@@ -405,7 +500,7 @@ public class NaTourTest {
 
     }
     @Test
-    public void checkReportTestMotivationNull(){
+    public void checkReportTestEmptyMotivation(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","", "" , "tu","io", Controller_Stub.getInstance());
             fail();
@@ -416,11 +511,24 @@ public class NaTourTest {
         catch(ReporterWrongSizeException e4){fail();}
         catch(CreatorEqualsReporterException e5){fail();}
         catch(NamePathWrongSizeException e6){fail();}
-
     }
 
     @Test
-    public void checkReportTestMotivationTooBig(){
+    public void checkReportTestNullMotivation(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1","", null , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){fail();}
+        catch(MotivationWrongSizeException e2){assertTrue(true);}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
+    }
+
+    @Test
+    public void checkReportTestTooBigMotivation(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","", "Sentiero11111111111111111111111111111111111111111111Sentiero1111111111111111111111111111111111111111111111111111111Sentiero111111111111111111111111111111111111111111111111111111111111111111Sentiero1111111111111111111111111111111111111111111111111111111" , "tu","io", Controller_Stub.getInstance());
             fail();
@@ -450,7 +558,7 @@ public class NaTourTest {
     }
 
     @Test
-    public void checkReportTestAnswerNotEmpty(){
+    public void checkReportTestNotEmptyAnswer(){
         try {
             Controller.getInstance().checkReport(null, "Sentiero 1","io tu", "Brutto" , "tu","io", Controller_Stub.getInstance());
             fail();
@@ -461,7 +569,20 @@ public class NaTourTest {
         catch(ReporterWrongSizeException e4){fail();}
         catch(CreatorEqualsReporterException e5){fail();}
         catch(NamePathWrongSizeException e6){fail();}
+    }
 
+    @Test
+    public void checkReportTestNullAnswer(){
+        try {
+            Controller.getInstance().checkReport(null, "Sentiero 1",null, "Brutto" , "tu","io", Controller_Stub.getInstance());
+            fail();
+        }
+        catch(AnswerNotEmptyException e1){assertTrue(true);}
+        catch(MotivationWrongSizeException e2){fail();}
+        catch(CreatorWrongSizeException e3){fail();}
+        catch(ReporterWrongSizeException e4){fail();}
+        catch(CreatorEqualsReporterException e5){fail();}
+        catch(NamePathWrongSizeException e6){fail();}
     }
 
 

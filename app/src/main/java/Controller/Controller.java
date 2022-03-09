@@ -48,8 +48,8 @@ import retrofit2.Retrofit;
 
 public class Controller {
     private PathDAO pathDAO;
-    private PlaylistDAO playlistDAO;
-    private UtenteDAO utenteDAO;
+    private AssPlaylistSentieroDAO assPlaylistSentieroDAO;
+    private UserDAO userDAO;
     private ReportDAO reportDAO;
     private SharedPreferences sharedPref;
     private LoginView loginView;
@@ -93,9 +93,9 @@ public class Controller {
 
         Retrofit retrofit = RetrofitIstance.getIstanza();
         pathDAO = retrofit.create(PathDAO.class);
-        utenteDAO = retrofit.create(UtenteDAO.class);
+        userDAO = retrofit.create(UserDAO.class);
         reportDAO = retrofit.create(ReportDAO.class);
-        playlistDAO = retrofit.create(PlaylistDAO.class);
+        assPlaylistSentieroDAO = retrofit.create(AssPlaylistSentieroDAO.class);
 
         sharedPref= mainActivity.getSharedPreferences(String.valueOf(R.string.preference_file_key),Context.MODE_PRIVATE);
         String email = sharedPref.getString(String.valueOf(R.string.logged_email),"");
@@ -367,7 +367,7 @@ public class Controller {
 
     private void insertUser(String email, FrameLayout frameLayout, RegistrationView registrationView){
         User user = new User(email);
-        Call<User> call = utenteDAO.insertUser(user);
+        Call<User> call = userDAO.insertUser(user);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -389,7 +389,7 @@ public class Controller {
 
     private void insertUser(String email){
         User user = new User(email);
-        Call<User> call = utenteDAO.insertUser(user);
+        Call<User> call = userDAO.insertUser(user);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -688,7 +688,7 @@ public class Controller {
     public void removeFromPlaylist(String nomeSentiero, String nomeplaylist, PlaylistDetailsView playlistDetailsView){
         String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomeplaylist, creatorePlaylist, nomeSentiero);
-        Call<AssPlaylistSentiero> call = playlistDAO.removeFromPlaylist(assPlaylistSentiero);
+        Call<AssPlaylistSentiero> call = assPlaylistSentieroDAO.removeFromPlaylist(assPlaylistSentiero);
 
         call.enqueue(new Callback<AssPlaylistSentiero>() {
             @Override
@@ -1107,7 +1107,7 @@ public class Controller {
         String creatorePlaylist = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         AssPlaylistSentiero assPlaylistSentiero = new AssPlaylistSentiero(nomePlaylist,creatorePlaylist,nomesentiero);
 
-        Call<AssPlaylistSentiero> call = playlistDAO.addPathToPlaylist(assPlaylistSentiero);
+        Call<AssPlaylistSentiero> call = assPlaylistSentieroDAO.addPathToPlaylist(assPlaylistSentiero);
         call.enqueue(new Callback<AssPlaylistSentiero>() {
             @Override
             public void onResponse(Call<AssPlaylistSentiero> call, Response<AssPlaylistSentiero> response) {
@@ -1140,7 +1140,7 @@ public class Controller {
 
     public void checkAdmin(HomeFragment homeFragment, String email){
         User user = new User(email);
-        Call<User> call = utenteDAO.checkAdmin(user);
+        Call<User> call = userDAO.checkAdmin(user);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

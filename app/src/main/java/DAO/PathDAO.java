@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Entity.AssPlaylistSentiero;
 import Entity.Path;
-import Entity.Report;
 import Entity.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,9 +18,6 @@ public interface PathDAO {
 
     @POST("getfilteredpaths")
     Call<ArrayList<Path>> getAllFilteredPath(@Body Path.PathToFilter pt);
-
-    @POST("getalldetailsofpersonalpath")
-    Call<Path> getAllDetailsOfPersonalPath(@Body Path path);
 
     @POST("getpathofplaylist")
     Call<ArrayList<Path>> getPathsOfPlaylist(@Body AssPlaylistSentiero assPlaylistSentiero);

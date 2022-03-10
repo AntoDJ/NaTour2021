@@ -12,7 +12,6 @@ import android.widget.Button;
 import com.example.natour2021.R;
 
 import Controller.Controller;
-import Playlist.PersonalDetailView;
 
 public class AdminDeleteFragment extends Fragment {
     private String nomeSentiero;

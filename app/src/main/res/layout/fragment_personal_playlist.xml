@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EE8C4D"
     android:backgroundTint="#73EE8C4D"
-    tools:context="Login.ui.MyPath.PersonalPlaylistView">
+    tools:context="Login.ui.MyPath.PersonalPlaylistFragment">
 
     <TextView
         android:id="@+id/textPersonalPlaylist"

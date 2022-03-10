@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/nav_my_path"
-        android:name="Login.ui.MyPath.PersonalPlaylistView"
+        android:name="Login.ui.MyPath.PersonalPlaylistFragment"
         android:label="I miei sentieri"
-        tools:layout="@layout/activity_personal_playlist_view" />
+        tools:layout="@layout/fragment_personal_playlist" />
 
     <fragment
         android:id="@+id/nav_playlist"

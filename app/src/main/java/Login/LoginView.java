@@ -1,12 +1,7 @@
 package Login;
 
-import static com.google.android.gms.auth.api.signin.GoogleSignInOptions.*;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -17,11 +12,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amplifyframework.auth.AuthException;
 import com.amplifyframework.auth.AuthProvider;
 import com.amplifyframework.core.Amplify;
 import com.example.natour2021.R;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import Controller.Controller;
 

@@ -15,22 +15,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.natour2021.R;
-import com.example.natour2021.databinding.ActivityPersonalPlaylistViewBinding;
+import com.example.natour2021.databinding.FragmentPersonalPlaylistBinding;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-import Controller.Controller;
-import Entity.Path;
+import Controller.Controller;;
 import Login.HomeView;
 
 
-public class PersonalPlaylistView extends Fragment {
+public class PersonalPlaylistFragment extends Fragment {
 
     private long mLastClickTime = 0;
     private MyPathViewModel myPathViewModel;
-    private ActivityPersonalPlaylistViewBinding binding;
+    private FragmentPersonalPlaylistBinding binding;
     private ListView sentieriPlaylist;
     private View root;
     private ArrayList<String> nomisentieri;
@@ -38,7 +36,7 @@ public class PersonalPlaylistView extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         myPathViewModel = new ViewModelProvider(this).get(MyPathViewModel.class);
-        binding = ActivityPersonalPlaylistViewBinding.inflate(inflater, container, false);
+        binding = FragmentPersonalPlaylistBinding.inflate(inflater, container, false);
         root = binding.getRoot();
         sentieriPlaylist = (ListView) root.findViewById(R.id.personalPathListView);
         sentieriPlaylist.setOnItemClickListener((adapterView, view, i, l) -> {

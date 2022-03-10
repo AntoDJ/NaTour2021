@@ -2,25 +2,19 @@ package Playlist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.natour2021.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Controller.Controller;
-import Entity.Path;
 
 public class PlaylistView extends AppCompatActivity {
     private long mLastClickTime = 0;

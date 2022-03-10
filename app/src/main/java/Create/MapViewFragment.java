@@ -1,6 +1,5 @@
 package Create;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.natour2021.R;
 import com.google.android.gms.maps.model.Marker;

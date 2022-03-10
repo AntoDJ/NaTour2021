@@ -3,7 +3,6 @@ package Login.ui.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSettings;
-import com.amazonaws.services.cognitoidentityprovider.model.AdminSetUserPasswordRequest;
-import com.amplifyframework.core.Amplify;
 import com.example.natour2021.R;
 import com.example.natour2021.databinding.FragmentSettingsBinding;
 

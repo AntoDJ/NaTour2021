@@ -56,7 +56,7 @@ public class Controller {
     private NotificationFragment notificationFragment;
     private PersonalDetailView personalDetailView;
     private PlaylistView playlistView;
-    private PersonalPlaylistView personalPlaylistView;
+    private PersonalPlaylistFragment personalPlaylistFragment;
 
     //METODI GENERALI
 
@@ -714,8 +714,8 @@ public class Controller {
 
     //SENTIERI PERSONALI
 
-    public void getPersonalPaths(PersonalPlaylistView personalPlaylistView){
-        this.personalPlaylistView = personalPlaylistView;
+    public void getPersonalPaths(PersonalPlaylistFragment personalPlaylistFragment){
+        this.personalPlaylistFragment = personalPlaylistFragment;
         String creatore = sharedPref.getString(String.valueOf(R.string.logged_email),"");
         User tmpUser = new User(creatore);
         Call<ArrayList<Path>> call = pathDAO.getPersonalPathsOfPlaylist(tmpUser);
@@ -728,12 +728,12 @@ public class Controller {
                 for(Path p:path){
                     Sentieri.add(p.getNomeSentiero());
                 }
-                personalPlaylistView.setPersonalList(Sentieri);
+                personalPlaylistFragment.setPersonalList(Sentieri);
             }
 
             @Override
             public void onFailure(Call<ArrayList<Path>> call, Throwable t) {
-                bigError(personalPlaylistView.getActivity());
+                bigError(personalPlaylistFragment.getActivity());
                 Log.e("BigError","Errore recupero sentieri");
             }
         });
@@ -801,8 +801,8 @@ public class Controller {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 personalDetailView.finish();
-                Toast.makeText(personalPlaylistView.getContext(),"Sto ricaricando i sentieri", Toast.LENGTH_LONG).show();
-                getPersonalPaths(personalPlaylistView);
+                Toast.makeText(personalPlaylistFragment.getContext(),"Sto ricaricando i sentieri", Toast.LENGTH_LONG).show();
+                getPersonalPaths(personalPlaylistFragment);
                 Log.i("Success","Sentiero eliminato");
             }
 

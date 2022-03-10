@@ -4,9 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.amplifyframework.AmplifyException;
-import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
-import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 
 public class AmplifyActivity extends Application {

@@ -1146,7 +1146,7 @@ public class Controller {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.body()!=null && response.body().isAdmin()){
                     homeFragment.setAdmin(response.body().isAdmin());
-                    Log.i("Success","E' admin");
+                    Log.i("Success","É admin");
                 }
             }
 

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
@@ -37,26 +40,28 @@ public class DetailMapsFragment extends Fragment {
             String puntoiniziale = callingView.getPuntoIniziale();
             String part[]= puntoiniziale.split(" ", 2);
             LatLng latlng= new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(7.0f).build();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(latlng).zoom(10.0f).build();
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
             googleMap.moveCamera(cameraUpdate);
             markerOptions.position(latlng);
             markerOptions.title("Punto iniziale");
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_BLUE));
             googleMap.addMarker(markerOptions);
-            
+
+
+            PolylineOptions polyline = new PolylineOptions()
+                    .color(Color.parseColor("#38afea"))
+                    .width(20);
             ArrayList<String> coordinate = callingView.getCoordinate();
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(HUE_RED));
-            int i=2;
+            polyline.add(latlng);
             if(!coordinate.isEmpty()){
                 for(String s:coordinate){
                     part= s.split(" ", 2);
                     latlng=new LatLng(Double.parseDouble(part[0]), Double.parseDouble(part[1]));
-                    markerOptions.position(latlng);
-                    markerOptions.title("Punto "+i++);
-                    googleMap.addMarker(markerOptions);
+                    polyline.add(latlng);
                 }
             }
+            googleMap.addPolyline(polyline);
 
         }
     };

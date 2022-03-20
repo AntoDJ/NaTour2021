@@ -871,7 +871,7 @@ public class Controller {
 
     public void checkPath(CreateView createView, String nome, String descrizione, float durata, int difficolta, boolean access, String puntoiniziale, String coordinate, Controller controller) throws NamePathWrongSizeException, PathWrongSizeException, DescriptionWrongSizeException, DurationOutOfRangeException, DifficultyOutOfRangeException {
         if(nome!=null&&nome.length()!=0&&nome.length()<100){
-            if(puntoiniziale!=null&&!puntoiniziale.equals("")&&coordinate!=null&&coordinate.length()<5000){
+            if(puntoiniziale!=null&&!puntoiniziale.equals("")&&puntoiniziale.length()<50&&coordinate!=null&&coordinate.length()<5000){
                 if(descrizione!=null&&descrizione.length()<200){
                     if(durata>=0&&durata<=10){
                         if(difficolta>=0&&difficolta<=10){

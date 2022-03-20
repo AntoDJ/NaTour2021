@@ -923,7 +923,7 @@ public class Controller {
     }
 
     public void checkFilters(SearchView searchView, float mindur, float maxdur, float mindiff, float maxdiff, String pos, boolean access, Controller controller) throws DifficultyOutOfRangeException, DurationOutOfRangeException, PositionNullException, DurationMinMoreThanMaxException, DifficultyMinMoreThanMaxException {
-        if(pos!=null&&!pos.equals("")){
+        if(pos!=null&&!pos.equals("")&&pos.length()<50){
             if(maxdiff>=0&&maxdiff<=10&&mindiff>=0&&mindiff<=10){
                 if(mindur>=0&&mindur<=10&&maxdur>=0&&maxdur<=10){
                     if(maxdur>=mindur){

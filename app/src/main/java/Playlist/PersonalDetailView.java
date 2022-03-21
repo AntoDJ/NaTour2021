@@ -110,7 +110,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
 
     public void updatePath(String descrizione, float durata, int difficolta) {
         TextView descrizioneTW = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
-        if(descrizione!=null){
+        if(descrizione!=null&&!descrizione.trim().equals("")){
             descrizioneTW.setText(descrizione);
         }
         else{

@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import Controller.Controller;
-import Entity.Path;
 import Search.DetailInterface;
 
 public class PersonalDetailView extends AppCompatActivity implements DetailInterface {

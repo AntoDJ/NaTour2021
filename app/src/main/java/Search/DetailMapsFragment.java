@@ -1,7 +1,6 @@
 package Search;
 
 import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_BLUE;
-import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;

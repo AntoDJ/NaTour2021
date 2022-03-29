@@ -45,9 +45,11 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
         android:name="Search.DetailMapsFragment"
-        android:layout_width="390sp"
+        android:layout_width="0sp"
+        app:layout_constraintHorizontal_weight="1"
         android:layout_height="210sp"
         android:layout_marginTop="15sp"
+        android:layout_marginHorizontal="2sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

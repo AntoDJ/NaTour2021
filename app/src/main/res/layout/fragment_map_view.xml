@@ -11,8 +11,9 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentMapContainerView"
         android:name="Create.CreateMapsFragment"
-        android:layout_width="363sp"
+        android:layout_width="0sp"
         android:layout_height="418sp"
+        app:layout_constraintHorizontal_weight=".90"
         android:layout_marginHorizontal="8sp"
         android:layout_marginTop="10sp"
         app:layout_constraintEnd_toEndOf="parent"

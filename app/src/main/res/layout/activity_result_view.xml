@@ -11,7 +11,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/ResultMapContainer"
         android:name="Search.ResultMapsFragment"
-        android:layout_width="400dp"
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="1"
         android:layout_height="660dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

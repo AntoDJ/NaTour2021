@@ -77,7 +77,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             String data= simpleDateFormat.format((Date)intent.getSerializableExtra("data"));
-            ultimaModifica.setText("Data ultima modifica : "+data);
+            ultimaModifica.setText("Data ultima modifica di Admin : "+data);
         }
         else ultimaModifica.setVisibility(View.GONE);
 

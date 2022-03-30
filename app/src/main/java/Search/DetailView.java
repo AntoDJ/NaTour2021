@@ -64,7 +64,7 @@ public class DetailView extends AppCompatActivity implements DetailInterface{
             SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy 'alle' HH:mm");
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             String data= simpleDateFormat.format((Date)i.getSerializableExtra("data"));
-            ultimaModifica.setText("Data ultima modifica : "+data);
+            ultimaModifica.setText("Data ultima modifica di Admin: "+data);
         }
         else ultimaModifica.setVisibility(View.GONE);
 

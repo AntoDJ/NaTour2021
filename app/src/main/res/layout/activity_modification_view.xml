@@ -122,13 +122,13 @@
       android:background="@drawable/base_button"
       android:fontFamily="@font/neuemontreal"
       android:text="Modifica Sentiero"
+      android:layout_marginTop="-100sp"
       app:backgroundTint="#4AB261"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.85"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editAccessibilityCheckBox"
-      app:layout_constraintVertical_bias="0.3" />
+      app:layout_constraintTop_toBottomOf="@+id/editAccessibilityCheckBox" />
 
   <Button
       android:id="@+id/cancelEditButton"
@@ -137,11 +137,11 @@
       android:background="@drawable/base_button"
       android:fontFamily="@font/neuemontreal"
       android:text="Annulla Modifica"
+      android:layout_marginTop="-100sp"
       app:backgroundTint="#4AB261"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.15"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editAccessibilityCheckBox"
-      app:layout_constraintVertical_bias="0.3" />
+      app:layout_constraintTop_toBottomOf="@+id/editAccessibilityCheckBox" />
 </androidx.constraintlayout.widget.ConstraintLayout>

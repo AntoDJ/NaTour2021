@@ -836,7 +836,7 @@ public class Controller {
             @Override
             public void onResponse(Call<Path> call, Response<Path> response) {
                 if(response.body()!=null) {
-                    personalDetailView.updatePath(descrizione, durata, difficolta);
+                    personalDetailView.updatePath(descrizione, durata, difficolta, accessibilità);
                     Log.e("Success","Path modificato");
                 }
                 else {

@@ -25,6 +25,10 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
     private String puntoiniziale;
     private AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.6F);
     private ArrayList<String> coordinate;
+    private float durata;
+    private int difficolta;
+    private String descrizione;
+    private boolean accessibilita;
 
 
     @Override
@@ -34,31 +38,36 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         Intent intent = getIntent();
         puntoiniziale = intent.getStringExtra("puntoiniziale");
         coordinate = intent.getStringArrayListExtra("coordinate");
+        durata = intent.getFloatExtra("durata",0);
+        difficolta = intent.getIntExtra("difficolta",0);
+        descrizione = intent.getStringExtra("descrizione");
+        accessibilita = intent.getBooleanExtra("accessiblità",true);
+
 
         Slider durataSlider=(Slider) findViewById(R.id.durataPersonalSlider);
-        durataSlider.setValue(intent.getFloatExtra("durata",0));
+        durataSlider.setValue(durata);
 
-        TextView durata = (TextView) findViewById(R.id.durataPersonalDetailsView);
-        if(intent.getFloatExtra("durata",0)-(int)intent.getFloatExtra("durata",0)==0.5)   durata.setText("Durata "+(int)intent.getFloatExtra("durata",0)+":30 ore");
-        else durata.setText("Durata "+(int)intent.getFloatExtra("durata",0)+" ore");
+        TextView durataTW = (TextView) findViewById(R.id.durataPersonalDetailsView);
+        if(durata-(int)durata==0.5)   durataTW.setText("Durata "+(int)durata+":30 ore");
+        else durataTW.setText("Durata "+(int)durata+" ore");
 
         //Set Difficoltà
         Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltaPersonalSlider);
-        difficoltàSlider.setValue(intent.getIntExtra("difficolta",0));
+        difficoltàSlider.setValue(difficolta);
 
         TextView difficoltà = (TextView) findViewById(R.id.difficoltaPersonalDetailsView);
-        difficoltà.setText("Difficoltà "+intent.getIntExtra("difficolta",0));
+        difficoltà.setText("Difficoltà "+difficolta);
 
         //Set Nome e Descrizione
         TextView nome = (TextView) findViewById(R.id.namePathPersonalDetailsView);
         nome.setText(intent.getStringExtra("nomesentiero"));
 
-        TextView descrizione = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
-        if(!intent.getStringExtra("descrizione").equals("")){
-            descrizione.setText(intent.getStringExtra("descrizione"));
+        TextView descrizioneTW = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
+        if(!descrizione.equals("")){
+            descrizioneTW.setText(descrizione);
         }
         else{
-            descrizione.setText("Descrizione Vuota");
+            descrizioneTW.setText("Descrizione Vuota");
         }
 
         //Set Ultima Modifica
@@ -77,8 +86,7 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         modificaSentieroButton.setOnClickListener(view -> {
             view.startAnimation(buttonClick);
             Controller.getInstance().openModificationView(this, intent.getStringExtra("nomesentiero"),
-                    intent.getStringExtra("descrizione"), intent.getBooleanExtra("accessiblità",true),
-                    intent.getFloatExtra("durata",0), intent.getIntExtra("difficolta",0));
+                    descrizione, accessibilita, durata, difficolta);
         });
 
         Button cancellaSentieroButton= (Button) findViewById(R.id.cancellaSentieroButton);
@@ -107,8 +115,9 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         else super.onBackPressed();
     }
 
-    public void updatePath(String descrizione, float durata, int difficolta) {
+    public void updatePath(String descrizione, float durata, int difficolta, boolean accessibilità) {
         TextView descrizioneTW = (TextView) findViewById(R.id.descrizionePersonalDetailsView);
+        this.descrizione = descrizione;
         if(descrizione!=null&&!descrizione.trim().equals("")){
             descrizioneTW.setText(descrizione);
         }
@@ -117,15 +126,18 @@ public class PersonalDetailView extends AppCompatActivity implements DetailInter
         }
         Slider difficoltàSlider=(Slider) findViewById(R.id.difficoltaPersonalSlider);
         difficoltàSlider.setValue(difficolta);
+        this.difficolta = difficolta;
 
         TextView difficoltàTW = (TextView) findViewById(R.id.difficoltaPersonalDetailsView);
         difficoltàTW.setText("Difficoltà "+difficolta);
 
         Slider durataSlider=(Slider) findViewById(R.id.durataPersonalSlider);
         durataSlider.setValue(durata);
+        this. durata = durata;
 
         TextView durataTW = (TextView) findViewById(R.id.durataPersonalDetailsView);
         if(durata-(int)durata==0.5)   durataTW.setText("Durata "+(int)durata+":30 ore");
         else durataTW.setText("Durata "+(int)durata+" ore");
+        this.accessibilita = accessibilità;
     }
 }
